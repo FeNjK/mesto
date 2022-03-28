@@ -1,8 +1,6 @@
 let button_like = document.querySelector('.element__mark');
 
 
-console.log(button_like);
-
 
 //function myFunction(like){
   elem.classList.toggle('clicked');
