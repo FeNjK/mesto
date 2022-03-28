@@ -11,7 +11,3 @@ console.log(button_like);
     } else {
       btn_up.classList.remove('clicked');
     }//
-
-
-
-    let merry = true;
