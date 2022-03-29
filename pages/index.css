@@ -366,9 +366,9 @@ div, h1, h2, h3, h4, h5, h6, p, ul, li, img, body, article, main, header, button
   transition-timing-function: ease-out;
 }
 
-
-
-
+.element__mark:focus {
+  background-image: url(./../images/heart_black.jpg);
+}
 
 .footer {
   color: #fff;
