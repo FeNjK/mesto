@@ -107,6 +107,28 @@
     <footer class="footer">
       <p class="footer__author">&copy; 2022 Андрей Коростелев</p>
     </footer>
+    
+    <div class="popup popup_active">
+      <div class="popup__content">
+        <button class="popup__close-button" 
+                type="button" 
+                title="Закрыть окно"></button>
+        <form class="popup__form">
+          <h3 class="popup__title">Редактировать профиль</h3>
+          <fieldset class="popup__input-place"
+                    name="Данные пользовательского профиля"
+                    action="#"
+                    target="#">
+            <input type="text" class="popup__input-name popup__input-style">
+            <input type="text" class="popup__input-activity-type popup__input-style">
+          </fieldset>
+          <button class="popup__save-button" 
+                type="button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    
     <script src="./pages/index.js"></script>
+
   </body>
 </html>
