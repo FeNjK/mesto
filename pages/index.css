@@ -28,9 +28,9 @@
   font-display: auto;
 }
 
-div, h1, h2, h3, h4, h5, h6, p, ul, li, img, form, fieldset, body, article, main, header, button, main, section, footer {
+/*div, h1, h2, h3, h4, h5, h6, p, ul, li, img, form, fieldset, body, article, main, header, button, main, section, footer {
   border: 1px solid red;
-}
+}*/
 
 .page {
   max-width: 1280px;
@@ -405,6 +405,7 @@ div, h1, h2, h3, h4, h5, h6, p, ul, li, img, form, fieldset, body, article, main
 }
 
 .popup {
+  display: none;
   justify-content: center;
   align-items: center;
   background-color: rgb(0, 0, 0, .5);
@@ -418,10 +419,6 @@ div, h1, h2, h3, h4, h5, h6, p, ul, li, img, form, fieldset, body, article, main
 
 .popup_activ {
   display: flex;
-}
-
-.popur_close {
-  display: none;
 }
 
 .popup__content {
