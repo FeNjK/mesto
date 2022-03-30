@@ -13,3 +13,31 @@ editingButton.addEventListener('click', toggleEditWindow); //добавили п
 
 buttonCloseModalWindow.addEventListener('click', toggleEditWindow); //добавили прослушиватель события - нажатие на "крестик" закрывания окна
 
+function onOverlayClick(event) { 
+  if (event.target === event.currentTarget) {//Условие "если объект нажатия - объект с соответствующим обработчиком события"
+    toggleEditWindow()// то запускается соответствующая функция
+  }
+}
+
+modalWindow.addEventListener('click', onOverlayClick); //добавили прослушиватель события - нажатие на оверлей (пространство вокруг модального окна)
+
+//Реализация функции редактирования полей профиля
+
+const formUserData = document.querySelector('.profile-info__data');//нашли форму с данными профиля пользователя
+const userName = document.querySelector('.profile-info__name');//нашли поле с именем подбзователя
+const userActivityType = document.querySelector('.profile-info__activity-type');// нашли поле с родом деятельности пльзователя
+
+const popUpFormUserData = document.querySelector('.popup__form');//в модальном окне нашли форму с данными профиля пользователя
+const popUpUserName = document.querySelector('.popup__input-name');//в модальном окне нашли поле с именем подбзователя
+const popUpUserActivityType = document.querySelector('.popup__input-activity-type');//в модальном окне нашли поле с родом деятельности пльзователя
+
+function formSubmitHandler (event) {
+  event.preventDefault();// Эта строчка отменяет стандартную отправку формы.
+
+  popUpUserName.textContent = userName.value; //ввод текста в поле Name модального окна меняет текст с именем в профиле
+  popUpUserActivityType.textContent = userActivityType.value;//ввод текста в поле с родом деятельности модального окна меняет срдержимое соответствующего поля в профиле
+  
+  toggleEditWindow(); //после выполнения функции редактирования данных профиля происходит закрытие модального окна
+}
+
+popUpFormUserData.addEventListener('submit', formSubmitHandler);
