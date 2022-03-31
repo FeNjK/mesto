@@ -20,7 +20,7 @@ function onOverlayClick(event) {
 
 modalWindow.addEventListener('click', onOverlayClick); //добавили прослушиватель события - нажатие на оверлей (пространство вокруг модального окна)
 
-//Реализация функции редактирования данных профиля
+// Реализация функции редактирования данных профиля
 
 const formUserData = document.querySelector('.profile-info__data');//нашли форму с данными профиля пользователя
 const userName = document.querySelector('.profile-info__name');//нашли поле с именем пользователя
@@ -37,7 +37,7 @@ function openEditWindow() { //функция показывающая, что п
 
 editingButton.addEventListener('click', openEditWindow); //добавили прослушиватель события - нажатие по найденой кнопке
 
-//Реализация функции отправки данных профиля
+// Реализация функции отправки данных профиля
 
 function formSubmitHandler (event) {
   event.preventDefault();// Эта строчка отменяет стандартную отправку формы.
