@@ -32,6 +32,6 @@
   -moz-transform: scale(1.5);
   -ms-transform: scale(1.5);
   -o-transform: scale(1.5);
-  transition-duration: 0.2s;
+  transition-duration: 0.25s;
   transition-timing-function: ease-out;
 }
