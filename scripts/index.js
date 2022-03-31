@@ -20,7 +20,7 @@ function onOverlayClick(event) {
 
 modalWindow.addEventListener('click', onOverlayClick); //добавили прослушиватель события - нажатие на оверлей (пространство вокруг модального окна)
 
-//Реализация функции редактирования полей профиля
+//Реализация функции редактирования данных профиля
 
 const formUserData = document.querySelector('.profile-info__data');//нашли форму с данными профиля пользователя
 const userName = document.querySelector('.profile-info__name');//нашли поле с именем пользователя
@@ -29,6 +29,15 @@ const userActivityType = document.querySelector('.profile-info__activity-type');
 const popUpFormUserData = document.querySelector('.popup__form');//в модальном окне нашли форму с данными профиля пользователя
 const popUpUserName = document.querySelector('.popup__input-name');//в модальном окне нашли поле с именем пользователя
 const popUpUserActivityType = document.querySelector('.popup__input-activity-type');//в модальном окне нашли поле с родом деятельности пользователя
+
+function openEditWindow() { //функция показывающая, что при открытии модального окна мы видим
+  popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
+  popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+}
+
+editingButton.addEventListener('click', openEditWindow); //добавили прослушиватель события - нажатие по найденой кнопке
+
+//Реализация функции отправки данных профиля
 
 function formSubmitHandler (event) {
   event.preventDefault();// Эта строчка отменяет стандартную отправку формы.

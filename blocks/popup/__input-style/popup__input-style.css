@@ -8,19 +8,9 @@
 
 .popup__input-style:hover {
   background-color: #dfdfdf;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
 }
 
 .popup__input-style:focus {
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  outline: 1px solid rgba(75, 75, 75, 0.3);
+  outline: 1px solid #4b4b4b4d;
   border-bottom: 0;
 }
