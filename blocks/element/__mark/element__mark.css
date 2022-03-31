@@ -6,10 +6,12 @@
   cursor: pointer;
   background-color: transparent;
   padding: 8px;
+  margin: -1px 3px 0 0;
+  background-repeat: no-repeat;
 }
 
 .element__mark:hover {
-  opacity: 0.8;
+  opacity: .5;
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
@@ -21,4 +23,10 @@
 
 .element__mark:focus {
   background-image: url(../../../images/heart_black.svg);
+  opacity: 1;
+  transform: none;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
 }
