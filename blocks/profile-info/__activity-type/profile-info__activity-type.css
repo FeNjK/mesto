@@ -1,0 +1,21 @@
+.profile-info__activity-type {
+  font-size: 18px;
+  line-height: 1.22;
+  font-weight: 500;
+  text-align: start;
+  font-kerning: normal;
+  letter-spacing: 0.4px;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .profile-info__activity-type {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-align: start;
+    margin: 7px 0 0;
+    padding: 0;
+  }
+}

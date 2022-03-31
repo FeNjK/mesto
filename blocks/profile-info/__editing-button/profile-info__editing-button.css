@@ -1,0 +1,37 @@
+.profile-info__editing-button {
+  height: 24px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 0 18px;
+  padding: 0;
+  background-color: #000;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 700px) {
+  .profile-info__editing-button {
+    height: 20px;
+    width: 20px;
+    margin: 0 0 0 10px;
+    align-items: center;
+  }
+}
+
+.profile-info__editing-button:hover {
+  opacity: .8;
+  border: 2px solid #fff;
+}
+
+.profile-info__editing-button:hover .profile-info__editing-pen {
+  transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
