@@ -2,11 +2,15 @@
   font-size: 18px;
   line-height: 1.22;
   font-weight: 500;
+  max-width: 400px;
   text-align: start;
   font-kerning: normal;
-  letter-spacing: 0.4px;
+  letter-spacing: .4px;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 700px) {
