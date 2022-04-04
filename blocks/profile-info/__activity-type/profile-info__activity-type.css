@@ -1,11 +1,10 @@
 .profile-info__activity-type {
   font-size: 18px;
   line-height: 1.22;
-  font-weight: 500;
+  font-weight: 400;
   max-width: 330px;
   text-align: start;
   font-kerning: normal;
-  letter-spacing: .65px;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -17,10 +16,8 @@
   .profile-info__activity-type {
     font-size: 14px;
     line-height: 1.2;
-    font-weight: 500;
     max-width: 230px;
     text-align: start;
     margin: 7px 0 0;
-    padding: 0;
   }
 }

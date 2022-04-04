@@ -9,7 +9,7 @@
 @import url(../blocks/profile-info/__avatar/profile-info__avatar.css);
 @import url(../blocks/profile-info/__data/profile-info__data.css);
 @import url(../blocks/profile-info/__single-level/profile-info__single-level.css);
-@import url(../blocks/profile-info/__name/profile-info__title.css);
+@import url(../blocks/profile-info/__name/profile-info__name.css);
 @import url(../blocks/profile-info/__editing-button/profile-info__editing-button.css);
 @import url(../blocks/profile-info/__editing-pen/profile-info__editing-pen.css);
 @import url(../blocks/profile-info/__activity-type/profile-info__activity-type.css);

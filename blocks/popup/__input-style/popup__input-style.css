@@ -1,6 +1,6 @@
 .popup__input-style {
   margin: 0;
-  padding: .5rem .5rem;
+  padding: .5rem 0;
   border: none;
   border-bottom: 1px solid #c9c9c9;
   background-clip: padding-box;
