@@ -13,7 +13,7 @@
   src:
   url(inter-medium-webfont.woff2) format('woff2'),
   url(inter-medium-webfont.woff) format('woff'),
-  url(Inter-Bold.ttf) format('truetype');
+  url(Inter-Medium.ttf) format('truetype');
   font-weight: 500;
   font-style: normal;
 }
