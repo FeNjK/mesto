@@ -28,16 +28,6 @@
 
 .popup__close-button:hover {
   opacity: .8;
-  transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transition: transform .5s ease-out;
-  -webkit-transition: transform .5s ease-out;
-  -moz-transition: transform .5s ease-out;
-  -ms-transition: transform .5s ease-out;
-  -o-transition: transform .5s ease-out;
 }
 
 .popup__close-button:focus {

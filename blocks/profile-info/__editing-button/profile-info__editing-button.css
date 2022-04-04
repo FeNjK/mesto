@@ -25,13 +25,3 @@
   opacity: .5;
   border: 2px solid #fff;
 }
-
-.profile-info__editing-button:hover .profile-info__editing-pen {
-  transform: scale(1.5);
-  -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -ms-transform: scale(1.5);
-  -o-transform: scale(1.5);
-  transition-duration: 0.25s;
-  transition-timing-function: ease-out;
-}

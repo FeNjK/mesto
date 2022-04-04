@@ -26,16 +26,3 @@
   opacity: .5;
   border: 2px solid #fff;
 }
-
-.add-button:hover .add-button__vector {
-  transform: rotate(-90deg);
- -webkit-transform: rotate(-90deg);
- -moz-transform: rotate(-90deg);
- -ms-transform: rotate(-90deg);
- -o-transform: rotate(-90deg);
- transition: transform 1s ease-out;
- -webkit-transition: transform 1s ease-out;
- -moz-transition: transform 1s ease-out;
- -ms-transition: transform 1s ease-out;
- -o-transition: transform 1s ease-out;
-}
