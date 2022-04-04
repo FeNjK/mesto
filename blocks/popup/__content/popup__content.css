@@ -12,13 +12,13 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
-  margin-top: -44px;
+  margin: 195px auto;
   padding: 0;
 }
 
 @media screen and (max-width: 700px) {
   .popup__content {
     max-width: 282px;
-    margin: 12px auto 0px;
+    margin: 125px auto 0;
   }
 }
