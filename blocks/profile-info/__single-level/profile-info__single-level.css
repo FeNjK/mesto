@@ -1,4 +1,4 @@
 .profile-info__single-level {
-  display: inline-flex;
+  display: flex;
   align-items: center;
 }

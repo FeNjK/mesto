@@ -26,28 +26,31 @@
           <img class="profile-info__avatar" 
                src="./images/avatar.svg" 
                alt="Аватар пользователя">
-          <form class="profile-info__data">
+          <div class="profile-info__data">
             <div class="profile-info__single-level">
               <h1 class="profile-info__name">Жак-Ив Кусто</h1>
               <button class="profile-info__editing-button" 
-                   title="Редактирование профиля" type="button">
+                   title="Редактирование профиля" 
+                   type="button"
+                   aria-label="Кнопка редактирование профиля">
                 <img class="profile-info__editing-pen"
                      src="./images/editing-pen.svg" 
                      alt="Перо редактирования">
               </button>
             </div>
             <p class="profile-info__activity-type">Исследователь океана</p>
-          </form>
+          </div>
         </article>
-        <button class="add-button" type="button" 
-             title="Добавить фотографии">
-          <img class="add-button__vector" 
-               src="./images/add-button__vector.svg" 
+        <button class="profile__add-button" 
+                type="button" 
+                title="Добавить фотографии">
+          <img class="profile__button-vector" 
+               src="./images/button-vector.svg" 
                alt="Добавить фотографии">
         </button>
       </section>
 
-      <ul class="elements">
+      <section class="elements">
         <li class="element">
           <img class="element__image" 
                src="./images/сaucasus.jpg" 
@@ -94,15 +97,15 @@
           </div>
         </li>
         <li class="element">
-          <img class="element__image" 
-               src="./images/taiga.jpg" 
+          <img class="element__image"
+               src="./images/taiga.jpg"
                alt="Кавказ">
           <div class="element__caption-zone">
             <h2 class="element__title">Таёжные леса</h2>
             <button class="element__mark" type="button"></button>
           </div>
         </li>
-      </ul>
+      </section>
 
     </main>
 
@@ -112,22 +115,24 @@
     
     <div class="popup">
       <div class="popup__content">
-        <button class="popup__close-button" 
-                type="button" 
+        <button class="popup__close-button"
+                type="button"
                 title="Закрыть окно"></button>
-        <form class="popup__form">
+        <form class="popup__form" name="Окно редактирования профиля">
           <h3 class="popup__title">Редактировать профиль</h3>
           <fieldset class="popup__input-place"
                     name="Данные пользовательского профиля">
-            <input type="text" 
-                   placeholder="Введите ваше имя" 
-                   class="popup__input-name popup__input-style">
-            <input type="text" 
-                   placeholder="Укажите род ваших занятий" 
-                   class="popup__input-activity-type popup__input-style">
+            <input type="text"
+                   name="Имя пользователя"
+                   placeholder="Введите ваше имя"
+                   class="popup__input popup__input_content_name">
+            <input type="text"
+                   name="Род деятельности пользователя"
+                   placeholder="Укажите род ваших занятий"
+                   class="popup__input popup__input_content_activity-type">
           </fieldset>
-          <button class="popup__save-button" 
-                type="submit">Сохранить</button>
+          <button class="popup__save-button"
+                  type="submit">Сохранить</button>
         </form>
       </div>
     </div>
