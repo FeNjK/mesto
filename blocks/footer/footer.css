@@ -5,6 +5,12 @@
   padding: 0;
 }
 
+@media screen and (max-width: 934px) {
+  .footer {
+    margin: 67px 19px 60px;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .footer {
     margin: 52px 19px 30px;
