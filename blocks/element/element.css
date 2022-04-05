@@ -1,8 +1,9 @@
 .element {
-  display: flex;
-  flex-direction: column;
-  height: 361px;
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr minmax(max-content, min-content);
+  grid-template-rows: 282px 1fr;
+  column-gap: 17px;
   margin: 0;
   padding: 0;
   background-color: #fff;

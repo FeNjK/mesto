@@ -15,6 +15,7 @@
 @import url(../blocks/profile-info/__activity-type/profile-info__activity-type.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 @import url(../blocks/profile/__button-vector/profile__button-vector.css);
+@import url(../blocks/photo-library/photo-library.css);
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
@@ -33,11 +34,4 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_content/popup__input_content_name.css);
 @import url(../blocks/popup/__input/_content/popup__input_content_activity-type.css);
-@import url(../blocks/popup/__input-name/popup__input-name.css);
-@import url(../blocks/popup/__input-style/popup__input-style.css);
-@import url(../blocks/popup/__input-activity-type/popup__input-activity-type.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
-
-div, h1, h2, h3, h4, h5, h6, p, ul, li, img, form, fieldset, body, article, main, header, button, main, section, footer {
-  border: 1px solid red;
-}

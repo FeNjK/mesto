@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 18px 0 0 18px;
+  margin: 19px 0 0 19px;
   padding: 0;
   background-color: transparent;
   box-sizing: border-box;
@@ -23,4 +23,9 @@
 
 .profile-info__editing-button:hover {
   opacity: .6;
+  transition: opacity .3s linear;
+  -webkit-transition: opacity .3s linear;
+  -moz-transition: opacity .3s linear;
+  -ms-transition: opacity .3s linear;
+  -o-transition: opacity .3s linear;
 }
