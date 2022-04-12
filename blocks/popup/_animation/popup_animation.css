@@ -1,0 +1,7 @@
+.popup_animation {
+  transition: visibility .3s ease, opacity .3s linear;
+  -webkit-transition: visibility .3s ease, opacity .3s linear;
+  -moz-transition: visibility .3s ease, opacity .3s linear;
+  -ms-transition: visibility .3s ease, opacity .3s linear;
+  -o-transition: visibility .3s ease, opacity .3s linear;
+}
