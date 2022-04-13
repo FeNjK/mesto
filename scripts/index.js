@@ -1,53 +1,150 @@
-// Собрали все переменные в начале страницы
+//Массив карточек с изображениями и подписями к ним
 
-const editingButton = document.querySelector('.profile-info__editing-button'); //Нашли кнопку
-const modalWindow = document.querySelector('.popup'); //нашли модальное окно
-const buttonCloseModalWindow = modalWindow.querySelector('.popup__close-button');//Нашли кнопку закрытия модального окна
+const initialCards = [
+  {name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'},
+  {name: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'},
+  {name: 'Иваново', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'},
+  {name: 'Камчатка', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'},
+  {name: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'},
+  {name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'}
+];
 
+// Модальные окна
+const editModalWindow = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
+const addModalWindow = document.querySelector('.popup_task_add'); //нашли модальное окно добавления карточки
+const showImageModalWindow = document.querySelector('.popup_task_show-image'); //нашли модальное окно добавления карточки
+
+// Кнопки
+const editingButton = document.querySelector('.profile-info__editing-button'); //Нашли кнопку редактирования профиля
+const addButton = document.querySelector('.profile__add-button'); //Нашли кнопку добавления карточки
+const buttonCloseModalWindowEdit = editModalWindow.querySelector('.popup__close-button_window_edit');//Нашли кнопку закрытия модального окна
+const buttonCloseModalWindowAdd = addModalWindow.querySelector('.popup__close-button_window_add');
+const buttonCloseModalWindowShowImage = showImageModalWindow.querySelector('.popup__close-button_window_show-image');
+
+// Данные профиля отображенные на странице 
 const formUserData = document.querySelector('.profile-info__data');//нашли форму с данными профиля пользователя
 const userName = document.querySelector('.profile-info__name');//нашли поле с именем пользователя
 const userActivityType = document.querySelector('.profile-info__activity-type');// нашли поле с родом деятельности пользователя
 
-const popUpFormUserData = document.querySelector('.popup__form');//в модальном окне нашли форму с данными профиля пользователя
-const popUpUserName = document.querySelector('.popup__input_content_name');//в модальном окне нашли поле с именем пользователя
-const popUpUserActivityType = document.querySelector('.popup__input_content_activity-type');//в модальном окне нашли поле с родом деятельности пользователя
+// Поля заполнения данных ПРОФИЛЯ в модальном окне
+const popUpFormUserData = document.querySelector('.popup__form_type_user-data');//Форма с данными профиля пользователя
+const popUpUserName = document.querySelector('.popup__input_content_name');//Поле с именем пользователя
+const popUpUserActivityType = document.querySelector('.popup__input_content_activity-type');//Поле с родом деятельности пользователя
 
-// Реализация функции открытия/закрытия модального окна кнопки редактирования информации о пользователе
+// Поля заполнения данных КАРТИНКИ в модальном окне
+const popUpFormNewCard = document.querySelector('.popup__form_type_new-card');//Форма с данными новой карточки с картинкой
+const popUpImageTitle = document.querySelector('.popup__input_content_image-title');//Поле с названием картинки
+const popUpImageLink = document.querySelector('.popup__input_content_image-link');//Поле с ссылкой на картинку в интернете
 
-function toggleEditWindow() { //функция открытия/закрытия модального окна путём добавления класса с соотв. стилем
-  modalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+// Презентация нажатой картинки
+const popUpImage = document.querySelector('.popup__image');
+const popUpCaption = document.querySelector('.popup__caption');
+
+// Данные карточки отображенные на странице 
+const listContainer = document.querySelector('.elements'); //Список карточек
+const elementImage = document.querySelector('.element__image');
+//const cardTemplate = document.querySelector('.cardTemplate');
+
+// Реализация функции открытия/закрытия модального окна при нажатии на картинку
+function toggleImageWindow() { //функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
+  showImageModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  showImageModalWindow.classList.add('popup_animation');
 }
 
-// Реализация функции редактирования данных профиля
+// Реализация функции открытия/закрытия модального окна кнопки редактирования данных профиля
+function toggleInputWindow() { 
+  editModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  editModalWindow.classList.add('popup_animation');
+}
+//добавили прослушиватель события - нажатие найденой кнопке
+editingButton.addEventListener('click', toggleInputWindow);
+//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
+buttonCloseModalWindowEdit.addEventListener('click', toggleInputWindow);
 
-function openEditWindow() { //функция показывающая, что при открытии модального окна мы видим
+// Реализация функции редактирования данных профиля
+// функция показывающая, что при открытии модального окна мы видим
+function openEditWindow() {
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
 }
-
-editingButton.addEventListener('click', openEditWindow); //добавили прослушиватель события - нажатие по найденой кнопке
+// добавили прослушиватель события - нажатие по найденой кнопке
+editingButton.addEventListener('click', openEditWindow);
 
 // Реализация функции отправки данных профиля
 
-function formSubmitHandler (event) {
+function formUserDataSubmitHandler (event) {
   event.preventDefault();// Эта строчка отменяет стандартную отправку формы.
 
   userName.textContent = popUpUserName.value; //ввод текста в поле Name модального окна меняет текст с именем в профиле
   userActivityType.textContent = popUpUserActivityType.value;//ввод текста в поле с родом деятельности модального окна меняет срдержимое соответствующего поля в профиле
+  //после выполнения функции редактирования данных профиля происходит закрытие модального окна
+  toggleInputWindow();
+}
+
+popUpFormUserData.addEventListener('submit', formUserDataSubmitHandler); //Обработчик события, отвечающий за отправку данных профиля
+
+// Реализация функции открытия/закрытия модального окна кнопки добавления карточки
+// функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
+function toggleAddWindow() {
+  addModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  addModalWindow.classList.add('popup_animation');
+}
+//добавили прослушиватель события - нажатие найденой кнопке
+addButton.addEventListener('click', toggleAddWindow);
+//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
+buttonCloseModalWindowAdd.addEventListener('click', toggleAddWindow);
+
+
+// Добавление карточки из базы данных
+function render() {
+  const cardArr = initialCards.map(getElement);
+  listContainer.prepend(...cardArr);
+}
+
+function getElement(cardСontent) {
+  const cardContainer = cardTemplate.content.cloneNode(true);
+  const cardImage = cardContainer('.element__image');
+  const cardTitle = cardContainer('.element__title');
+  const cardMark = cardContainer('element__mark');
+  const cardTrash = cardContainer('element__trash');
+
+  // Прописываем связи между объектами массива и переменными присвоенными элементам страницы
+  cardImage.src = cardСontent.link;
+  cardImage.alt = cardСontent.name;
+  cardTitle.textContent = cardСontent.name;
+
+  //Руфлизация функции удаления карточки при нажатии на изображение урны
+function handleRemoveCard(event) {
+  const element = event.target.closest(".element");
+  element.remove();
+}
+
+cardTrash.addEventListener('click', handleRemoveCard);
+
+//Реализация лайка карточки при нажатии на изображение сердечка под картинкой
+function handleLikeCard(event) {
+  event.target.classList.toggle('element__mark_active');
+}
+
+cardMark.addEventListener('click', handleLikeCard);
+ 
   
-  toggleEditWindow(); //после выполнения функции редактирования данных профиля происходит закрытие модального окна
+  return cardContainer;
 }
 
 
+// Открытие и закрытие модального окна с картинкой
+//function showImage(popupShownContent) {
+//  toggleImageWindow(showImageModalWindow);
+// Передача значений элемента модальному окну
+//  popUpImage.src = popupShownContent.link;
+//  popUpImage.alt = popupShownContent.name;
+//  popUpCaption.textContent = popupShownContent.name;
+//}
 
+//добавили прослушиватель события - нажатие найденой кнопке
+elementImage.addEventListener('click', toggleImageWindow);
+//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
+buttonCloseModalWindowShowImage.addEventListener('click', toggleImageWindow);
 
-
-
-
-// Собрали все "прослушиватели событий" в конце файла
-
-editingButton.addEventListener('click', toggleEditWindow); //добавили прослушиватель события - нажатие найденой кнопке
-
-buttonCloseModalWindow.addEventListener('click', toggleEditWindow); //добавили прослушиватель события - нажатие на "крестик" закрывания окна
-
-popUpFormUserData.addEventListener('submit', formSubmitHandler); //Обработчик события, отвечающий за отправку данных профиля
+render();
