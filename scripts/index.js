@@ -1,7 +1,7 @@
 //Массив карточек с изображениями и подписями к ним
 
 const initialCards = [
-  {name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'},
+  {name: 'Кавказские горы', link: './images/сaucasus.jpg'},
   {name: 'Тундровая равнина', link: './images/tundra_plain.jpg'},
   {name: 'Река Волга', link: './images/volga_river.jpg'},
   {name: 'Река Енисей', link: './images/yenisei_river.jpg'},
@@ -87,15 +87,10 @@ addButton.addEventListener('click', toggleAddWindow);
 //добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
 buttonCloseModalWindowAdd.addEventListener('click', toggleAddWindow);
 
-
-
-
-
 function render() {
   const html = initialCards.map(getElement);
   listContainer.prepend(...html);
 }
-
 //Функция добавления новой карточки
 function getElement(cardСontent) {
   const cardContainer = template.cloneNode(true);
@@ -109,14 +104,6 @@ function getElement(cardСontent) {
   cardImage.alt = cardСontent.name;
   cardTitle.textContent = cardСontent.name;
   
-  // Реализация функции открытия/закрытия модального окна при нажатии на картинку
-function toggleImageWindow() { //функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
-  showImageModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
-  showImageModalWindow.classList.add('popup_animation');
-}
-//добавили прослушиватель события - нажатие найденой кнопке
-cardImage.addEventListener('click', toggleImageWindow);
-
   // Открытие и закрытие модального окна с картинкой
   function showImage(popupShownContent) {
     toggleImageWindow(showImageModalWindow);
@@ -132,11 +119,8 @@ cardImage.addEventListener('click', toggleImageWindow);
   function handleLikeCard(event) {
     event.target.classList.toggle('element__mark_active');
   }
-
   // Слушатель осуществляющий запуск функции лайка по клику
   cardMark.addEventListener('click', handleLikeCard);
-
-
 
   //Реализация функции удаления карточки при нажатии на изображение урны
   function handleRemoveCard(event) {
@@ -159,7 +143,12 @@ cardImage.addEventListener('click', toggleImageWindow);
 
   return cardContainer;
 }
-
+// Функция открытия/закрытия модального окна редактирования профиля 
+// путём добавления класса с соотв. стилем
+function toggleImageWindow() {
+  showImageModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  showImageModalWindow.classList.add('popup_animation');
+}
 // Функция определяющая добавление новой карточки в начало списка
 function addInArr(cardContent, addCard, newItem) {
   const item = getElement(cardContent);
@@ -170,11 +159,6 @@ function addInArr(cardContent, addCard, newItem) {
     addCard.append(item);
   }
 }
-
-//initialCards.forEach((card) => {
-//  addInArr(card, listContainer, false);
-//});
-
 // Отправка формы добавления карточки
 function popUpFormNewCardHandler(event) {
   event.preventDefault();//Эта строчка отменяет стандартную отправку формы.
