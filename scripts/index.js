@@ -2,7 +2,7 @@
 
 const initialCards = [
   {name: 'Кавказские горы', link: './images/сaucasus.jpg'},
-  {name: 'Тундровая равнина', link: './images/tundra_plain.jpg"'},
+  {name: 'Тундровая равнина', link: './images/tundra_plain.jpg'},
   {name: 'Река Волга', link: './images/volga_river.jpg'},
   {name: 'Река Енисей', link: './images/yenisei_river.jpg'},
   {name: 'Байкал', link: './images/baikal.jpg'},
@@ -106,6 +106,11 @@ function showImage(popupShownContent) {
 //добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
 buttonCloseModalWindowShowImage.addEventListener('click', toggleImageWindow);
 
+function render() {
+  const html = initialCards.map(getElement);
+  listContainer.prepend(...html);
+}
+
 //Функция добавления новой карточки
 function getElement(cardСontent) {
   const cardContainer = template.content.cloneNode(true);
@@ -123,12 +128,13 @@ function getElement(cardСontent) {
   function handleLikeCard(event) {
     event.target.classList.toggle('element__mark_active');
   }
+
   // Слушатель осуществляющий запуск функции лайка по клику
   cardMark.addEventListener('click', handleLikeCard);
 
   //Реализация функции удаления карточки при нажатии на изображение урны
   function handleRemoveCard(event) {
-    const element = event.target.closest(".element");
+    const element = event.target.closest('.element');
     element.remove();
   }
   // Слушатель осуществляющий запуск функции удаления карточки по клику
@@ -138,6 +144,7 @@ function getElement(cardСontent) {
   // в объект с соотв. атрибутами и их последующей передачей
   cardImage.addEventListener('click', event => {
     const targetImage = event.target;
+      
       targetImage.alt;
       targetImage.src;
     
@@ -147,6 +154,7 @@ function getElement(cardСontent) {
   return cardContainer;
 }
 
+// Функция определяющая добавление новой карточки в начало списка
 function addInArr(cardContent, addCard, newItem) {
   const item = getElement(cardContent);
 
@@ -160,7 +168,7 @@ initialCards.forEach(card => {
 });
 
 // Отправка формы добавления карточки
-function popUpFormNewCardHandler (event) {
+function popUpFormNewCardHandler(event) {
   event.preventDefault();//Эта строчка отменяет стандартную отправку формы.
 
   addInArr({
@@ -172,5 +180,7 @@ function popUpFormNewCardHandler (event) {
 }
 //Обработчик события, отвечающий за отправку данных карточки
 popUpFormNewCard.addEventListener('submit', popUpFormNewCardHandler);
-
+//Обработчик события, отвечающий за закрытие видового экрана
 popUpFormNewCard.addEventListener('submit', toggleAddWindow);
+
+render();
