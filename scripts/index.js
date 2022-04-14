@@ -168,7 +168,7 @@ function popUpFormNewCardHandler (event) {
     link: popUpImageLink.value
   }, listContainer, true);
 
-  //popUpFormNewCard.reset();
+  popUpFormNewCard.reset();
 }
 //Обработчик события, отвечающий за отправку данных карточки
 popUpFormNewCard.addEventListener('submit', popUpFormNewCardHandler);
