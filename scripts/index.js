@@ -1,7 +1,7 @@
 //Массив карточек с изображениями и подписями к ним
 
 const initialCards = [
-  {name: 'Кавказские горы', link: './images/сaucasus.jpg'},
+  {name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'},
   {name: 'Тундровая равнина', link: './images/tundra_plain.jpg'},
   {name: 'Река Волга', link: './images/volga_river.jpg'},
   {name: 'Река Енисей', link: './images/yenisei_river.jpg'},
@@ -42,8 +42,8 @@ const popUpCaption = document.querySelector('.popup__caption');
 
 // Данные карточки отображенные на странице 
 const listContainer = document.querySelector('.elements'); //Список карточек
-const elementImage = document.querySelector('.element__image');
-const template = document.querySelector('.template');
+const template = document.querySelector('.template').content;
+//const elementImage = template.querySelector('.element__image');
 
 // Реализация функции открытия/закрытия модального окна кнопки редактирования данных профиля
 function toggleInputWindow() { 
@@ -113,7 +113,7 @@ function render() {
 
 //Функция добавления новой карточки
 function getElement(cardСontent) {
-  const cardContainer = template.content.cloneNode(true);
+  const cardContainer = template.cloneNode(true);
   const cardImage = cardContainer.querySelector('.element__image');
   const cardTitle = cardContainer.querySelector('.element__title');
   const cardMark = cardContainer.querySelector('.element__mark');
@@ -142,14 +142,14 @@ function getElement(cardСontent) {
   
   // При нажатии на любое изображение цель нажатия  превращается 
   // в объект с соотв. атрибутами и их последующей передачей
-  cardImage.addEventListener('click', event => {
-    const targetImage = event.target;
-      
+  cardImage.addEventListener('click', (event) => {
+      const targetImage = event.target;
+
       targetImage.alt;
       targetImage.src;
-    
-    showImage(cardСontent);
-  });
+
+      showImage(cardСontent);
+    });
 
   return cardContainer;
 }
@@ -160,10 +160,12 @@ function addInArr(cardContent, addCard, newItem) {
 
   if (newItem) {
     addCard.prepend(item);
+  } else {
+    addCard.append(item);
   }
 }
 
-initialCards.forEach(card => {
+initialCards.forEach((card) => {
   addInArr(card, listContainer, false);
 });
 
