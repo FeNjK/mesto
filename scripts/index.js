@@ -87,24 +87,9 @@ addButton.addEventListener('click', toggleAddWindow);
 //добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
 buttonCloseModalWindowAdd.addEventListener('click', toggleAddWindow);
 
-// Реализация функции открытия/закрытия модального окна при нажатии на картинку
-function toggleImageWindow() { //функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
-  showImageModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
-  showImageModalWindow.classList.add('popup_animation');
-}
-//добавили прослушиватель события - нажатие найденой кнопке
-elementImage.addEventListener('click', toggleImageWindow);
 
-// Открытие и закрытие модального окна с картинкой
-function showImage(popupShownContent) {
-  toggleImageWindow(showImageModalWindow);
-// Передача значений элемента модальному окну
-  popUpCaption.textContent = popupShownContent.name;
-  popUpImage.alt = popupShownContent.name;
-  popUpImage.src = popupShownContent.link;
-}
-//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
-buttonCloseModalWindowShowImage.addEventListener('click', toggleImageWindow);
+
+
 
 function render() {
   const html = initialCards.map(getElement);
@@ -124,6 +109,25 @@ function getElement(cardСontent) {
   cardImage.alt = cardСontent.name;
   cardTitle.textContent = cardСontent.name;
   
+  // Реализация функции открытия/закрытия модального окна при нажатии на картинку
+function toggleImageWindow() { //функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
+  showImageModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  showImageModalWindow.classList.add('popup_animation');
+}
+//добавили прослушиватель события - нажатие найденой кнопке
+cardImage.addEventListener('click', toggleImageWindow);
+
+  // Открытие и закрытие модального окна с картинкой
+  function showImage(popupShownContent) {
+    toggleImageWindow(showImageModalWindow);
+  // Передача значений элемента модальному окну
+    popUpCaption.textContent = popupShownContent.name;
+    popUpImage.alt = popupShownContent.name;
+    popUpImage.src = popupShownContent.link;
+  }
+  //добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
+  buttonCloseModalWindowShowImage.addEventListener('click', toggleImageWindow);
+  
   //Реализация лайка карточки при нажатии на изображение сердечка под картинкой
   function handleLikeCard(event) {
     event.target.classList.toggle('element__mark_active');
@@ -131,6 +135,8 @@ function getElement(cardСontent) {
 
   // Слушатель осуществляющий запуск функции лайка по клику
   cardMark.addEventListener('click', handleLikeCard);
+
+
 
   //Реализация функции удаления карточки при нажатии на изображение урны
   function handleRemoveCard(event) {
@@ -165,9 +171,9 @@ function addInArr(cardContent, addCard, newItem) {
   }
 }
 
-initialCards.forEach((card) => {
-  addInArr(card, listContainer, false);
-});
+//initialCards.forEach((card) => {
+//  addInArr(card, listContainer, false);
+//});
 
 // Отправка формы добавления карточки
 function popUpFormNewCardHandler(event) {
