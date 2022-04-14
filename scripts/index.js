@@ -1,12 +1,12 @@
 //Массив карточек с изображениями и подписями к ним
 
 const initialCards = [
-  {name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'},
-  {name: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'},
-  {name: 'Иваново', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'},
-  {name: 'Камчатка', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'},
-  {name: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'},
-  {name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'}
+  {name: 'Кавказские горы', link: './images/сaucasus.jpg'},
+  {name: 'Тундровая равнина', link: './images/tundra_plain.jpg"'},
+  {name: 'Река Волга', link: './images/volga_river.jpg'},
+  {name: 'Река Енисей', link: './images/yenisei_river.jpg'},
+  {name: 'Байкал', link: './images/baikal.jpg'},
+  {name: 'Таёжные леса', link: './images/taiga.jpg'}
 ];
 
 // Модальные окна
@@ -43,13 +43,7 @@ const popUpCaption = document.querySelector('.popup__caption');
 // Данные карточки отображенные на странице 
 const listContainer = document.querySelector('.elements'); //Список карточек
 const elementImage = document.querySelector('.element__image');
-//const cardTemplate = document.querySelector('.cardTemplate');
-
-// Реализация функции открытия/закрытия модального окна при нажатии на картинку
-function toggleImageWindow() { //функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
-  showImageModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
-  showImageModalWindow.classList.add('popup_animation');
-}
+const template = document.querySelector('.template');
 
 // Реализация функции открытия/закрытия модального окна кнопки редактирования данных профиля
 function toggleInputWindow() { 
@@ -71,7 +65,6 @@ function openEditWindow() {
 editingButton.addEventListener('click', openEditWindow);
 
 // Реализация функции отправки данных профиля
-
 function formUserDataSubmitHandler (event) {
   event.preventDefault();// Эта строчка отменяет стандартную отправку формы.
 
@@ -80,8 +73,8 @@ function formUserDataSubmitHandler (event) {
   //после выполнения функции редактирования данных профиля происходит закрытие модального окна
   toggleInputWindow();
 }
-
-popUpFormUserData.addEventListener('submit', formUserDataSubmitHandler); //Обработчик события, отвечающий за отправку данных профиля
+//Обработчик события, отвечающий за отправку данных профиля
+popUpFormUserData.addEventListener('submit', formUserDataSubmitHandler); 
 
 // Реализация функции открытия/закрытия модального окна кнопки добавления карточки
 // функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
@@ -94,57 +87,90 @@ addButton.addEventListener('click', toggleAddWindow);
 //добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
 buttonCloseModalWindowAdd.addEventListener('click', toggleAddWindow);
 
-
-// Добавление карточки из базы данных
-function render() {
-  const cardArr = initialCards.map(getElement);
-  listContainer.prepend(...cardArr);
+// Реализация функции открытия/закрытия модального окна при нажатии на картинку
+function toggleImageWindow() { //функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
+  showImageModalWindow.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  showImageModalWindow.classList.add('popup_animation');
 }
+//добавили прослушиватель события - нажатие найденой кнопке
+elementImage.addEventListener('click', toggleImageWindow);
 
+// Открытие и закрытие модального окна с картинкой
+function showImage(popupShownContent) {
+  toggleImageWindow(showImageModalWindow);
+// Передача значений элемента модальному окну
+  popUpCaption.textContent = popupShownContent.name;
+  popUpImage.alt = popupShownContent.name;
+  popUpImage.src = popupShownContent.link;
+}
+//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
+buttonCloseModalWindowShowImage.addEventListener('click', toggleImageWindow);
+
+//Функция добавления новой карточки
 function getElement(cardСontent) {
-  const cardContainer = cardTemplate.content.cloneNode(true);
-  const cardImage = cardContainer('.element__image');
-  const cardTitle = cardContainer('.element__title');
-  const cardMark = cardContainer('element__mark');
-  const cardTrash = cardContainer('element__trash');
+  const cardContainer = template.content.cloneNode(true);
+  const cardImage = cardContainer.querySelector('.element__image');
+  const cardTitle = cardContainer.querySelector('.element__title');
+  const cardMark = cardContainer.querySelector('.element__mark');
+  const cardTrash = cardContainer.querySelector('.element__trash');
 
   // Прописываем связи между объектами массива и переменными присвоенными элементам страницы
   cardImage.src = cardСontent.link;
   cardImage.alt = cardСontent.name;
   cardTitle.textContent = cardСontent.name;
-
-  //Руфлизация функции удаления карточки при нажатии на изображение урны
-function handleRemoveCard(event) {
-  const element = event.target.closest(".element");
-  element.remove();
-}
-
-cardTrash.addEventListener('click', handleRemoveCard);
-
-//Реализация лайка карточки при нажатии на изображение сердечка под картинкой
-function handleLikeCard(event) {
-  event.target.classList.toggle('element__mark_active');
-}
-
-cardMark.addEventListener('click', handleLikeCard);
- 
   
+  //Реализация лайка карточки при нажатии на изображение сердечка под картинкой
+  function handleLikeCard(event) {
+    event.target.classList.toggle('element__mark_active');
+  }
+  // Слушатель осуществляющий запуск функции лайка по клику
+  cardMark.addEventListener('click', handleLikeCard);
+
+  //Реализация функции удаления карточки при нажатии на изображение урны
+  function handleRemoveCard(event) {
+    const element = event.target.closest(".element");
+    element.remove();
+  }
+  // Слушатель осуществляющий запуск функции удаления карточки по клику
+  cardTrash.addEventListener('click', handleRemoveCard);
+  
+  // При нажатии на любое изображение цель нажатия  превращается 
+  // в объект с соотв. атрибутами и их последующей передачей
+  cardImage.addEventListener('click', event => {
+    const targetImage = event.target;
+      targetImage.alt;
+      targetImage.src;
+    
+    showImage(cardСontent);
+  });
+
   return cardContainer;
 }
 
+function addInArr(cardContent, addCard, newItem) {
+  const item = getElement(cardContent);
 
-// Открытие и закрытие модального окна с картинкой
-//function showImage(popupShownContent) {
-//  toggleImageWindow(showImageModalWindow);
-// Передача значений элемента модальному окну
-//  popUpImage.src = popupShownContent.link;
-//  popUpImage.alt = popupShownContent.name;
-//  popUpCaption.textContent = popupShownContent.name;
-//}
+  if (newItem) {
+    addCard.prepend(item);
+  }
+}
 
-//добавили прослушиватель события - нажатие найденой кнопке
-elementImage.addEventListener('click', toggleImageWindow);
-//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
-buttonCloseModalWindowShowImage.addEventListener('click', toggleImageWindow);
+initialCards.forEach(card => {
+  addInArr(card, listContainer, false);
+});
 
-render();
+// Отправка формы добавления карточки
+function popUpFormNewCardHandler (event) {
+  event.preventDefault();//Эта строчка отменяет стандартную отправку формы.
+
+  addInArr({
+    name: popUpImageTitle.value,
+    link: popUpImageLink.value
+  }, listContainer, true);
+
+  //popUpFormNewCard.reset();
+}
+//Обработчик события, отвечающий за отправку данных карточки
+popUpFormNewCard.addEventListener('submit', popUpFormNewCardHandler);
+
+popUpFormNewCard.addEventListener('submit', toggleAddWindow);
