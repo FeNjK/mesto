@@ -1,14 +1,3 @@
-//Массив карточек с изображениями и подписями к ним
-
-const initialCards = [
-  {name: 'Кавказские горы', link: './images/сaucasus.jpg'},
-  {name: 'Тундровая равнина', link: './images/tundra_plain.jpg'},
-  {name: 'Река Волга', link: './images/volga_river.jpg'},
-  {name: 'Река Енисей', link: './images/yenisei_river.jpg'},
-  {name: 'Байкал', link: './images/baikal.jpg'},
-  {name: 'Таёжные леса', link: './images/taiga.jpg'}
-];
-
 // Модальные окна
 const editModalWindow = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
 const addModalWindow = document.querySelector('.popup_task_add'); //нашли модальное окно добавления карточки
@@ -133,11 +122,6 @@ function getElement(cardСontent) {
   // При нажатии на любое изображение цель нажатия  превращается 
   // в объект с соотв. атрибутами и их последующей передачей
   cardImage.addEventListener('click', (event) => {
-      const targetImage = event.target;
-
-      targetImage.alt;
-      targetImage.src;
-
       showImage(cardСontent);
     });
 
