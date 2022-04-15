@@ -33,70 +33,78 @@ const popUpCaption = document.querySelector('.popup__caption');
 const listContainer = document.querySelector('.elements'); //Список карточек
 const template = document.querySelector('.template').content;
 
-// Функции открытия и закрытия модальных окон
-
-function openPopUp(popUp) {
-  popUp.classList.add('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
-  popUp.classList.add('popup_animation');
+// Функция открытия модальных окон
+function openModalWindow(modalWindow) {
+  modalWindow.classList.add('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  modalWindow.classList.add('popup_animation');
 }
 
-function closePopup(popUp) {
-  popUp.classList.remove('popup_opened'); //Добавляем КЛАСС, а не селектор!!!
+// Функция закрытия модальных окон
+function closeModalWindow(modalWindow) {
+  modalWindow.classList.remove('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Реализация функции открытия/закрытия модального окна кнопки редактирования данных профиля
-function toggleInputWindow() { 
-  modalWindowEdit.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
-  modalWindowEdit.classList.add('popup_animation');
-}
-//добавили прослушиватель события - нажатие найденой кнопке
-buttonEdit.addEventListener('click', toggleInputWindow);
-//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
-buttonCloseModalWindowEdit.addEventListener('click', toggleInputWindow);
 
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
-function openEditWindow() {
+buttonEdit.addEventListener('click', () => {
+  openModalWindow(modalWindowEdit);
+
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-}
-// добавили прослушиватель события - нажатие по найденой кнопке
-buttonEdit.addEventListener('click', openEditWindow);
+});
+
+buttonCloseModalWindowEdit.addEventListener('click', () => {
+  closeModalWindow(modalWindowEdit);
+});
 
 // Реализация функции отправки данных профиля
-function formUserDataSubmitHandler (event) {
-  event.preventDefault();// Эта строчка отменяет стандартную отправку формы.
+popUpFormUserData.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-  userName.textContent = popUpUserName.value; //ввод текста в поле Name модального окна меняет текст с именем в профиле
-  userActivityType.textContent = popUpUserActivityType.value;//ввод текста в поле с родом деятельности модального окна меняет срдержимое соответствующего поля в профиле
-  //после выполнения функции редактирования данных профиля происходит закрытие модального окна
-  toggleInputWindow();
-}
-//Обработчик события, отвечающий за отправку данных профиля
-popUpFormUserData.addEventListener('submit', formUserDataSubmitHandler); 
+    userName.textContent = popUpUserName.value;
+    userActivityType.textContent = popUpUserActivityType.value;
 
-// Реализация функции открытия/закрытия модального окна кнопки добавления карточки
-// функция открытия/закрытия модального окна редактирования профиля путём добавления класса с соотв. стилем
-function toggleAddWindow() {
-  modalWindowAdd.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
-  modalWindowAdd.classList.add('popup_animation');
+    closeModalWindow(modalWindowEdit);
+});
+
+// Функция открытия модального окна кнопкой добавления карточки
+buttonAdd.addEventListener('click', () => {
+  openModalWindow(modalWindowAdd);
+});
+
+// Реализация функции отправки формы добавления карточки
+popUpFormNewCard.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    addInArr({
+      name: popUpImageTitle.value,
+      link: popUpImageLink.value
+    }, listContainer, true);
+
+    closeModalWindow(modalWindowAdd);
+
+    popUpFormNewCard.reset();
+  });
+
+// Функция закрытия модального окна нажатием на "крестик"
+buttonCloseModalWindowAdd.addEventListener('click', () => {
+  closeModalWindow(modalWindowAdd);
+});
+
+// Функция открытия модального окна с картинкой нажатием на любую картинку
+function handleShowImage(popupShownContent) {
+  openModalWindow(modalWindowShowImage);
+  
+// Передача значений элемента модальному окну
+  popUpCaption.textContent = popupShownContent.name;
+  popUpImage.alt = popupShownContent.name;
+  popUpImage.src = popupShownContent.link;
 }
-//добавили прослушиватель события - нажатие найденой кнопке
-buttonAdd.addEventListener('click', toggleAddWindow);
-//добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
-buttonCloseModalWindowAdd.addEventListener('click', toggleAddWindow);
+
+// Функция закрытия модального окна с картинкой нажатием на "крестик"
+buttonCloseModalWindowShowImage.addEventListener('click', () => {
+  closeModalWindow(modalWindowShowImage);
+});
 
 function render() {
   const html = initialCards.map(getElement);
@@ -115,70 +123,33 @@ function getElement(cardСontent) {
   cardImage.alt = cardСontent.name;
   cardTitle.textContent = cardСontent.name;
   
-  // Открытие и закрытие модального окна с картинкой
-  function showImage(popupShownContent) {
-    toggleImageWindow(modalWindowShowImage);
-  // Передача значений элемента модальному окну
-    popUpCaption.textContent = popupShownContent.name;
-    popUpImage.alt = popupShownContent.name;
-    popUpImage.src = popupShownContent.link;
-  }
-  //добавили прослушиватель события - нажатие на "крестик" закрывания СООТВЕТСТВУЮЩЕГО окна
-  buttonCloseModalWindowShowImage.addEventListener('click', toggleImageWindow);
-  
-  //Реализация лайка карточки при нажатии на изображение сердечка под картинкой
-  function handleLikeCard(event) {
-    event.target.classList.toggle('element__mark_active');
-  }
-  // Слушатель осуществляющий запуск функции лайка по клику
-  cardMark.addEventListener('click', handleLikeCard);
+  // Функция лайка карточки при нажатии на изображение сердечка под картинкой
+  cardMark.addEventListener('click', (e) => {
+    e.target.classList.toggle('element__mark_active');
+  });
 
-  //Реализация функции удаления карточки при нажатии на изображение урны
-  function handleRemoveCard(event) {
-    const element = event.target.closest('.element');
+  // Функция удаления карточки при нажатии на изображение урны
+  cardTrash.addEventListener('click', (e) => {
+    const element = e.target.closest('.element');
     element.remove();
-  }
-  // Слушатель осуществляющий запуск функции удаления карточки по клику
-  cardTrash.addEventListener('click', handleRemoveCard);
-  
+  });
+
   // При нажатии на любое изображение цель нажатия  превращается 
   // в объект с соотв. атрибутами и их последующей передачей
-  cardImage.addEventListener('click', (event) => {
-      showImage(cardСontent);
-    });
+  cardImage.addEventListener('click', () => {
+    handleShowImage(cardСontent);
+  });
 
   return cardContainer;
 }
-// Функция открытия/закрытия модального окна редактирования профиля 
-// путём добавления класса с соотв. стилем
-function toggleImageWindow() {
-  modalWindowShowImage.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
-  modalWindowShowImage.classList.add('popup_animation');
-}
+
 // Функция определяющая добавление новой карточки в начало списка
 function addInArr(cardContent, addCard, newItem) {
   const item = getElement(cardContent);
 
   if (newItem) {
     addCard.prepend(item);
-  } else {
-    addCard.append(item);
-  }
+  } 
 }
-// Отправка формы добавления карточки
-function popUpFormNewCardHandler(event) {
-  event.preventDefault();//Эта строчка отменяет стандартную отправку формы.
-
-  addInArr({
-    name: popUpImageTitle.value,
-    link: popUpImageLink.value
-  }, listContainer, true);
-
-  popUpFormNewCard.reset();
-}
-//Обработчик события, отвечающий за отправку данных карточки
-popUpFormNewCard.addEventListener('submit', popUpFormNewCardHandler);
-//Обработчик события, отвечающий за закрытие видового экрана
-popUpFormNewCard.addEventListener('submit', toggleAddWindow);
 
 render();
