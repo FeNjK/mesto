@@ -33,6 +33,29 @@ const popUpCaption = document.querySelector('.popup__caption');
 const listContainer = document.querySelector('.elements'); //Список карточек
 const template = document.querySelector('.template').content;
 
+// Функции открытия и закрытия модальных окон
+
+function openPopUp(popUp) {
+  popUp.classList.add('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  popUp.classList.add('popup_animation');
+}
+
+function closePopup(popUp) {
+  popUp.classList.remove('popup_opened'); //Добавляем КЛАСС, а не селектор!!!
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Реализация функции открытия/закрытия модального окна кнопки редактирования данных профиля
 function toggleInputWindow() { 
   modalWindowEdit.classList.toggle('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
