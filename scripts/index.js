@@ -133,11 +133,6 @@ function getElement(cardСontent) {
   // При нажатии на любое изображение цель нажатия  превращается 
   // в объект с соотв. атрибутами и их последующей передачей
   cardImage.addEventListener('click', (evt) => {
-      const targetImage = evt.target;
-
-      targetImage.alt;
-      targetImage.src;
-
       handleShowImage(cardСontent);
     });
 
