@@ -61,10 +61,10 @@ buttonCloseModalWindowEdit.addEventListener('click', () => {
 popUpFormUserData.addEventListener('submit', (e) => {
   e.preventDefault();
 
-    userName.textContent = popUpUserName.value;
-    userActivityType.textContent = popUpUserActivityType.value;
+  userName.textContent = popUpUserName.value;
+  userActivityType.textContent = popUpUserActivityType.value;
 
-    closeModalWindow(modalWindowEdit);
+  closeModalWindow(modalWindowEdit);
 });
 
 // Функция открытия модального окна кнопкой добавления карточки
@@ -74,17 +74,17 @@ buttonAdd.addEventListener('click', () => {
 
 // Реализация функции отправки формы добавления карточки
 popUpFormNewCard.addEventListener('submit', (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    addInArr({
-      name: popUpImageTitle.value,
-      link: popUpImageLink.value
-    }, listContainer, true);
+  addInArr({
+    name: popUpImageTitle.value,
+    link: popUpImageLink.value
+  }, listContainer, true);
 
-    closeModalWindow(modalWindowAdd);
+  closeModalWindow(modalWindowAdd);
 
-    popUpFormNewCard.reset();
-  });
+  popUpFormNewCard.reset();
+});
 
 // Функция закрытия модального окна нажатием на "крестик"
 buttonCloseModalWindowAdd.addEventListener('click', () => {
@@ -134,7 +134,7 @@ function getElement(cardСontent) {
     element.remove();
   });
 
-  // При нажатии на любое изображение цель нажатия  превращается 
+  // При нажатии на любое изображение цель нажатия превращается 
   // в объект с соотв. атрибутами и их последующей передачей
   cardImage.addEventListener('click', () => {
     handleShowImage(cardСontent);
@@ -145,10 +145,8 @@ function getElement(cardСontent) {
 
 // Функция определяющая добавление новой карточки в начало списка
 function addInArr(cardContent, addCard, newItem) {
-  const item = getElement(cardContent);
-
   if (newItem) {
-    addCard.prepend(item);
+    addCard.prepend(getElement(cardContent));
   } 
 }
 
