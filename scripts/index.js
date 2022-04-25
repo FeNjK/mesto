@@ -1,4 +1,5 @@
 // Модальные окна
+const modalWindowOverlay = Array.from(document.querySelectorAll('.popup'));
 const modalWindowEdit = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
 const modalWindowAdd = document.querySelector('.popup_task_add'); //нашли модальное окно добавления карточки
 const modalWindowShowImage = document.querySelector('.popup_task_show-image'); //нашли модальное окно добавления карточки
@@ -43,6 +44,25 @@ function openModalWindow(modalWindow) {
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
 }
+
+// Функция закрытия модальных окон нажатием на оверлей или клавишу "Esc"
+modalWindowOverlay.forEach((modalWindowOverlay) => {
+  modalWindowOverlay.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      closeModalWindow(e.currentTarget);
+      popUpImageTitle.value = '';
+      popUpImageLink.value ='';
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalWindowOverlay.classList.contains('popup_activ')) {
+      closeModalWindow(modalWindowOverlay);
+      popUpImageTitle.value = '';
+      popUpImageLink.value ='';
+    }
+  });
+});
 
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
