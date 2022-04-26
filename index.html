@@ -76,11 +76,15 @@
                    name="profile_name"
                    placeholder="Введите ваше имя"
                    class="popup__input popup__input_content_name"
+                   minlength="2"
+                   maxlength="40"
                    required>
             <input type="text"
                    name="type_of_activity"
                    placeholder="Укажите род ваших занятий"
                    class="popup__input popup__input_content_activity-type"
+                   minlength="2"
+                   maxlength="200"
                    required>
           </fieldset>
           <button class="popup__save-button"
@@ -103,6 +107,8 @@
                    name="card-title"
                    placeholder="Название"
                    class="popup__input popup__input_content_image-title"
+                   minlength="2"
+                   maxlength="30"
                    required>
             <input type="url"
                    name="picture-link"
