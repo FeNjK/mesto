@@ -68,7 +68,8 @@
                 type="button"
                 title="Закрыть окно"></button>
         <form class="popup__form popup__form_type_user-data" 
-              name="profile_data_editing_window">
+              name="profile_data_editing_window"
+              novalidate>
           <h3 class="popup__title">Редактировать профиль</h3>
           <fieldset class="popup__input-place"
                     name="popup__input-place">
@@ -79,6 +80,9 @@
                    minlength="2"
                    maxlength="40"
                    required>
+            <span class="popup__validation-message"
+                  id="name-input-error">
+            </span>
             <input type="text"
                    name="type_of_activity"
                    placeholder="Укажите род ваших занятий"
@@ -86,6 +90,9 @@
                    minlength="2"
                    maxlength="200"
                    required>
+            <span class="popup__input-error"
+                  id="name-activity-type-error">
+            </span>
           </fieldset>
           <button class="popup__save-button"
                   type="submit">Сохранить</button>
@@ -99,7 +106,8 @@
                 type="button"
                 title="Закрыть окно"></button>
         <form class="popup__form popup__form_type_new-card" 
-              name="window_for_adding_cards">
+              name="window_for_adding_cards"
+              novalidate>
           <h3 class="popup__title">Новое место</h3>
           <fieldset class="popup__input-place"
                     name="popup__input-place">
@@ -110,11 +118,17 @@
                    minlength="2"
                    maxlength="30"
                    required>
+            <span class="popup__validation-message"
+                  id="image-title-input-error">
+            </span>
             <input type="url"
                    name="picture-link"
                    placeholder="Ссылка на картинку"
                    class="popup__input popup__input_content_image-link"
                    required>
+            <span class="popup__input-error"
+                  id="link-input-error">
+            </span>
           </fieldset>
           <button class="popup__save-button"
                   type="submit">Создать</button>
