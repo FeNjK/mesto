@@ -34,20 +34,18 @@ const popUpCaption = document.querySelector('.popup__caption');
 const listContainer = document.querySelector('.elements'); //Список карточек
 const template = document.querySelector('.template').content;
 
-// Элементы валидации форм
-//const textError = Array.from(document.querySelectorAll('.popup__validation-message'));
-//const placeError = Array.from(document.querySelectorAll('.popup__input_error'));
-
 // Функция удаления ошибок валидации
-//function removeInputError() {
-//  textError.forEach((textError) => {
-//    textError.textContent = '';
-//  });
-//  placeError.forEach((placeError) => {
-//    placeError.classList.remove('popup__input_error');
-//  });
-//}
+function removeInputError() {
+  const textError = Array.from(document.querySelectorAll('.popup__validation-message'));
+  const placeError = Array.from(document.querySelectorAll('.popup__input_error'));
 
+  textError.forEach((textError) => {
+    textError.textContent = '';
+  });
+  placeError.forEach((placeError) => {
+    placeError.classList.remove('popup__input_error');
+  });
+}
 
 // Функция открытия модальных окон
 function openModalWindow(modalWindow) {
@@ -65,6 +63,7 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
   modalWindowOverlay.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) {
       closeModalWindow(e.currentTarget);
+      removeInputError();
       popUpImageTitle.value = '';
       popUpImageLink.value ='';
     }
@@ -76,6 +75,7 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalWindowOverlay.classList.contains('popup_activ')) {
       closeModalWindow(modalWindowOverlay);
+      removeInputError();
       popUpImageTitle.value = '';
       popUpImageLink.value ='';
     }
@@ -93,6 +93,7 @@ buttonEdit.addEventListener('click', () => {
 
 buttonCloseModalWindowEdit.addEventListener('click', () => {
   closeModalWindow(modalWindowEdit);
+  removeInputError();
 });
 
 // Реализация функции отправки данных профиля
@@ -124,9 +125,12 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   popUpFormNewCard.reset();
 });
 
-// Функция закрытия модального окна нажатием на "крестик"
+// Функция закрытия модального окна добавления карточки нажатием на "крестик"
 buttonCloseModalWindowAdd.addEventListener('click', () => {
   closeModalWindow(modalWindowAdd);
+  removeInputError();
+  popUpImageTitle.value = '',
+  popUpImageLink.value = '';
 });
 
 // Функция открытия модального окна с картинкой нажатием на любую картинку
