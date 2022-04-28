@@ -1,5 +1,4 @@
 //Массив карточек с изображениями и подписями к ним
-
 const initialCards = [
   {name: 'Кавказские горы', link: './images/сaucasus.jpg'},
   {name: 'Тундровая равнина', link: './images/tundra_plain.jpg'},
