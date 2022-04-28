@@ -85,10 +85,10 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
-  toggleButtonState(config, popUpFormUserData);
   openModalWindow(modalWindowEdit);
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+  toggleButtonState(config, popUpFormUserData);
 });
 
 buttonCloseModalWindowEdit.addEventListener('click', () => {
