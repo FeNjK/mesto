@@ -85,7 +85,7 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
-  //hideInputError(config, formElement, inputElement);
+  toggleButtonState(config, formElement);
   openModalWindow(modalWindowEdit);
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
@@ -106,8 +106,8 @@ popUpFormUserData.addEventListener('submit', (e) => {
 });
 
 // Функция открытия модального окна кнопкой добавления карточки
-buttonAdd.addEventListener('click', (config, formElement) => {
-  //toggleButtonState(config, formElement);
+buttonAdd.addEventListener('click', () => {
+  toggleButtonState(config, formElement);
   openModalWindow(modalWindowAdd);
 });
 
@@ -121,7 +121,6 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   }, listContainer, true);
 
   closeModalWindow(modalWindowAdd);
-  toggleButtonState(config, formElement);
   popUpFormNewCard.reset();
 });
 
