@@ -42,6 +42,11 @@ function toggleButtonState(config, formElement) {
   buttonElement.disabled = !formElement.checkValidity();
 }
 
+//function toggleButtonState(inputList, buttonElement) {
+//  if ()
+//}
+
+
 // Функция проверки поля ввода на валидность
 const checkInputValidity = (config, formElement, inputElement) => {
   if (!inputElement.validity.valid) {
@@ -55,11 +60,13 @@ const checkInputValidity = (config, formElement, inputElement) => {
 // Функция проверки на валидацию нескольких полей ввода
 function setEventListeners(config, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-    
+  //const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(config, formElement, inputElement);
       toggleButtonState(config, formElement);
+      //toggleButtonState(inputList, buttonElement);
     });
   });
 };

@@ -35,14 +35,8 @@ const listContainer = document.querySelector('.elements'); //Список кар
 const template = document.querySelector('.template').content;
 
 // Элементы валидации форм
-const textError = Array.from(document.querySelectorAll('.popup__validation-message'));
-const placeError = Array.from(document.querySelectorAll('.popup__input_error'));
-
-// Функция открытия модальных окон
-function openModalWindow(modalWindow) {
-  modalWindow.classList.add('popup_activ');
-  modalWindow.classList.add('popup_animation');
-}
+//const textError = Array.from(document.querySelectorAll('.popup__validation-message'));
+//const placeError = Array.from(document.querySelectorAll('.popup__input_error'));
 
 // Функция удаления ошибок валидации
 //function removeInputError() {
@@ -54,10 +48,16 @@ function openModalWindow(modalWindow) {
 //  });
 //}
 
+
+// Функция открытия модальных окон
+function openModalWindow(modalWindow) {
+  modalWindow.classList.add('popup_activ');
+  modalWindow.classList.add('popup_animation');
+}
+
 // Функция закрытия модальных окон
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove('popup_activ');
-  //removeInputError();
 }
 
 // Функция закрытия модальных окон нажатием на оверлей
@@ -85,7 +85,7 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
-  toggleButtonState(config, formElement);
+  toggleButtonState(config, popUpFormUserData);
   openModalWindow(modalWindowEdit);
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
@@ -107,7 +107,7 @@ popUpFormUserData.addEventListener('submit', (e) => {
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
-  toggleButtonState(config, formElement);
+  toggleButtonState(config, popUpFormNewCard);
   openModalWindow(modalWindowAdd);
 });
 
