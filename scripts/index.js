@@ -34,18 +34,33 @@ const popUpCaption = document.querySelector('.popup__caption');
 const listContainer = document.querySelector('.elements'); //Список карточек
 const template = document.querySelector('.template').content;
 
+// Элементы валидации форм
+const textError = Array.from(document.querySelectorAll('.popup__validation-message'));
+const placeError = Array.from(document.querySelectorAll('.popup__input_error'));
+
 // Функция открытия модальных окон
 function openModalWindow(modalWindow) {
-  modalWindow.classList.add('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  modalWindow.classList.add('popup_activ');
   modalWindow.classList.add('popup_animation');
 }
 
+// Функция удаления ошибок валидации
+//function removeInputError() {
+//  textError.forEach((textError) => {
+//    textError.textContent = '';
+//  });
+//  placeError.forEach((placeError) => {
+//    placeError.classList.remove('popup__input_error');
+//  });
+//}
+
 // Функция закрытия модальных окон
 function closeModalWindow(modalWindow) {
-  modalWindow.classList.remove('popup_activ'); //Добавляем КЛАСС, а не селектор!!!
+  modalWindow.classList.remove('popup_activ');
+  //removeInputError();
 }
 
-// Функция закрытия модальных окон нажатием на оверлей или клавишу "Esc"
+// Функция закрытия модальных окон нажатием на оверлей
 modalWindowOverlay.forEach((modalWindowOverlay) => {
   modalWindowOverlay.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) {
@@ -54,7 +69,10 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
       popUpImageLink.value ='';
     }
   });
+});
 
+// Функция закрытия модальных окон нажатием на клавишу "Esc"
+modalWindowOverlay.forEach((modalWindowOverlay) => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalWindowOverlay.classList.contains('popup_activ')) {
       closeModalWindow(modalWindowOverlay);
@@ -67,8 +85,8 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
+  //hideInputError(config, formElement, inputElement);
   openModalWindow(modalWindowEdit);
-
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
 });
@@ -88,7 +106,8 @@ popUpFormUserData.addEventListener('submit', (e) => {
 });
 
 // Функция открытия модального окна кнопкой добавления карточки
-buttonAdd.addEventListener('click', () => {
+buttonAdd.addEventListener('click', (config, formElement) => {
+  //toggleButtonState(config, formElement);
   openModalWindow(modalWindowAdd);
 });
 
@@ -102,7 +121,7 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   }, listContainer, true);
 
   closeModalWindow(modalWindowAdd);
-
+  toggleButtonState(config, formElement);
   popUpFormNewCard.reset();
 });
 
