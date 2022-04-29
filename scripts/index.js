@@ -50,7 +50,6 @@ function removeInputError() {
 // Функция открытия модальных окон
 function openModalWindow(modalWindow) {
   modalWindow.classList.add('popup_activ');
-  modalWindow.classList.add('popup_animation');
 }
 
 // Функция закрытия модальных окон
