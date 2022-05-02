@@ -20,11 +20,13 @@ const userActivityType = formUserData.querySelector('.profile-info__activity-typ
 const popUpFormUserData = document.querySelector('.popup__form_type_user-data');//Форма с данными профиля пользователя
 const popUpUserName = popUpFormUserData.querySelector('.popup__input_content_name');//Поле с именем пользователя
 const popUpUserActivityType = popUpFormUserData.querySelector('.popup__input_content_activity-type');//Поле с родом деятельности пользователя
+const popUpUserActivityTypeBtn = popUpFormUserData.querySelector('.popup__save-button');
 
 // Поля заполнения данных КАРТИНКИ в модальном окне
 const popUpFormNewCard = document.querySelector('.popup__form_type_new-card');//Форма с данными новой карточки с картинкой
 const popUpImageTitle = popUpFormNewCard.querySelector('.popup__input_content_image-title');//Поле с названием картинки
 const popUpImageLink = popUpFormNewCard.querySelector('.popup__input_content_image-link');//Поле с ссылкой на картинку в интернете
+const popUpFormNewCardBtn = popUpFormNewCard.querySelector('.popup__save-button');
 
 // Презентация нажатой картинки
 const popUpImage = document.querySelector('.popup__image');
@@ -87,7 +89,7 @@ buttonEdit.addEventListener('click', () => {
   openModalWindow(modalWindowEdit);
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-  toggleButtonState(config, popUpFormUserData);
+  toggleButtonState(config, popUpFormUserData, popUpUserActivityTypeBtn);
 });
 
 buttonCloseModalWindowEdit.addEventListener('click', () => {
@@ -107,7 +109,7 @@ popUpFormUserData.addEventListener('submit', (e) => {
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
-  toggleButtonState(config, popUpFormNewCard);
+  toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
   openModalWindow(modalWindowAdd);
 });
 
