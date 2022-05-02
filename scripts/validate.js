@@ -55,7 +55,7 @@ const checkInputValidity = (config, formElement, inputElement) => {
 // Функция проверки на валидацию нескольких полей ввода
 function setEventListeners(config, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-
+  
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(config, formElement, inputElement);

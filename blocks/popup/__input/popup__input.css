@@ -1,5 +1,5 @@
 .popup__input {
-  padding: .2rem 0;
+  padding: 0;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   background-clip: padding-box;
@@ -7,15 +7,11 @@
   line-height: 1.21;
   font-weight: 400;
   text-align: start;
+  outline: none;
+  display: block;
+  height: 27px;
 }
 
 .popup__input:hover {
   background-color: #dfdfdf;
-}
-
-.popup__input:focus {
-  outline: 1px solid #4b4b4b4d;
-  background-color: #dfdfdf;
-  border: none;
-  border-bottom: 0;
 }
