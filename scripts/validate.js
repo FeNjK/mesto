@@ -15,7 +15,6 @@ function enableValidation(config) {
       e.preventDefault();
     });
     setEventListeners(config, formElement);
-    //toggleButtonState(config, formElement);
   });
 };
 
@@ -37,7 +36,6 @@ const hideInputError = (config, formElement, inputElement) => {
 
 // Функция определения состояния кнопки сохранения
 function toggleButtonState(config, formElement, buttonElement) {
-  //const buttonElement = formElement.querySelector(config.submitButtonSelector);
   buttonElement.disabled = !formElement.checkValidity();
   buttonElement.classList.toggle(config.inactiveButtonClass, !formElement.checkValidity());
 }
@@ -49,7 +47,6 @@ const checkInputValidity = (config, formElement, inputElement) => {
   } else {
     hideInputError(config, formElement, inputElement);
   }
-  //toggleButtonState(config, formElement);
 };
 
 // Функция проверки на валидацию нескольких полей ввода
@@ -62,7 +59,7 @@ function setEventListeners(config, formElement) {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(config, formElement, inputElement);
-      //toggleButtonState(config, formElement);
+      toggleButtonState(config, formElement, buttonElement);
     });
   });
 };
