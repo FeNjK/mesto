@@ -15,7 +15,7 @@ function enableValidation(config) {
       e.preventDefault();
     });
     setEventListeners(config, formElement);
-    toggleButtonState(config, formElement);
+    //toggleButtonState(config, formElement);
   });
 };
 
@@ -36,10 +36,10 @@ const hideInputError = (config, formElement, inputElement) => {
 };
 
 // Функция определения состояния кнопки сохранения
-function toggleButtonState(config, formElement) {
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
-  buttonElement.classList.toggle(config.inactiveButtonClass, !formElement.checkValidity());
+function toggleButtonState(config, formElement, buttonElement) {
+  //const buttonElement = formElement.querySelector(config.submitButtonSelector);
   buttonElement.disabled = !formElement.checkValidity();
+  buttonElement.classList.toggle(config.inactiveButtonClass, !formElement.checkValidity());
 }
 
 // Функция проверки поля ввода на валидность
@@ -49,17 +49,20 @@ const checkInputValidity = (config, formElement, inputElement) => {
   } else {
     hideInputError(config, formElement, inputElement);
   }
-  toggleButtonState(config, formElement);
+  //toggleButtonState(config, formElement);
 };
 
 // Функция проверки на валидацию нескольких полей ввода
 function setEventListeners(config, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
+  toggleButtonState(config, inputList, buttonElement);
   
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(config, formElement, inputElement);
-      toggleButtonState(config, formElement);
+      //toggleButtonState(config, inputList, buttonElement);
     });
   });
 };

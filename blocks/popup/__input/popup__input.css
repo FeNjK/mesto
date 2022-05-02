@@ -8,8 +8,9 @@
   font-weight: 400;
   text-align: start;
   outline: none;
-  display: block;
-  height: 27px;
+  height: 26.5px;
+  margin-bottom: 30px;
+  width: 100%;
 }
 
 .popup__input:hover {
