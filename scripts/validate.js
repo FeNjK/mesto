@@ -18,6 +18,19 @@ function enableValidation(config) {
   });
 };
 
+// Функция удаления ошибок валидации
+function removeInputError(config, formElement) {
+  const textError = Array.from(formElement.querySelectorAll(config.errorMessageClass));
+  const placeError = Array.from(formElement.querySelectorAll(config.inputErrorClass));
+
+  textError.forEach((textError) => {
+    textError.textContent = '';
+  });
+  placeError.forEach((placeError) => {
+    placeError.classList.remove(config.inputErrorClass);
+  });
+}
+
 // Функция показа сообщения об ошибке при валидации
 const showInputError = (config, formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -57,11 +70,11 @@ function setEventListeners(config, formElement) {
   toggleButtonState(config, formElement, buttonElement);
   
   inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      checkInputValidity(config, formElement, inputElement);
-      toggleButtonState(config, formElement, buttonElement);
+      inputElement.addEventListener('input', () => {
+        checkInputValidity(config, formElement, inputElement);
+        toggleButtonState(config, formElement, buttonElement);
+      });
     });
-  });
 };
 
 enableValidation(config);
