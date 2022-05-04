@@ -4,7 +4,7 @@ const config = {
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input_error',
-  errorMessageClass: 'popup__validation-message'
+  errorMessageClass: 'popup__validation-message_active'
 };
 
 function enableValidation(config) {
@@ -20,7 +20,7 @@ function enableValidation(config) {
 
 // Функция удаления ошибок валидации
 function removeInputError(config, formElement) {
-  const textError = Array.from(formElement.querySelectorAll('.popup__validation-message'));
+  const textError = Array.from(formElement.querySelectorAll('.popup__validation-message_active'));
   const placeError = Array.from(formElement.querySelectorAll('.popup__input_error'));
   
   textError.forEach((textError) => {
