@@ -20,8 +20,8 @@ function enableValidation(config) {
 
 // Функция удаления ошибок валидации
 function removeInputError(config, formElement) {
-  const textError = Array.from(formElement.querySelectorAll('.popup__validation-message_active'));
-  const placeError = Array.from(formElement.querySelectorAll('.popup__input_error'));
+  const textError = Array.from(formElement.querySelectorAll(`.${config.errorMessageClass}`));
+  const placeError = Array.from(formElement.querySelectorAll(`.${config.inputErrorClass}`));
   
   textError.forEach((textError) => {
     textError.textContent = '';
