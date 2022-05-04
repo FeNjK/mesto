@@ -36,27 +36,24 @@ const popUpCaption = document.querySelector('.popup__caption');
 const listContainer = document.querySelector('.elements'); //Список карточек
 const template = document.querySelector('.template').content;
 
-// Функция удаления ошибок валидации
-//function removeInputError() {
-//  const textError = Array.from(document.querySelectorAll('.popup__validation-message'));
-//  const placeError = Array.from(document.querySelectorAll('.popup__input_error'));
-
-//  textError.forEach((textError) => {
-//    textError.textContent = '';
-//  });
-//  placeError.forEach((placeError) => {
-//    placeError.classList.remove('popup__input_error');
-//  });
-//}
-
 // Функция открытия модальных окон
 function openModalWindow(modalWindow) {
   modalWindow.classList.add('popup_activ');
+  document.addEventListener('keydown', closeModalWindowByEsc);
 }
 
 // Функция закрытия модальных окон
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove('popup_activ');
+  document.removeEventListener('keydown', closeModalWindowByEsc);
+}
+
+// Функция закрытия модальных окон нажатием на клавишу "Esc"
+function closeModalWindowByEsc(e) {
+  if (e.key === 'Escape') {
+    const activModalWindow = document.querySelector('.popup_activ');
+    closeModalWindow(activModalWindow);
+  }
 }
 
 // Функция закрытия модальных окон нажатием на оверлей
@@ -64,21 +61,6 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
   modalWindowOverlay.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) {
       closeModalWindow(e.currentTarget);
-      removeInputError(config, modalWindowOverlay);
-      popUpImageTitle.value = '';
-      popUpImageLink.value ='';
-    }
-  });
-});
-
-// Функция закрытия модальных окон нажатием на клавишу "Esc"
-modalWindowOverlay.forEach((modalWindowOverlay) => {
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalWindowOverlay.classList.contains('popup_activ')) {
-      closeModalWindow(modalWindowOverlay);
-      removeInputError(config, modalWindowOverlay);
-      popUpImageTitle.value = '';
-      popUpImageLink.value ='';
     }
   });
 });
@@ -86,15 +68,15 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
-  openModalWindow(modalWindowEdit);
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+  openModalWindow(modalWindowEdit);
+  removeInputError(config, popUpFormUserData);
   toggleButtonState(config, popUpFormUserData, popUpUserActivityTypeBtn);
 });
 
 buttonCloseModalWindowEdit.addEventListener('click', () => {
   closeModalWindow(modalWindowEdit);
-  removeInputError(config, popUpFormUserData);
 });
 
 // Реализация функции отправки данных профиля
@@ -109,8 +91,10 @@ popUpFormUserData.addEventListener('submit', (e) => {
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
-  toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
   openModalWindow(modalWindowAdd);
+  popUpFormNewCard.reset();
+  removeInputError(config, popUpFormNewCard);
+  toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
 });
 
 // Реализация функции отправки формы добавления карточки
@@ -123,15 +107,11 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   }, listContainer, true);
 
   closeModalWindow(modalWindowAdd);
-  popUpFormNewCard.reset();
 });
 
 // Функция закрытия модального окна добавления карточки нажатием на "крестик"
 buttonCloseModalWindowAdd.addEventListener('click', () => {
   closeModalWindow(modalWindowAdd);
-  removeInputError(config, popUpFormNewCard);
-  popUpImageTitle.value = '',
-  popUpImageLink.value = '';
 });
 
 // Функция открытия модального окна с картинкой нажатием на любую картинку
