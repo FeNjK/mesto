@@ -58,7 +58,7 @@ function closeModalWindowByEsc(e) {
 
 // Функция закрытия модальных окон нажатием на оверлей
 modalWindowOverlay.forEach((modalWindowOverlay) => {
-  modalWindowOverlay.addEventListener('click', (e) => {
+  modalWindowOverlay.addEventListener('mousedown', (e) => {
     if (e.target === e.currentTarget) {
       closeModalWindow(e.currentTarget);
     }
@@ -70,9 +70,9 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
 buttonEdit.addEventListener('click', () => {
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-  openModalWindow(modalWindowEdit);
   removeInputError(config, popUpFormUserData);
   toggleButtonState(config, popUpFormUserData, popUpUserActivityTypeBtn);
+  openModalWindow(modalWindowEdit);
 });
 
 buttonCloseModalWindowEdit.addEventListener('click', () => {
@@ -91,10 +91,10 @@ popUpFormUserData.addEventListener('submit', (e) => {
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
-  openModalWindow(modalWindowAdd);
   popUpFormNewCard.reset();
   removeInputError(config, popUpFormNewCard);
   toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
+  openModalWindow(modalWindowAdd);
 });
 
 // Реализация функции отправки формы добавления карточки
