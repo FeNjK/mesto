@@ -62,7 +62,7 @@
       <p class="footer__author">&copy; 2022 Андрей Коростелев</p>
     </footer>
     
-    <div class="popup popup_task_edit">
+    <div class="popup popup_task_edit popup_animation">
       <div class="popup__content">
         <button class="popup__close-button popup__close-button_window_edit"
                 type="button"
@@ -81,7 +81,7 @@
                    minlength="2"
                    maxlength="40"
                    required>
-            <span class="popup__validation-message"
+            <span class="popup__validation-message popup__validation-message_position_first"
                   id="profile_name-error">
             </span>
             <input type="text"
@@ -92,7 +92,7 @@
                    minlength="2"
                    maxlength="200"
                    required>
-            <span class="popup__input-error"
+            <span class="popup__validation-message popup__validation-message_position_second"
                   id="type_of_activity-error">
             </span>
           </fieldset>
@@ -121,7 +121,7 @@
                    minlength="2"
                    maxlength="30"
                    required>
-            <span class="popup__validation-message"
+            <span class="popup__validation-message popup__validation-message_position_first"
                   id="card-title-error">
             </span>
             <input type="url"
@@ -130,7 +130,7 @@
                    class="popup__input popup__input_content_image-link"
                    id="picture-link"
                    required>
-            <span class="popup__input-error"
+            <span class="popup__validation-message popup__validation-message_position_second"
                   id="picture-link-error">
             </span>
           </fieldset>

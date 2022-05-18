@@ -20,11 +20,13 @@ const userActivityType = formUserData.querySelector('.profile-info__activity-typ
 const popUpFormUserData = document.querySelector('.popup__form_type_user-data');//Форма с данными профиля пользователя
 const popUpUserName = popUpFormUserData.querySelector('.popup__input_content_name');//Поле с именем пользователя
 const popUpUserActivityType = popUpFormUserData.querySelector('.popup__input_content_activity-type');//Поле с родом деятельности пользователя
+const popUpUserActivityTypeBtn = popUpFormUserData.querySelector('.popup__save-button');
 
 // Поля заполнения данных КАРТИНКИ в модальном окне
 const popUpFormNewCard = document.querySelector('.popup__form_type_new-card');//Форма с данными новой карточки с картинкой
 const popUpImageTitle = popUpFormNewCard.querySelector('.popup__input_content_image-title');//Поле с названием картинки
 const popUpImageLink = popUpFormNewCard.querySelector('.popup__input_content_image-link');//Поле с ссылкой на картинку в интернете
+const popUpFormNewCardBtn = popUpFormNewCard.querySelector('.popup__save-button');
 
 // Презентация нажатой картинки
 const popUpImage = document.querySelector('.popup__image');
@@ -34,50 +36,31 @@ const popUpCaption = document.querySelector('.popup__caption');
 const listContainer = document.querySelector('.elements'); //Список карточек
 const template = document.querySelector('.template').content;
 
-// Функция удаления ошибок валидации
-function removeInputError() {
-  const textError = Array.from(document.querySelectorAll('.popup__validation-message'));
-  const placeError = Array.from(document.querySelectorAll('.popup__input_error'));
-
-  textError.forEach((textError) => {
-    textError.textContent = '';
-  });
-  placeError.forEach((placeError) => {
-    placeError.classList.remove('popup__input_error');
-  });
-}
-
 // Функция открытия модальных окон
 function openModalWindow(modalWindow) {
   modalWindow.classList.add('popup_activ');
-  modalWindow.classList.add('popup_animation');
+  document.addEventListener('keydown', closeModalWindowByEsc);
 }
 
 // Функция закрытия модальных окон
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove('popup_activ');
+  document.removeEventListener('keydown', closeModalWindowByEsc);
+}
+
+// Функция закрытия модальных окон нажатием на клавишу "Esc"
+function closeModalWindowByEsc(e) {
+  if (e.key === 'Escape') {
+    const activModalWindow = document.querySelector('.popup_activ');
+    closeModalWindow(activModalWindow);
+  }
 }
 
 // Функция закрытия модальных окон нажатием на оверлей
 modalWindowOverlay.forEach((modalWindowOverlay) => {
-  modalWindowOverlay.addEventListener('click', (e) => {
+  modalWindowOverlay.addEventListener('mousedown', (e) => {
     if (e.target === e.currentTarget) {
       closeModalWindow(e.currentTarget);
-      removeInputError();
-      popUpImageTitle.value = '';
-      popUpImageLink.value ='';
-    }
-  });
-});
-
-// Функция закрытия модальных окон нажатием на клавишу "Esc"
-modalWindowOverlay.forEach((modalWindowOverlay) => {
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalWindowOverlay.classList.contains('popup_activ')) {
-      closeModalWindow(modalWindowOverlay);
-      removeInputError();
-      popUpImageTitle.value = '';
-      popUpImageLink.value ='';
     }
   });
 });
@@ -85,15 +68,15 @@ modalWindowOverlay.forEach((modalWindowOverlay) => {
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
-  openModalWindow(modalWindowEdit);
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-  toggleButtonState(config, popUpFormUserData);
+  removeInputError(config, popUpFormUserData);
+  toggleButtonState(config, popUpFormUserData, popUpUserActivityTypeBtn);
+  openModalWindow(modalWindowEdit);
 });
 
 buttonCloseModalWindowEdit.addEventListener('click', () => {
   closeModalWindow(modalWindowEdit);
-  removeInputError();
 });
 
 // Реализация функции отправки данных профиля
@@ -108,7 +91,9 @@ popUpFormUserData.addEventListener('submit', (e) => {
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
-  toggleButtonState(config, popUpFormNewCard);
+  popUpFormNewCard.reset();
+  removeInputError(config, popUpFormNewCard);
+  toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
   openModalWindow(modalWindowAdd);
 });
 
@@ -122,15 +107,11 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   }, listContainer, true);
 
   closeModalWindow(modalWindowAdd);
-  popUpFormNewCard.reset();
 });
 
 // Функция закрытия модального окна добавления карточки нажатием на "крестик"
 buttonCloseModalWindowAdd.addEventListener('click', () => {
   closeModalWindow(modalWindowAdd);
-  removeInputError();
-  popUpImageTitle.value = '',
-  popUpImageLink.value = '';
 });
 
 // Функция открытия модального окна с картинкой нажатием на любую картинку
