@@ -7,3 +7,5 @@ const initialCards = [
   {name: 'Байкал', link: './images/baikal.jpg'},
   {name: 'Таёжные леса', link: './images/taiga.jpg'}
 ];
+
+export default initialCards;
