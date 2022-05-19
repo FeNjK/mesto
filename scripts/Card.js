@@ -7,10 +7,12 @@ export default class Card {
   _popUpImage = document.querySelector('.popup__image'); // презентируемое изображение
   _popUpCaption = document.querySelector('.popup__caption'); // подпись презентируемого изображения
 
+  // Не понятно почему объявлять переменные можно только в TypeScript, ведь в других файлах получалось же.
+  // Надо разобраться... Пока пишу так, подожду ревью...
 
-  constructor({data, handleShowCard, handleDeleteCard, handleLikeCard}, cardSelector) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor({ name, link, handleShowCard, handleDeleteCard, handleLikeCard }, cardSelector) {
+    this._name = name;
+    this._link = link;
     this._cardSelector = cardSelector;
     this._handleShowCard = handleShowCard;
     this._handleDeleteCard = handleDeleteCard;
@@ -19,7 +21,13 @@ export default class Card {
 
   // Метод возврата шаблона DOM-разметки
   _getTemplate() {
-    return document.querySelector(this._cardSelector).content.querySelector('.element').cloneNode(true);
+     const cardElement = document
+    .querySelector(this._cardSelector)
+    .content
+    .querySelector('.element')
+    .cloneNode(true);
+
+    return cardElement; // Кажется это можно было сделать по-другому... *
   }
 
   // Метод добавления новой карточки
@@ -40,28 +48,19 @@ export default class Card {
     return this._cardContainer;
   }
 
-  // Слушатели срабатывания методов
-  _setEventListeners() {
-    this._cardMark.addEventListener('click', () => {
-      this._handleLikeCard();
-    });
-    this._cardTrash.addEventListener('click', () => {
-      this._handleDeleteCard();
-    });
-    this._cardImage.addEventListener('click', () => {
-      this._handleShowImage();
-    });
-  }
-
   // Метод "лайка" карточки
   _handleLikeCard() {
     this._cardMark.classList.toggle('element__mark_active');
   }
 
   // Метод удаления карточки
-  _handleDeleteCard(e) {
-    const element = e.target.closest('.element');
-    element.remove();
+  _handleDeleteCard() {
+    //const element = e.target.closest('.element');
+    //element.remove();
+
+    //e.target.closest('.element').remove();
+
+    cardElement.remove();
   }
 
   // Метод открытия модального окна с картинкой нажатием на любую картинку
@@ -72,6 +71,13 @@ export default class Card {
     this._popUpCaption.textContent = name;
     this._popUpImage.alt = name;
     this._popUpImage.src = link;
+  }
+
+  // Слушатели срабатывания методов
+  _setEventListeners() {
+    this._cardMark.addEventListener('click', this._handleLikeCard);
+    this._cardTrash.addEventListener('click', this._handleDeleteCard);
+    this._cardImage.addEventListener('click', this._handleShowImage(this._name, this._link));
   }
 }
 

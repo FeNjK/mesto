@@ -1,9 +1,5 @@
-import initialCards from './initialCards.js';
-import { openModalWindow, closeModalWindow } from './utils.js';
-import Card from './Card.js';
-//import FormValidator from './FormValidator.js';
-
 // Модальные окна
+const modalWindowOverlay = Array.from(document.querySelectorAll('.popup'));
 const modalWindowEdit = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
 const modalWindowAdd = document.querySelector('.popup_task_add'); //нашли модальное окно добавления карточки
 const modalWindowShowImage = document.querySelector('.popup_task_show-image'); //нашли модальное окно добавления карточки
@@ -32,74 +28,50 @@ const popUpImageTitle = popUpFormNewCard.querySelector('.popup__input_content_im
 const popUpImageLink = popUpFormNewCard.querySelector('.popup__input_content_image-link');//Поле с ссылкой на картинку в интернете
 const popUpFormNewCardBtn = popUpFormNewCard.querySelector('.popup__save-button');
 
+// Презентация нажатой картинки
+const popUpImage = document.querySelector('.popup__image');
+const popUpCaption = document.querySelector('.popup__caption');
+
 // Данные карточки отображенные на странице 
 const listContainer = document.querySelector('.elements'); // Список карточек
-//const template = document.querySelector('.template').content;
+const template = document.querySelector('.template').content;
 
-function createCard(card) {
-  return new Card(card, '.template').generateCard();
+// Функция открытия модальных окон
+function openModalWindow(modalWindow) {
+  modalWindow.classList.add('popup_activ');
+  document.addEventListener('keydown', closeModalWindowByEsc);
 }
 
-function render(cards) {
-  return (
-    cards.reverse().forEach((card) => listContainer.append(createCard(card)))
-  );
+// Функция закрытия модальных окон
+function closeModalWindow(modalWindow) {
+  modalWindow.classList.remove('popup_activ');
+  document.removeEventListener('keydown', closeModalWindowByEsc);
 }
 
-function addInArr() {
-  const newCard = createCard({
-    name: popUpImageTitle.value,
-    link: popUpImageLink.value,
-  }, '.template');
+// Функция закрытия модальных окон нажатием на клавишу "Esc"
+function closeModalWindowByEsc(e) {
+  if (e.key === 'Escape') {
+    const activModalWindow = document.querySelector('.popup_activ');
+      closeModalWindow(activModalWindow);
+  }
+}
 
-  listContainer.prepend(newCard);
-};
-
-//function addInArr() {
-//  const newItem = createCard({
-//    name: popUpImageTitle.value,
-//    link: popUpImageLink.value,
-//  }, '.template');
-
-//  listContainer.prepend(newItem);
-//}
-
-// Функция определяющая добавление новой карточки в начало списка
-//function addInArr(addCard, newItem) {
-//  if (newItem) {
-//    addCard.prepend(generateCard());
-//  } 
-//}
-
-//initialCards.forEach((item) => {
-//  const card = new Card(item, '.template');
-//  const cardElement = card.generateCard({
-//    name: popUpImageTitle.value,
-//    link: popUpImageLink.value,
-//  }, listContainer, true);
-
-//  listContainer.append(cardElement);
-//});
-
-
-//initialCards.forEach((item) => {
-  // передаём селектор темплейта при создании
-//  const card = new Card(item, '.template');
-//  const cardElement = card.generateCard({
-//    name: popUpImageTitle.value,
-//    link: popUpImageLink.value,
-//    }, listContainer, true);
-//  });
-
-//  listContainer.prepend(cardElement);
+// Функция закрытия модальных окон нажатием на оверлей
+modalWindowOverlay.forEach((modalWindowOverlay) => {
+  modalWindowOverlay.addEventListener('mousedown', (e) => {
+    if (e.target === e.currentTarget) {
+      closeModalWindow(e.currentTarget);
+    }
+  });
+});
 
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-  //removeInputError(config, popUpFormUserData);
-  //toggleButtonState(config, popUpFormUserData, popUpUserActivityTypeBtn);
+  removeInputError(config, popUpFormUserData);
+  toggleButtonState(config, popUpFormUserData, popUpUserActivityTypeBtn);
   openModalWindow(modalWindowEdit);
 });
 
@@ -120,15 +92,20 @@ popUpFormUserData.addEventListener('submit', (e) => {
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
   popUpFormNewCard.reset();
-  //removeInputError(config, popUpFormNewCard);
-  //toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
+  removeInputError(config, popUpFormNewCard);
+  toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
   openModalWindow(modalWindowAdd);
 });
 
 // Реализация функции отправки формы добавления карточки
 popUpFormNewCard.addEventListener('submit', (e) => {
   e.preventDefault();
-  addInArr();
+
+  addInArr({
+    name: popUpImageTitle.value,
+    link: popUpImageLink.value
+  }, listContainer, true);
+
   closeModalWindow(modalWindowAdd);
 });
 
@@ -137,9 +114,63 @@ buttonCloseModalWindowAdd.addEventListener('click', () => {
   closeModalWindow(modalWindowAdd);
 });
 
+// Функция открытия модального окна с картинкой нажатием на любую картинку
+function handleShowImage(popupShownContent) {
+  openModalWindow(modalWindowShowImage);
+  
+// Передача значений элемента модальному окну
+  popUpCaption.textContent = popupShownContent.name;
+  popUpImage.alt = popupShownContent.name;
+  popUpImage.src = popupShownContent.link;
+}
+
 // Функция закрытия модального окна с картинкой нажатием на "крестик"
 buttonCloseModalWindowShowImage.addEventListener('click', () => {
   closeModalWindow(modalWindowShowImage);
 });
 
-render(initialCards);
+function render() {
+  const html = initialCards.map(getElement);
+  listContainer.prepend(...html);
+}
+//Функция добавления новой карточки
+function getElement(cardСontent) {
+  const cardContainer = template.cloneNode(true);
+  const cardImage = cardContainer.querySelector('.element__image');
+  const cardTitle = cardContainer.querySelector('.element__title');
+  const cardMark = cardContainer.querySelector('.element__mark');
+  const cardTrash = cardContainer.querySelector('.element__trash');
+
+  // Прописываем связи между объектами массива и переменными присвоенными элементам страницы
+  cardImage.src = cardСontent.link;
+  cardImage.alt = cardСontent.name;
+  cardTitle.textContent = cardСontent.name;
+  
+  // Функция лайка карточки при нажатии на изображение сердечка под картинкой
+  cardMark.addEventListener('click', (e) => {
+    e.target.classList.toggle('element__mark_active');
+  });
+
+  // Функция удаления карточки при нажатии на изображение урны
+  cardTrash.addEventListener('click', (e) => {
+    const element = e.target.closest('.element');
+    element.remove();
+  });
+
+  // При нажатии на любое изображение цель нажатия превращается 
+  // в объект с соотв. атрибутами и их последующей передачей
+  cardImage.addEventListener('click', () => {
+    handleShowImage(cardСontent);
+  });
+
+  return cardContainer;
+}
+
+// Функция определяющая добавление новой карточки в начало списка
+function addInArr(cardContent, addCard, newItem) {
+  if (newItem) {
+    addCard.prepend(getElement(cardContent));
+  } 
+}
+
+render();
