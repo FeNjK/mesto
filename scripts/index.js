@@ -42,7 +42,7 @@ function createCard(card) {
 
 function render(cards) {
   return (
-    cards.reverse().forEach((card) => listContainer.append(createCard(card)))
+    cards.forEach((card) => listContainer.append(createCard(card)))
   );
 }
 
