@@ -24,13 +24,13 @@ const userActivityType = formUserData.querySelector('.profile-info__activity-typ
 const popUpFormUserData = document.querySelector('.popup__form_type_user-data');//Форма с данными профиля пользователя
 const popUpUserName = popUpFormUserData.querySelector('.popup__input_content_name');//Поле с именем пользователя
 const popUpUserActivityType = popUpFormUserData.querySelector('.popup__input_content_activity-type');//Поле с родом деятельности пользователя
-const popUpUserActivityTypeBtn = popUpFormUserData.querySelector('.popup__save-button');
+//const popUpUserActivityTypeBtn = popUpFormUserData.querySelector('.popup__save-button');
 
 // Поля заполнения данных КАРТИНКИ в модальном окне
 const popUpFormNewCard = document.querySelector('.popup__form_type_new-card');//Форма с данными новой карточки с картинкой
 const popUpImageTitle = popUpFormNewCard.querySelector('.popup__input_content_image-title');//Поле с названием картинки
 const popUpImageLink = popUpFormNewCard.querySelector('.popup__input_content_image-link');//Поле с ссылкой на картинку в интернете
-const popUpFormNewCardBtn = popUpFormNewCard.querySelector('.popup__save-button');
+//const popUpFormNewCardBtn = popUpFormNewCard.querySelector('.popup__save-button');
 
 // Данные карточки отображенные на странице 
 const listContainer = document.querySelector('.elements'); // Список карточек
@@ -54,44 +54,6 @@ function addInArr() {
 
   listContainer.prepend(newCard);
 };
-
-//function addInArr() {
-//  const newItem = createCard({
-//    name: popUpImageTitle.value,
-//    link: popUpImageLink.value,
-//  }, '.template');
-
-//  listContainer.prepend(newItem);
-//}
-
-// Функция определяющая добавление новой карточки в начало списка
-//function addInArr(addCard, newItem) {
-//  if (newItem) {
-//    addCard.prepend(generateCard());
-//  } 
-//}
-
-//initialCards.forEach((item) => {
-//  const card = new Card(item, '.template');
-//  const cardElement = card.generateCard({
-//    name: popUpImageTitle.value,
-//    link: popUpImageLink.value,
-//  }, listContainer, true);
-
-//  listContainer.append(cardElement);
-//});
-
-
-//initialCards.forEach((item) => {
-  // передаём селектор темплейта при создании
-//  const card = new Card(item, '.template');
-//  const cardElement = card.generateCard({
-//    name: popUpImageTitle.value,
-//    link: popUpImageLink.value,
-//    }, listContainer, true);
-//  });
-
-//  listContainer.prepend(cardElement);
 
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим

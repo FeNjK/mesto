@@ -10,7 +10,7 @@ export default class Card {
   // Не понятно почему объявлять переменные можно только в TypeScript, ведь в других файлах получалось же.
   // Надо разобраться... Пока пишу так, подожду ревью...
 
-  constructor( name, link, cardSelector) {
+  constructor( {name, link}, cardSelector) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
@@ -51,23 +51,18 @@ export default class Card {
   }
 
   // Метод удаления карточки
-  _handleDeleteCard() {
-    //const element = e.target.closest('.element');
-    //element.remove();
-
-    //e.target.closest('.element').remove();
-
-    cardElement.remove();
+  _handleDeleteCard(e) {
+    e.target.closest('.element').remove();
   }
 
   // Метод открытия модального окна с картинкой нажатием на любую картинку
-  _handleShowImage({ name, link }) {
+  _handleShowImage() {
     openModalWindow(this._modalWindowShowImage);
     
     // Передача значений элемента модальному окну
-    this._popUpCaption.textContent = name;
-    this._popUpImage.alt = name;
-    this._popUpImage.src = link;
+    this._popUpCaption.textContent = this._name;
+    this._popUpImage.alt = this._name;
+    this._popUpImage.src = this._link;
   }
 
   // Слушатели срабатывания методов
@@ -75,11 +70,11 @@ export default class Card {
     this._cardMark.addEventListener('click', () => {
       this._handleLikeCard();
     });
-    this._cardTrash.addEventListener('click', () => {
-      this._handleDeleteCard();
+    this._cardTrash.addEventListener('click', (e) => {
+      this._handleDeleteCard(e);
     });
     this._cardImage.addEventListener('click', () => {
-      this._handleShowImage(this._name, this._link);
+      this._handleShowImage();
     });
   }
 }
