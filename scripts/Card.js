@@ -10,13 +10,10 @@ export default class Card {
   // Не понятно почему объявлять переменные можно только в TypeScript, ведь в других файлах получалось же.
   // Надо разобраться... Пока пишу так, подожду ревью...
 
-  constructor({ name, link, handleShowCard, handleDeleteCard, handleLikeCard }, cardSelector) {
+  constructor( name, link, cardSelector) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
-    this._handleShowCard = handleShowCard;
-    this._handleDeleteCard = handleDeleteCard;
-    this._handleLikeCard = handleLikeCard;
   }
 
   // Метод возврата шаблона DOM-разметки
@@ -75,9 +72,15 @@ export default class Card {
 
   // Слушатели срабатывания методов
   _setEventListeners() {
-    this._cardMark.addEventListener('click', this._handleLikeCard);
-    this._cardTrash.addEventListener('click', this._handleDeleteCard);
-    this._cardImage.addEventListener('click', this._handleShowImage(this._name, this._link));
+    this._cardMark.addEventListener('click', () => {
+      this._handleLikeCard();
+    });
+    this._cardTrash.addEventListener('click', () => {
+      this._handleDeleteCard();
+    });
+    this._cardImage.addEventListener('click', () => {
+      this._handleShowImage(this._name, this._link);
+    });
   }
 }
 
