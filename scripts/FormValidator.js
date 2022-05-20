@@ -67,7 +67,7 @@ export default class FormValidator {
   
   // Метод проверки на валидацию нескольких полей ввода
   _setEventListeners(form) {
-    this._inputList = Array.from(form.querySelectorAll(inputSelector));
+    this._inputList = Array.from(form.querySelectorAll(this._config.inputSelector));
     this._buttonElement = form.querySelector(this._submitButtonSelector);
   
     this._toggleButtonState();
