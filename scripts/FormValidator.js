@@ -4,7 +4,7 @@ export default class FormValidator {
     this._config = config;
     this._form = form;
     this._inputSelector = this._form.querySelector(this._config.inputSelector);
-    this._submitButtonSelector = this._form.querySelector(this._config.submitButtonSelector);
+    this._submitButtonSelector = this._config.submitButtonSelector;
     this._inactiveButtonClass = this._form.querySelectorAll(this._config.inactiveButtonClass);
     this._inputErrorClass = this._form.querySelectorAll(this._config.inputErrorClass);
     this._errorMessageClass = this._form.querySelectorAll(this._config.errorMessageClass);
@@ -22,7 +22,7 @@ export default class FormValidator {
   };
 
   // Функция удаления ошибок валидации
-  _removeInputError() {
+  /* _removeInputError() {
     const textError = Array.from(this._form.querySelectorAll(`.${this._errorMessageClass}`));
     const placeError = Array.from(this._form.querySelectorAll(`.${this._inputErrorClass}`));
     
@@ -32,7 +32,7 @@ export default class FormValidator {
     placeError.forEach((placeError) => {
       placeError.classList.remove(this._inputErrorClass);
     });
-  }
+  } */
 
   // Метод показа сообщения об ошибке при валидации
   _showInputError = (errorMessage) => {
