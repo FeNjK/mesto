@@ -11,7 +11,7 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    this._formList = Array.from(document.querySelectorAll(this._config.formSelector));
+    this._formList = this._form.querySelectorAll(this._config.formSelector);
       
     this._formList.forEach((form) => {
       form.addEventListener('submit', (e) => {
@@ -36,7 +36,7 @@ export default class FormValidator {
 
   // Метод показа сообщения об ошибке при валидации
   _showInputError = (errorMessage) => {
-    this._errorElement = this._formElement.querySelector(`#${this._inputElement.id}-error`);
+    this._errorElement = this._form.querySelector(`#${this._inputElement.id}-error`);
     this._inputElement.classList.add(this._inputErrorClass);
     this._errorElement.classList.add(this._errorMessageClass);
     this._errorElement.textContent = errorMessage;
@@ -44,7 +44,7 @@ export default class FormValidator {
 
 // Метод сокрытия сообщения об ошибке при валидации
   _hideInputError = () => {
-    this._errorElement = this._formElement.querySelector(`#${this._inputElement.id}-error`);
+    this._errorElement = this._form.querySelector(`#${this._inputElement.id}-error`);
     this._inputElement.classList.remove(this._inputErrorClass);
     this._errorElement.classList.remove(this._errorMessageClass);
     this._errorElement.textContent = '';
@@ -66,9 +66,9 @@ export default class FormValidator {
   };
   
   // Метод проверки на валидацию нескольких полей ввода
-  _setEventListeners(form) {
-    this._inputList = Array.from(form.querySelectorAll(this._config.inputSelector));
-    this._buttonElement = form.querySelector(this._submitButtonSelector);
+  _setEventListeners() {
+    this._inputList = this._form.querySelectorAll(this._config.inputSelector);
+    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector);
   
     this._toggleButtonState();
     
