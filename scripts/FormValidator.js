@@ -1,8 +1,8 @@
 export default class FormValidator {
 
-  constructor(config, formSelector) {
+  constructor(config, form) {
     this._config = config;
-    this._formSelector = formSelector;
+    this._form = form;
     this._inputSelector = this._formSelector.querySelector(this._config.inputSelector);
     this._submitButtonSelector = this._formSelector.querySelector(this._config.submitButtonSelector);
     this._inactiveButtonClass = this._formSelector.querySelectorAll(this._config.inactiveButtonClass);
@@ -11,9 +11,9 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    const formList = Array.from(document.querySelectorAll(this._config.formSelector));
+    this._formList = Array.from(document.querySelectorAll(this._config.formSelector));
       
-    formList.forEach((formElement) => {
+    this._formList.forEach((formElement) => {
       formElement.addEventListener('submit', (e) => {
         e.preventDefault();
       });
@@ -66,9 +66,9 @@ export default class FormValidator {
   };
   
   // Метод проверки на валидацию нескольких полей ввода
-  _setEventListeners() {
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+  _setEventListeners(formElement) {
+    this._inputList = Array.from(formElement.querySelectorAll(inputSelector));
+    this._buttonElement = formElement.querySelector(this._submitButtonSelector);
   
     this._toggleButtonState();
     

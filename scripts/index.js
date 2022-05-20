@@ -24,13 +24,13 @@ const userActivityType = formUserData.querySelector('.profile-info__activity-typ
 const popUpFormUserData = document.querySelector('.popup__form_type_user-data');//Форма с данными профиля пользователя
 const popUpUserName = popUpFormUserData.querySelector('.popup__input_content_name');//Поле с именем пользователя
 const popUpUserActivityType = popUpFormUserData.querySelector('.popup__input_content_activity-type');//Поле с родом деятельности пользователя
-//const popUpUserActivityTypeBtn = popUpFormUserData.querySelector('.popup__save-button');
+const popUpUserActivityTypeBtn = popUpFormUserData.querySelector('.popup__save-button');
 
 // Поля заполнения данных КАРТИНКИ в модальном окне
 const popUpFormNewCard = document.querySelector('.popup__form_type_new-card');//Форма с данными новой карточки с картинкой
 const popUpImageTitle = popUpFormNewCard.querySelector('.popup__input_content_image-title');//Поле с названием картинки
 const popUpImageLink = popUpFormNewCard.querySelector('.popup__input_content_image-link');//Поле с ссылкой на картинку в интернете
-//const popUpFormNewCardBtn = popUpFormNewCard.querySelector('.popup__save-button');
+const popUpFormNewCardBtn = popUpFormNewCard.querySelector('.popup__save-button');
 
 // Данные карточки отображенные на странице 
 const listContainer = document.querySelector('.elements'); // Список карточек
@@ -98,7 +98,7 @@ popUpFormUserData.addEventListener('submit', (e) => {
 buttonAdd.addEventListener('click', () => {
   popUpFormNewCard.reset();
   popUpFormNewCardValidator.removeInputError();
-  popUpFormNewCardValidator.toggleButtonState(popUpFormNewCard);
+  popUpFormNewCardValidator.toggleButtonState();
   openModalWindow(modalWindowAdd);
 });
 
