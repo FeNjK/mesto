@@ -1,7 +1,7 @@
 import initialCards from './initialCards.js';
 import { openModalWindow, closeModalWindow } from './utils.js';
 import Card from './Card.js';
-//import FormValidator from './FormValidator.js';
+import FormValidator from './FormValidator.js';
 
 // Модальные окна
 const modalWindowEdit = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
@@ -34,7 +34,22 @@ const popUpImageLink = popUpFormNewCard.querySelector('.popup__input_content_ima
 
 // Данные карточки отображенные на странице 
 const listContainer = document.querySelector('.elements'); // Список карточек
-//const template = document.querySelector('.template').content;
+
+// Конфигурационный файл валидации
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_error',
+  errorMessageClass: 'popup__validation-message_active'
+};
+
+const popUpFormUserDataValidator = new FormValidator(config, popUpFormUserData);
+popUpFormUserDataValidator.enableValidation();
+
+const popUpFormNewCardValidator = new FormValidator(config, popUpFormNewCard);
+popUpFormNewCardValidator.enableValidation();
 
 function createCard(card) {
   return new Card(card, '.template').generateCard();
@@ -60,8 +75,8 @@ function addInArr() {
 buttonEdit.addEventListener('click', () => {
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-  //removeInputError(config, popUpFormUserData);
-  //toggleButtonState(config, popUpFormUserData, popUpUserActivityTypeBtn);
+  popUpFormUserDataValidator.removeInputError();
+  popUpFormUserDataValidator.toggleButtonState();
   openModalWindow(modalWindowEdit);
 });
 
@@ -82,8 +97,8 @@ popUpFormUserData.addEventListener('submit', (e) => {
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
   popUpFormNewCard.reset();
-  //removeInputError(config, popUpFormNewCard);
-  //toggleButtonState(config, popUpFormNewCard, popUpFormNewCardBtn);
+  popUpFormNewCardValidator.removeInputError();
+  popUpFormNewCardValidator.toggleButtonState(popUpFormNewCard);
   openModalWindow(modalWindowAdd);
 });
 

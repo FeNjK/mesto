@@ -1,4 +1,4 @@
-import { openModalWindow } from './utils.js'; // Не уверен, что тут это вообще нужно, т.к. уже есть в index.js...
+import { openModalWindow } from './utils.js';
 
 export default class Card {
 
