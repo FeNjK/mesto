@@ -31,7 +31,7 @@ export default class FormValidator {
     errorElement.textContent = errorMessage;
   }
 
-// Метод сокрытия сообщения об ошибке при валидации
+  // Метод сокрытия сообщения об ошибке при валидации
   _hideInputError(inputElement) {
     const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
@@ -74,7 +74,8 @@ export default class FormValidator {
       });
     });
   }
-
+  
+  // Метод включения валидации формы
   enableValidation() {
     this._formList = document.querySelectorAll(this._config.formSelector);
 

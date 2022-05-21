@@ -7,9 +7,6 @@ export default class Card {
   _popUpImage = document.querySelector('.popup__image'); // презентируемое изображение
   _popUpCaption = document.querySelector('.popup__caption'); // подпись презентируемого изображения
 
-  // Не понятно почему объявлять переменные можно только в TypeScript, ведь в других файлах получалось же.
-  // Надо разобраться... Пока пишу так, подожду ревью...
-
   constructor( {name, link}, cardSelector) {
     this._name = name;
     this._link = link;

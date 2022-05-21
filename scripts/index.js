@@ -50,7 +50,6 @@ popUpFormUserDataValidator.enableValidation();
 const popUpFormNewCardValidator = new FormValidator(config, popUpFormNewCard);
 popUpFormNewCardValidator.enableValidation();
 
-
 function createCard(card) {
   return new Card(card, '.template').generateCard();
 }
