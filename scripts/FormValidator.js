@@ -8,30 +8,20 @@ export default class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorMessageClass = config.errorMessageClass;
-    //this._inputList = Array.from(form.querySelectorAll(config.inputElement));
-
-    /* this._inputElement = config.inputSelector;
-    this._buttonElement = form.querySelector(config.submitButtonSelector);
-    this._inactiveButtonClass = form.querySelectorAll(config.inactiveButtonClass);
-    this._inputErrorClass = form.querySelectorAll(config.inputErrorClass);
-    this._errorMessageClass = form.querySelectorAll(config.errorMessageClass); */
-
-    /* this._inputElement = this._form.querySelector(this._config.inputSelector);
-    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector);
-    this._inactiveButtonClass = this._form.querySelectorAll(this._config.inactiveButtonClass);
-    this._inputErrorClass = this._form.querySelectorAll(this._config.inputErrorClass);
-    this._errorMessageClass = this._form.querySelectorAll(this._config.errorMessageClass); */
-
-
   }
 
   // Метод очистки полей ввода (на передачу в index.js)
-  /* removeInputError() {
-    this._inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement);
-      inputElement.value = '';
+  removeInputError() {
+    const textError = this._form.querySelectorAll(`.${this._config.errorMessageClass}`);
+    const placeError = this._form.querySelectorAll(`.${this._config.inputErrorClass}`);
+    
+    textError.forEach((textError) => {
+      textError.textContent = '';
     });
-  } */
+    placeError.forEach((placeError) => {
+      placeError.classList.remove(this._config.inputErrorClass);
+    });
+  }
 
   // Метод показа сообщения об ошибке при валидации
   _showInputError (inputElement, errorMessage) {
@@ -86,18 +76,13 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    /* const formList = Array.from(document.querySelectorAll(config.formSelector));
+    this._formList = document.querySelectorAll(this._config.formSelector);
 
-    formList.forEach((form) => {
+    this._formList.forEach((form) => {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
       });
       this._setEventListeners();
-    }); */
-
-    this._form.addEventListener('submit', function (e) {
-      e.preventDefault();
     });
-      this._setEventListeners();
   };
 }
