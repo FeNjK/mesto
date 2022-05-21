@@ -3,80 +3,101 @@ export default class FormValidator {
   constructor(config, form) {
     this._config = config;
     this._form = form;
-    this._inputSelector = this._form.querySelector(this._config.inputSelector);
-    this._submitButtonSelector = this._config.submitButtonSelector;
+    this._inputElement = config.inputSelector;
+    this._buttonElement = form.querySelector(config.submitButtonSelector);
+    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._inputErrorClass = config.inputErrorClass;
+    this._errorMessageClass = config.errorMessageClass;
+    //this._inputList = Array.from(form.querySelectorAll(config.inputElement));
+
+    /* this._inputElement = config.inputSelector;
+    this._buttonElement = form.querySelector(config.submitButtonSelector);
+    this._inactiveButtonClass = form.querySelectorAll(config.inactiveButtonClass);
+    this._inputErrorClass = form.querySelectorAll(config.inputErrorClass);
+    this._errorMessageClass = form.querySelectorAll(config.errorMessageClass); */
+
+    /* this._inputElement = this._form.querySelector(this._config.inputSelector);
+    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector);
     this._inactiveButtonClass = this._form.querySelectorAll(this._config.inactiveButtonClass);
     this._inputErrorClass = this._form.querySelectorAll(this._config.inputErrorClass);
-    this._errorMessageClass = this._form.querySelectorAll(this._config.errorMessageClass);
+    this._errorMessageClass = this._form.querySelectorAll(this._config.errorMessageClass); */
+
+
   }
 
-  enableValidation() {
-    this._formList = this._form.querySelectorAll(this._config.formSelector);
-      
-    this._formList.forEach((form) => {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-      });
-      this._setEventListeners();
-    });
-  };
-
-  // Функция удаления ошибок валидации
-  /* _removeInputError() {
-    const textError = Array.from(this._form.querySelectorAll(`.${this._errorMessageClass}`));
-    const placeError = Array.from(this._form.querySelectorAll(`.${this._inputErrorClass}`));
-    
-    textError.forEach((textError) => {
-      textError.textContent = '';
-    });
-    placeError.forEach((placeError) => {
-      placeError.classList.remove(this._inputErrorClass);
+  // Метод очистки полей ввода (на передачу в index.js)
+  /* removeInputError() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+      inputElement.value = '';
     });
   } */
 
   // Метод показа сообщения об ошибке при валидации
-  _showInputError = (errorMessage) => {
-    this._errorElement = this._form.querySelector(`#${this._inputElement.id}-error`);
-    this._inputElement.classList.add(this._inputErrorClass);
-    this._errorElement.classList.add(this._errorMessageClass);
-    this._errorElement.textContent = errorMessage;
+  _showInputError (inputElement, errorMessage) {
+    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.classList.add(this._errorMessageClass);
+    errorElement.textContent = errorMessage;
   }
 
 // Метод сокрытия сообщения об ошибке при валидации
-  _hideInputError = () => {
-    this._errorElement = this._form.querySelector(`#${this._inputElement.id}-error`);
-    this._inputElement.classList.remove(this._inputErrorClass);
-    this._errorElement.classList.remove(this._errorMessageClass);
-    this._errorElement.textContent = '';
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorMessageClass);
+    errorElement.textContent = '';
   };
-
-  // Метод определения состояния кнопки сохранения
-  _toggleButtonState() {
-    this._buttonElement.disabled = !this._form.checkValidity();
-    this._buttonElement.classList.toggle(this._inactiveButtonClass, !this._form.checkValidity());
-  }
 
   // Метод проверки поля ввода на валидность
-  _checkInputValidity = (form, inputElement) => {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(form, inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(form, inputElement);
+      this._hideInputError(inputElement);
     }
   };
+
+  // Метод условий состояния кнопки сохранения данных формы
+  _toggleButtonState(isActive) {
+    if (isActive) {
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+    } else {
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+    }
+  }
   
+  // Метод валидации кнопки сохранения данных формы (на передачу в index.js)
+  checkButtonState() {
+    this._toggleButtonState(this._form.checkValidity());
+  }
+
   // Метод проверки на валидацию нескольких полей ввода
   _setEventListeners() {
     this._inputList = this._form.querySelectorAll(this._config.inputSelector);
-    this._buttonElement = this._form.querySelector(this._config.submitButtonSelector);
-  
-    this._toggleButtonState();
     
+    this._toggleButtonState(this._form.checkValidity());
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._checkInputValidity(form, inputElement);
-        this._toggleButtonState();
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState(this._form.checkValidity());
       });
     });
+  }
+
+  enableValidation() {
+    /* const formList = Array.from(document.querySelectorAll(config.formSelector));
+
+    formList.forEach((form) => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+      });
+      this._setEventListeners();
+    }); */
+
+    this._form.addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+      this._setEventListeners();
   };
 }
