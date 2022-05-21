@@ -43,11 +43,13 @@ const config = {
   errorMessageClass: 'popup__validation-message_active'
 };
 
+// Создание экземпляров класса FormValidator для каждой формы
 const popUpFormUserDataValidator = new FormValidator(config, popUpFormUserData);
 popUpFormUserDataValidator.enableValidation();
 
 const popUpFormNewCardValidator = new FormValidator(config, popUpFormNewCard);
 popUpFormNewCardValidator.enableValidation();
+
 
 function createCard(card) {
   return new Card(card, '.template').generateCard();
