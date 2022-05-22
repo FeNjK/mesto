@@ -6,19 +6,12 @@ import FormValidator from './FormValidator.js';
 // Модальные окна
 const modalWindowEdit = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
 const modalWindowAdd = document.querySelector('.popup_task_add'); //нашли модальное окно добавления карточки
-const modalWindowShowImage = document.querySelector('.popup_task_show-image'); //нашли модальное окно добавления карточки
 
 // Кнопки
 const buttonEdit = document.querySelector('.profile-info__editing-button'); //Нашли кнопку редактирования профиля
 const buttonAdd = document.querySelector('.profile__add-button'); //Нашли кнопку добавления карточки
-/* const buttonCloseModalWindowEdit = modalWindowEdit.querySelector('.popup__close-button_window_edit');//Нашли кнопку закрытия модального окна
-const buttonCloseModalWindowAdd = modalWindowAdd.querySelector('.popup__close-button_window_add');
-const buttonCloseModalWindowShowImage = modalWindowShowImage.querySelector('.popup__close-button_window_show-image'); */
 
-const closeButton = document.querySelector('.popup__close-button');
-const activModalWindow = document.querySelector('.popup_activ');
-
-// Данные профиля отображенные на странице 
+// Данные профиля отображенные на странице
 const formUserData = document.querySelector('.profile-info__data');//нашли форму с данными профиля пользователя
 const userName = formUserData.querySelector('.profile-info__name');//нашли поле с именем пользователя
 const userActivityType = formUserData.querySelector('.profile-info__activity-type');// нашли поле с родом деятельности пользователя
@@ -48,16 +41,18 @@ const config = {
 
 // Создание экземпляров класса FormValidator для каждой формы
 const popUpFormUserDataValidator = new FormValidator(config, popUpFormUserData);
-popUpFormUserDataValidator.enableValidation();
-
 const popUpFormNewCardValidator = new FormValidator(config, popUpFormNewCard);
+
+// Вызов соответствующих методов у оных объектов
+popUpFormUserDataValidator.enableValidation();
 popUpFormNewCardValidator.enableValidation();
 
+// Создание экземпляра класса Card // как-то коряво написано, надо будет переделать...
 function createCard(card) {
   return new Card(card, '.template').generateCard();
 }
 
-function render(cards) {
+function render(cards) { // И это тоже надо переделать будет...
   return (
     cards.reverse().forEach((card) => listContainer.prepend(createCard(card)))
   );
@@ -105,26 +100,6 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   e.preventDefault();
   addInArr();
   closeModalWindow(modalWindowAdd);
-});
-
-/* // Функция закрытия модального окна редактирования данных профиля нажатием на "крестик"
-buttonCloseModalWindowEdit.addEventListener('click', () => {
-  closeModalWindow(modalWindowEdit);
-});
-
-// Функция закрытия модального окна добавления карточки нажатием на "крестик"
-buttonCloseModalWindowAdd.addEventListener('click', () => {
-  closeModalWindow(modalWindowAdd);
-});
-
-// Функция закрытия модального окна с картинкой нажатием на "крестик"
-buttonCloseModalWindowShowImage.addEventListener('click', () => {
-  closeModalWindow(modalWindowShowImage);
-}); */
-
-// Функция закрытия модального окна добавления карточки нажатием на "крестик"
-closeButton.addEventListener('click', () => {
-  closeModalWindow(activModalWindow);
 });
 
 render(initialCards);
