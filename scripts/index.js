@@ -75,6 +75,7 @@ buttonEdit.addEventListener('click', () => {
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
   popUpFormUserDataValidator.removeInputError();
+  //popUpFormUserDataValidator.toggleButtonState();
   popUpFormUserDataValidator.checkButtonState();
   openModalWindow(modalWindowEdit);
 });
@@ -97,6 +98,7 @@ popUpFormUserData.addEventListener('submit', (e) => {
 buttonAdd.addEventListener('click', () => {
   popUpFormNewCard.reset();
   popUpFormNewCardValidator.removeInputError();
+  //popUpFormNewCardValidator.toggleButtonState();
   popUpFormNewCardValidator.checkButtonState();
   openModalWindow(modalWindowAdd);
 });

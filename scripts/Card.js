@@ -15,13 +15,13 @@ export default class Card {
 
   // Метод возврата шаблона DOM-разметки
   _getTemplate() {
-     const cardElement = document
+    const cardElement = document
     .querySelector(this._cardSelector)
     .content
     .querySelector('.element')
     .cloneNode(true);
 
-    return cardElement; // Кажется это можно было сделать по-другому... *
+    return cardElement;
   }
 
   // Метод добавления новой карточки
@@ -48,18 +48,19 @@ export default class Card {
   }
 
   // Метод удаления карточки
-  _handleDeleteCard(e) {
-    e.target.closest('.element').remove();
+  _handleDeleteCard() {
+    this._cardContainer.remove();
+    this._cardContainer = null;
   }
 
   // Метод открытия модального окна с картинкой нажатием на любую картинку
   _handleShowImage() {
-    openModalWindow(this._modalWindowShowImage);
-    
     // Передача значений элемента модальному окну
     this._popUpCaption.textContent = this._name;
     this._popUpImage.alt = this._name;
     this._popUpImage.src = this._link;
+
+    openModalWindow(this._modalWindowShowImage);
   }
 
   // Слушатели срабатывания методов
@@ -67,8 +68,8 @@ export default class Card {
     this._cardMark.addEventListener('click', () => {
       this._handleLikeCard();
     });
-    this._cardTrash.addEventListener('click', (e) => {
-      this._handleDeleteCard(e);
+    this._cardTrash.addEventListener('click', () => {
+      this._handleDeleteCard();
     });
     this._cardImage.addEventListener('click', () => {
       this._handleShowImage();
