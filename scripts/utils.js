@@ -20,6 +20,14 @@ const closeModalWindowByEsc = (e) => {
   }
 }
 
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (e) => {
+    if (e.target.classList.contains('popup_activ') || e.target.classList.contains('popup__close-button')) {
+      closeModalWindow(popup);
+    }
+  });
+});
+
 /* modalWindowOverlay.forEach((modalWindowOverlay) => {
   modalWindowOverlay.addEventListener('mousedown', (e) => {
     if (e.target === e.currentTarget || e.target.classList.contains('popup__close-button')) {
@@ -27,14 +35,5 @@ const closeModalWindowByEsc = (e) => {
     }
   });
 }); */
-
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (e) => {
-    if (//e.target.classList.contains('popup_activ') || 
-    e.target.classList.contains('popup__close-button')) {
-      closeModalWindow(popup);
-    }
-  });
-});
 
 export { openModalWindow, closeModalWindow };
