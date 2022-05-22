@@ -11,9 +11,12 @@ const modalWindowShowImage = document.querySelector('.popup_task_show-image'); /
 // Кнопки
 const buttonEdit = document.querySelector('.profile-info__editing-button'); //Нашли кнопку редактирования профиля
 const buttonAdd = document.querySelector('.profile__add-button'); //Нашли кнопку добавления карточки
-const buttonCloseModalWindowEdit = modalWindowEdit.querySelector('.popup__close-button_window_edit');//Нашли кнопку закрытия модального окна
+/* const buttonCloseModalWindowEdit = modalWindowEdit.querySelector('.popup__close-button_window_edit');//Нашли кнопку закрытия модального окна
 const buttonCloseModalWindowAdd = modalWindowAdd.querySelector('.popup__close-button_window_add');
-const buttonCloseModalWindowShowImage = modalWindowShowImage.querySelector('.popup__close-button_window_show-image');
+const buttonCloseModalWindowShowImage = modalWindowShowImage.querySelector('.popup__close-button_window_show-image'); */
+
+const closeButton = document.querySelector('.popup__close-button');
+const activModalWindow = document.querySelector('.popup_activ');
 
 // Данные профиля отображенные на странице 
 const formUserData = document.querySelector('.profile-info__data');//нашли форму с данными профиля пользователя
@@ -75,13 +78,8 @@ buttonEdit.addEventListener('click', () => {
   popUpUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
   popUpUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
   popUpFormUserDataValidator.removeInputError();
-  //popUpFormUserDataValidator.toggleButtonState();
-  popUpFormUserDataValidator.checkButtonState();
+  popUpFormUserDataValidator.toggleButtonState();
   openModalWindow(modalWindowEdit);
-});
-
-buttonCloseModalWindowEdit.addEventListener('click', () => {
-  closeModalWindow(modalWindowEdit);
 });
 
 // Реализация функции отправки данных профиля
@@ -98,8 +96,7 @@ popUpFormUserData.addEventListener('submit', (e) => {
 buttonAdd.addEventListener('click', () => {
   popUpFormNewCard.reset();
   popUpFormNewCardValidator.removeInputError();
-  //popUpFormNewCardValidator.toggleButtonState();
-  popUpFormNewCardValidator.checkButtonState();
+  popUpFormNewCardValidator.toggleButtonState();
   openModalWindow(modalWindowAdd);
 });
 
@@ -110,6 +107,11 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   closeModalWindow(modalWindowAdd);
 });
 
+/* // Функция закрытия модального окна редактирования данных профиля нажатием на "крестик"
+buttonCloseModalWindowEdit.addEventListener('click', () => {
+  closeModalWindow(modalWindowEdit);
+});
+
 // Функция закрытия модального окна добавления карточки нажатием на "крестик"
 buttonCloseModalWindowAdd.addEventListener('click', () => {
   closeModalWindow(modalWindowAdd);
@@ -118,6 +120,11 @@ buttonCloseModalWindowAdd.addEventListener('click', () => {
 // Функция закрытия модального окна с картинкой нажатием на "крестик"
 buttonCloseModalWindowShowImage.addEventListener('click', () => {
   closeModalWindow(modalWindowShowImage);
+}); */
+
+// Функция закрытия модального окна добавления карточки нажатием на "крестик"
+closeButton.addEventListener('click', () => {
+  closeModalWindow(activModalWindow);
 });
 
 render(initialCards);

@@ -43,9 +43,9 @@ export default class FormValidator {
     }
   };
 
-  // Метод условий состояния кнопки сохранения данных формы
-  _toggleButtonState(isActive) {
-    if (isActive) {
+  // Метод условий состояния кнопки сохранения данных формы (на передачу в index.js)
+  toggleButtonState() {
+    if (this._form.checkValidity()) {
       this._buttonElement.removeAttribute('disabled');
       this._buttonElement.classList.remove(this._inactiveButtonClass);
     } else {
@@ -53,19 +53,14 @@ export default class FormValidator {
       this._buttonElement.classList.add(this._inactiveButtonClass);
     }
   }
-  
-  // Метод валидации кнопки сохранения данных формы (на передачу в index.js)
-  checkButtonState() {
-    this._toggleButtonState(this._form.checkValidity());
-  }
 
   // Метод проверки на валидацию нескольких полей ввода
   _setEventListeners() {
-    this._toggleButtonState(this._form.checkValidity());
+    this.toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(this._form.checkValidity());
+        this.toggleButtonState();
       });
     });
   }
