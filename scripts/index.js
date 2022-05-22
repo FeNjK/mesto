@@ -43,7 +43,7 @@ const config = {
 const popUpFormUserDataValidator = new FormValidator(config, popUpFormUserData);
 const popUpFormNewCardValidator = new FormValidator(config, popUpFormNewCard);
 
-// Вызов соответствующих методов у оных объектов
+// Вызов соответствующих свойств у оных объектов
 popUpFormUserDataValidator.enableValidation();
 popUpFormNewCardValidator.enableValidation();
 
