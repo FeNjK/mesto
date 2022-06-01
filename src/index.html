@@ -7,7 +7,6 @@
     <meta name="description" content="Mesto: интерактивное путешествие по России">
     <meta name="keywords" content="HTML5, CSS">
     <meta name="author" content="Андрей Коростелев">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
   </head>
   
@@ -15,7 +14,7 @@
     
     <header class="header">
       <img class="header__logo" 
-           src="./images/logo.svg" 
+           src="<%=require('./images/logo.svg')%>" 
            alt="Логотип">
     </header>
     
@@ -24,7 +23,7 @@
       <section class="profile">
         <article class="profile-info">
           <img class="profile-info__avatar" 
-               src="./images/avatar.svg" 
+               src="<%=require('./images/avatar.svg')%>" 
                alt="Аватар пользователя">
           <div class="profile-info__data">
             <div class="profile-info__single-level">
@@ -34,7 +33,7 @@
                    type="button"
                    aria-label="Кнопка редактирование профиля">
                 <img class="profile-info__editing-pen"
-                     src="./images/editing-pen.svg" 
+                     src="<%=require('./images/editing-pen.svg')%>" 
                      alt="Перо редактирования">
               </button>
             </div>
@@ -45,7 +44,7 @@
                 type="button" 
                 title="Добавить фотографии">
           <img class="profile__button-vector" 
-               src="./images/button-vector.svg" 
+               src="<%=require('./images/button-vector.svg')%>" 
                alt="Добавить фотографии">
         </button>
       </section>
@@ -166,7 +165,7 @@
       </li>
     </template>
 
-    <script src="./scripts/index.js" type="module"></script>
+    <script src="./pages/index.js" type="module"></script>
     
   </body>
   

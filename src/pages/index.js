@@ -1,7 +1,10 @@
-import initialCards from './initialCards.js';
-import { openModalWindow, closeModalWindow } from './utils.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import '../pages/index.css'; // добавbkb импорт главного файла стилей для нормальной работы «Вебпака»!!!
+
+import initialCards from '../scripts/utils/initialCards.js';
+import { openModalWindow, closeModalWindow } from '../scripts/utils/utils.js';
+import Card from '../scripts/components/Card.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import Section from "../scripts/components/Section.js";
 
 // Модальные окна
 const modalWindowEdit = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
@@ -48,15 +51,31 @@ popUpFormUserDataValidator.enableValidation();
 popUpFormNewCardValidator.enableValidation();
 
 // Создание экземпляра класса Card // как-то коряво написано, надо будет переделать...
-function createCard(card) {
+/* function createCard(card) {
   return new Card(card, '.template').generateCard();
-}
+} */
 
-function render(cards) { // И это тоже надо переделать будет...
+/* function render(cards) { // И это тоже надо переделать будет...
   return (
     cards.reverse().forEach((card) => listContainer.prepend(createCard(card)))
   );
+} */
+
+/* function createCard(item) {
+  const card = new Card(item, '.template');
+  return card;
+} */
+
+function createCard(item) {
+  return new Card(item, '.template');
 }
+
+const photoLibrary = new Section({ data: initialCards, render: (item) => {
+    const card = createCard(item);
+    const cardElement = card.generateCard(); // кажется можно сократить запись на 1 строчку...
+    photoLibrary.addItem(cardElement);
+  }
+}, listContainer);
 
 function addInArr() {
   const newCard = createCard({

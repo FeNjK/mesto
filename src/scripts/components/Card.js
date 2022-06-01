@@ -1,4 +1,4 @@
-import { openModalWindow } from './utils.js';
+import { openModalWindow } from '../utils/utils.js';
 
 export default class Card {
 
