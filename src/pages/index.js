@@ -30,7 +30,8 @@ const popUpImageTitle = popUpFormNewCard.querySelector('.popup__input_content_im
 const popUpImageLink = popUpFormNewCard.querySelector('.popup__input_content_image-link');//Поле с ссылкой на картинку в интернете
 
 // Данные карточки отображенные на странице 
-const listContainer = document.querySelector('.elements'); // Список карточек
+const cardList = document.querySelector('.elements'); // Список карточек
+const cardListSelector = '.elements'; // Список карточек
 
 // Конфигурационный файл валидации
 const config = {
@@ -50,32 +51,38 @@ const popUpFormNewCardValidator = new FormValidator(config, popUpFormNewCard);
 popUpFormUserDataValidator.enableValidation();
 popUpFormNewCardValidator.enableValidation();
 
-// Создание экземпляра класса Card // как-то коряво написано, надо будет переделать...
+// Создание экземпляра класса Card
 /* function createCard(card) {
   return new Card(card, '.template').generateCard();
 } */
 
-/* function render(cards) { // И это тоже надо переделать будет...
+/* function render(cards) {
   return (
-    cards.reverse().forEach((card) => listContainer.prepend(createCard(card)))
+    cards.reverse().forEach((card) => cardList.prepend(createCard(card)))
   );
 } */
 
 /* function createCard(item) {
   const card = new Card(item, '.template');
   return card;
-} */
+}*/
 
 function createCard(item) {
   return new Card(item, '.template');
 }
 
-const photoLibrary = new Section({ data: initialCards, render: (item) => {
-    const card = createCard(item);
-    const cardElement = card.generateCard(); // кажется можно сократить запись на 1 строчку...
-    photoLibrary.addItem(cardElement);
-  }
-}, listContainer);
+const photoLibrary = new Section({
+    items: initialCards,
+    renderer: (item) => {
+      const card = createCard(item);
+      const cardElement = card.generateCard();
+      photoLibrary.addItem(cardElement);
+    },
+  },
+  cardListSelector);
+// Отрисовка карточек
+photoLibrary.renderItems();
+
 
 function addInArr() {
   const newCard = createCard({
@@ -83,7 +90,7 @@ function addInArr() {
     link: popUpImageLink.value,
   }, '.template');
 
-  listContainer.prepend(newCard);
+  cardList.prepend(newCard);
 };
 
 // Реализация функции редактирования данных профиля
@@ -121,4 +128,4 @@ popUpFormNewCard.addEventListener('submit', (e) => {
   closeModalWindow(modalWindowAdd);
 });
 
-render(initialCards);
+/* render(initialCards); */
