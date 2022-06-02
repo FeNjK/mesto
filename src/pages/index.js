@@ -62,26 +62,41 @@ popUpFormNewCardValidator.enableValidation();
   );
 } */
 
-/* function createCard(item) {
-  const card = new Card(item, '.template');
-  return card;
-}*/
-
 function createCard(item) {
   return new Card(item, '.template');
 }
+
+//console.log(Card);
 
 const photoLibrary = new Section({
     items: initialCards,
     renderer: (item) => {
       const card = createCard(item);
+      
+      //console.log(createCard(item));
+
       const cardElement = card.generateCard();
       photoLibrary.addItem(cardElement);
+      
+      //console.log(cardElement);
     },
-  },
-  cardListSelector);
+  }, cardListSelector);
 // Отрисовка карточек
 photoLibrary.renderItems();
+
+//console.log(Section);
+
+/* function createCard(item) {
+  const card = new Card(item, '.template');
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
+const photoLibrary = new Section({
+  renderer: (card) => {
+    photoLibrary.addItem(createCard(card));
+  },
+}, cardListSelector); */
 
 
 function addInArr() {
