@@ -2,10 +2,10 @@ import { openModalWindow } from '../utils/utils.js';
 
 export default class Card {
 
-  // Находим в DOM используемые в классе Card свойства
+  /* // Находим в DOM используемые в классе Card свойства
   _modalWindowShowImage = document.querySelector('.popup_task_show-image'); // модальное окно добавления карточки
   _popUpImage = document.querySelector('.popup__image'); // презентируемое изображение
-  _popUpCaption = document.querySelector('.popup__caption'); // подпись презентируемого изображения
+  _popUpCaption = document.querySelector('.popup__image'); // подпись презентируемого изображения */
 
   constructor( {name, link}, cardSelector) {
     this._name = name;
@@ -53,7 +53,7 @@ export default class Card {
     this._cardContainer = null;
   }
 
-  // Метод открытия модального окна с картинкой нажатием на любую картинку
+  /* // Метод открытия модального окна с картинкой нажатием на любую картинку
   _handleShowImage() {
     // Передача значений элемента модальному окну
     this._popUpCaption.textContent = this._name;
@@ -61,7 +61,7 @@ export default class Card {
     this._popUpImage.src = this._link;
 
     openModalWindow(this._modalWindowShowImage);
-  }
+  } */
 
   // Слушатели срабатывания методов
   _setEventListeners() {
