@@ -1,11 +1,4 @@
-//import { openModalWindow } from '../utils/utils.js';
-
 export default class Card {
-
-  // Находим в DOM используемые в классе Card свойства
-  //_modalWindowShowImage = document.querySelector('.popup_task_show-image'); // модальное окно добавления карточки
-  _popUpImage = document.querySelector('.popup__image'); // презентируемое изображение
-  _popUpCaption = document.querySelector('.popup__image'); // подпись презентируемого изображения
 
   constructor( data, cardSelector, {handleCardClick}) {
     this._name = data.name;

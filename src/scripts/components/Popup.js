@@ -24,36 +24,27 @@ export default class Popup {
    * Метод закрытия модальных окон нажатием на клавишу "Esc"
    * @param {Event} e event
    */
-  _handleEscClose(e) {
+  _handleEscClose = (e) => {
     if (e.key === 'Escape') {
-      const activPopup = document.querySelector('.popup_activ'); //Кажется это можно сделать проще
-      this.close(activPopup);
+      this.close();
     }
   }
 
   /**
-   * Универсальный метод закрытия модальных окон нажатием на оверлей или "крестик" модального окна
-   * Честно говоря есть сомнения относительно правильности его реализации в рамках модуля,
-   * ведь у нас же подлежит закрытию конкретный активный в данный момент попап...
-   * */
-  /* _popups = document.querySelectorAll('.popup').forEach((popup) => {
-    popup.addEventListener('mousedown', (e) => {
-      if (e.target.classList.contains('popup_activ') || e.target.classList.contains('popup__close-button')) {
-        close(popup);
-      }
-    });
-  }); */
-
+   * Универсальный метод закрытия модальных окон 
+   * нажатием на оверлей или "крестик" модального окна
+   */
   _handlePopupClose = (e) => {
     if (e.target.classList.contains('popup_activ') || e.target.classList.contains('popup__close-button')) {
       this.close(this._popup);
     }
   }
 
-
+  /**
+   * Добавляем слушатели клика для закрытия попапа (разными способами)
+   */
   setEventListeners() {
-    //this._popup.querySelector('.popup__close-button').addEventListener('click', () => this.close());
-    //this._popups.addEventListener('click', () => this.close());
-    this._popup.addEventListener('click', this._handlePopupClose);
+    this._popup.addEventListener('mousedown', this._handlePopupClose);
+    this._popup.addEventListener('click', this._handleEscClose);
   }
 }

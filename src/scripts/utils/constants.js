@@ -1,9 +1,4 @@
 
-// Модальные окна
-export const modalWindowEdit = document.querySelector('.popup_task_edit'); //нашли модальное окно редактирования профиля
-export const modalWindowAdd = document.querySelector('.popup_task_add'); //нашли модальное окно добавления карточки
-export const modalWindowShowImage = document.querySelector('.popup_task_show-image'); // модальное окно добавления карточки
-
 // Кнопки
 export const buttonEdit = document.querySelector('.profile-info__editing-button'); //Нашли кнопку редактирования профиля
 export const buttonAdd = document.querySelector('.profile__add-button'); //Нашли кнопку добавления карточки

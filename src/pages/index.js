@@ -7,12 +7,8 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import {
-  modalWindowEdit,
-  modalWindowAdd,
-  modalWindowShowImage,
   buttonEdit,
   buttonAdd,
-  formUserData,
   userName,
   userActivityType,
   popupFormUserData,
@@ -25,8 +21,6 @@ import {
   cardListSelector,
   config
 } from '../scripts/utils/constants.js';
-
-//import { openModalWindow, closeModalWindow } from '../scripts/utils/utils.js';
 
 // Создание экземпляров класса FormValidator для каждой формы
 const popupFormUserDataValidator = new FormValidator(config, popupFormUserData);
@@ -58,15 +52,6 @@ const photoLibrary = new Section({
 // Отрисовка карточек
 photoLibrary.renderItems();
 
-function addInArr() {
-  const newCard = createCard({
-    name: popupImageTitle.value,
-    link: popupImageLink.value,
-  }, '.template').generateCard();
-
-  cardList.prepend(newCard);
-};
-
 // Создание экземпляра класса с данными пользователя
 const userInfo = new UserInfo({
   userName: '.profile-info__name',
@@ -90,27 +75,34 @@ const popupFormEdit = new PopupWithForm('.popup_task_edit',
     popupFormEdit.close();
     }
   }
-);
+)
 
 popupFormEdit.setEventListeners();
-
-/* // Создание экземпляра класса формы редактирования профиля
-const popupFormAdd = new PopupWithForm('.popup_task_add',
-  
-);
-popupFormAdd.setEventListeners(); */
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
   popupFormNewCard.reset();
   popupFormNewCardValidator.removeInputError();
   popupFormNewCardValidator.toggleButtonState();
-  //popupFormAdd.open();
+  popupFormAdd.open();
 });
 
-// Реализация функции отправки формы добавления карточки
-popupFormNewCard.addEventListener('submit', (e) => {
-  e.preventDefault();
-  addInArr();
-  //popupFormAdd.close();
-});
+function addInArr() {
+  const newCard = createCard({
+    name: popupImageTitle.value,
+    link: popupImageLink.value,
+  }, '.template').generateCard();
+
+  cardList.prepend(newCard);
+};
+
+// Создание экземпляра класса формы добавления карточки
+const popupFormAdd = new PopupWithForm('.popup_task_add',
+  { submitForm: () => {
+    addInArr(),
+    popupFormAdd.close()
+    }
+  }
+);
+
+popupFormAdd.setEventListeners();
