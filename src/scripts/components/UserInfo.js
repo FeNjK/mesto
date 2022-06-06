@@ -26,11 +26,11 @@ export default class UserInfo {
   /**
    * Метод, принимающий новые данные пользователя
    * и добавляет их на страницу при сабмите, а именно:
-   * @param {*} popUpUserName - имя пользователя
-   * @param {*} popUpUserActivityType - инфо о роде деятельности пользователя
+   * @param {*} popupUserName - имя пользователя
+   * @param {*} popupUserActivityType - инфо о роде деятельности пользователя
    */
-  setUserInfo(popUpUserName, popUpUserActivityType) {
-    this._userName.textContent = popUpUserName;
-    this._userActivityType.textContent = popUpUserActivityType;
+  setUserInfo(popupUserName, popupUserActivityType) {
+    this._userName.textContent = popupUserName;
+    this._userActivityType.textContent = popupUserActivityType;
   }
 }

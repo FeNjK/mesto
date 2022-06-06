@@ -36,6 +36,7 @@ const popupFormNewCardValidator = new FormValidator(config, popupFormNewCard);
 popupFormUserDataValidator.enableValidation();
 popupFormNewCardValidator.enableValidation();
 
+// Создание экземпляра класса с презентируемой картокой
 const showImagePopup = new PopupWithImage('.popup_task_show-image');
 showImagePopup.setEventListeners();
 
@@ -57,14 +58,6 @@ const photoLibrary = new Section({
 // Отрисовка карточек
 photoLibrary.renderItems();
 
-
-
-// Создание экземпляра класса с данными пользователя
-const userInfo = new UserInfo({
-  userNameSelector: userName,
-  userActivityTypeSelector: userActivityType
-});
-
 function addInArr() {
   const newCard = createCard({
     name: popupImageTitle.value,
@@ -74,6 +67,28 @@ function addInArr() {
   cardList.prepend(newCard);
 };
 
+// Создание экземпляра класса с данными пользователя
+const userInfo = new UserInfo({
+  userNameSelector: userName,
+  userActivityTypeSelector: userActivityType
+});
+
+// Создание экземпляра класса добавления карточек
+const popupFormEdit = new PopupWithForm('.popup_task_edit',
+  { submitForm: () => {
+      userInfo.setUserInfo(popupUserName.value, popupUserActivityType.value);
+    }
+  }
+);
+
+popupFormEdit.setEventListeners();
+
+/* // Создание экземпляра класса формы редактирования профиля
+const popupFormAdd = new PopupWithForm('.popup_task_add',
+  
+);
+popupFormAdd.setEventListeners(); */
+
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
 buttonEdit.addEventListener('click', () => {
@@ -82,6 +97,7 @@ buttonEdit.addEventListener('click', () => {
   popupFormUserDataValidator.removeInputError();
   popupFormUserDataValidator.toggleButtonState();
   //openModalWindow(modalWindowEdit);
+  popupFormEdit.open();
 });
 
 // Реализация функции отправки данных профиля
@@ -92,6 +108,7 @@ popupFormUserData.addEventListener('submit', (e) => {
   userActivityType.textContent = popupUserActivityType.value;
 
   //closeModalWindow(modalWindowEdit);
+  popupFormEdit.close();
 });
 
 // Функция открытия модального окна кнопкой добавления карточки
@@ -99,12 +116,12 @@ buttonAdd.addEventListener('click', () => {
   popupFormNewCard.reset();
   popupFormNewCardValidator.removeInputError();
   popupFormNewCardValidator.toggleButtonState();
-  //openModalWindow(modalWindowAdd);
+  //popupFormAdd.open();
 });
 
 // Реализация функции отправки формы добавления карточки
 popupFormNewCard.addEventListener('submit', (e) => {
   e.preventDefault();
   addInArr();
-  //closeModalWindow(modalWindowAdd);
+  //popupFormAdd.close();
 });
