@@ -26,7 +26,8 @@ export default class Card {
     this._cardMark = this._cardContainer.querySelector('.element__mark');
     this._cardTrash = this._cardContainer.querySelector('.element__trash');
 
-    // Прописываем связи между объектами массива и свойствами, присвоенными элементам страницы
+    // Прописываем связи между объектами массива и свойствами, 
+    // присвоенными элементам страницы
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
