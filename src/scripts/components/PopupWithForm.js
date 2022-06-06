@@ -15,12 +15,12 @@ export default class PopupWithForm extends Popup {
    * @returns сбор данных всех полей формы
    */
   _getInputValues() {
-    this._inputСontent = {};
-    this._inputList = this._formContainer.querySelectorAll('.popup__input');
+    this._inputsСontent = {};
+    this._inputList = this._popupForm.querySelectorAll('.popup__input');
     this._inputList.forEach(input => {
-      this._inputСontent[input.name] = input.value;
+      this._inputsСontent[input.name] = input.value;
     });
-    return this._inputСontent;
+    return this._inputsСontent;
   }
 
   setEventListeners() {

@@ -69,14 +69,25 @@ function addInArr() {
 
 // Создание экземпляра класса с данными пользователя
 const userInfo = new UserInfo({
-  userNameSelector: userName,
-  userActivityTypeSelector: userActivityType
+  userName: '.profile-info__name',
+  userActivityType: '.profile-info__activity-type'
+});
+
+// Реализация функции редактирования данных профиля
+// функция показывающая, что при открытии модального окна мы видим
+buttonEdit.addEventListener('click', () => {
+  popupUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
+  popupUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+  popupFormUserDataValidator.removeInputError();
+  popupFormUserDataValidator.toggleButtonState();
+  popupFormEdit.open();
 });
 
 // Создание экземпляра класса добавления карточек
 const popupFormEdit = new PopupWithForm('.popup_task_edit',
   { submitForm: () => {
-      userInfo.setUserInfo(popupUserName.value, popupUserActivityType.value);
+    userInfo.setUserInfo(popupUserName.value, popupUserActivityType.value);
+    popupFormEdit.close();
     }
   }
 );
@@ -88,28 +99,6 @@ const popupFormAdd = new PopupWithForm('.popup_task_add',
   
 );
 popupFormAdd.setEventListeners(); */
-
-// Реализация функции редактирования данных профиля
-// функция показывающая, что при открытии модального окна мы видим
-buttonEdit.addEventListener('click', () => {
-  popupUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
-  popupUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-  popupFormUserDataValidator.removeInputError();
-  popupFormUserDataValidator.toggleButtonState();
-  //openModalWindow(modalWindowEdit);
-  popupFormEdit.open();
-});
-
-// Реализация функции отправки данных профиля
-popupFormUserData.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  userName.textContent = popupUserName.value;
-  userActivityType.textContent = popupUserActivityType.value;
-
-  //closeModalWindow(modalWindowEdit);
-  popupFormEdit.close();
-});
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {

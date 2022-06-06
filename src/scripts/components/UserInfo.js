@@ -5,9 +5,9 @@ export default class UserInfo {
    * @param {object} объект с селекторами двух элементов:
    * элемента имени пользователя и элемента информации о себе
    */
-  constructor({userNameSelector, userActivityTypeSelector}) {
-    this._userName = document.querySelector(userNameSelector);
-    this._userActivityType = document.querySelector(userActivityTypeSelector);
+  constructor({userName, userActivityType}) {
+    this._userName = document.querySelector(userName);
+    this._userActivityType = document.querySelector(userActivityType);
   }
 
   /**
@@ -18,8 +18,8 @@ export default class UserInfo {
    */
   getUserInfo() {
     return {
-      popupUserName: this._userName.textContent,
-      popupUserActivityType: this._userActivityType.textContent
+      userName: this._userName.textContent,
+      userActivityType: this._userActivityType.textContent
     };
   }
 
