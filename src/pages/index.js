@@ -21,6 +21,7 @@ import {
   cardListSelector,
   config
 } from '../scripts/utils/constants.js';
+import { profile } from 'console';
 
 // Создание экземпляров класса FormValidator для каждой формы
 const popupFormUserDataValidator = new FormValidator(config, popupFormUserData);
@@ -38,14 +39,13 @@ showImagePopup.setEventListeners();
 function createCard(item) {
   return new Card(item, '.template', { handleCardClick: (name, link) => {
     showImagePopup.open(name, link);
-  }});
+  }}).generateCard();
 }
 
 const photoLibrary = new Section({
     items: initialCards,
     renderer: (item) => {
-      const card = createCard(item);
-      const cardElement = card.generateCard();
+      const cardElement = createCard(item);
       photoLibrary.addItem(cardElement);
     },
   }, cardListSelector);
@@ -91,7 +91,7 @@ function addInArr() {
   const newCard = createCard({
     name: popupImageTitle.value,
     link: popupImageLink.value,
-  }, '.template').generateCard();
+  }, '.template');
 
   cardList.prepend(newCard);
 };
