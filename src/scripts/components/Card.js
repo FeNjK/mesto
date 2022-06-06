@@ -1,16 +1,17 @@
-import { openModalWindow } from '../utils/utils.js';
+//import { openModalWindow } from '../utils/utils.js';
 
 export default class Card {
 
-  /* // Находим в DOM используемые в классе Card свойства
-  _modalWindowShowImage = document.querySelector('.popup_task_show-image'); // модальное окно добавления карточки
+  // Находим в DOM используемые в классе Card свойства
+  //_modalWindowShowImage = document.querySelector('.popup_task_show-image'); // модальное окно добавления карточки
   _popUpImage = document.querySelector('.popup__image'); // презентируемое изображение
-  _popUpCaption = document.querySelector('.popup__image'); // подпись презентируемого изображения */
+  _popUpCaption = document.querySelector('.popup__image'); // подпись презентируемого изображения
 
-  constructor( {name, link}, cardSelector) {
-    this._name = name;
-    this._link = link;
+  constructor( data, cardSelector, {handleCardClick}) {
+    this._name = data.name;
+    this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   // Метод возврата шаблона DOM-разметки
@@ -43,36 +44,34 @@ export default class Card {
   }
 
   // Метод "лайка" карточки
-  _handleLikeCard() {
+  _handleCardLike() {
     this._cardMark.classList.toggle('element__mark_active');
   }
 
   // Метод удаления карточки
-  _handleDeleteCard() {
+  _handleCardDelete() {
     this._cardContainer.remove();
     this._cardContainer = null;
   }
 
-  /* // Метод открытия модального окна с картинкой нажатием на любую картинку
-  _handleShowImage() {
+  // Метод открытия модального окна с картинкой нажатием на любую картинку
+  _handleCardClick() {
     // Передача значений элемента модальному окну
     this._popUpCaption.textContent = this._name;
     this._popUpImage.alt = this._name;
     this._popUpImage.src = this._link;
-
-    openModalWindow(this._modalWindowShowImage);
-  } */
+  }
 
   // Слушатели срабатывания методов
   _setEventListeners() {
     this._cardMark.addEventListener('click', () => {
-      this._handleLikeCard();
+      this._handleCardLike();
     });
     this._cardTrash.addEventListener('click', () => {
-      this._handleDeleteCard();
+      this._handleCardDelete();
     });
     this._cardImage.addEventListener('click', () => {
-      this._handleShowImage();
+      this._handleCardClick(this._name, this._link);
     });
   }
 }

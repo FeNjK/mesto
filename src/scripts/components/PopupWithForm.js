@@ -12,7 +12,6 @@ export default class PopupWithForm extends Popup {
   }
 
   /**
-   * 
    * @returns сбор данных всех полей формы
    */
   _getInputValues() {
@@ -24,7 +23,6 @@ export default class PopupWithForm extends Popup {
     return this.__inputСontent;
   }
 
-  
   setEventListeners() {
     super.setEventListeners();
     this._popupForm.addEventListener('submit', (e) => {
@@ -38,7 +36,7 @@ export default class PopupWithForm extends Popup {
    * Перезапись родительского метода close, 
    * так как форма должна ещё и сбрасываться
    */
-  close(){
+  close() {
     super.close();
     this._popupForm.reset();
   }
