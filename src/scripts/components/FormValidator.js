@@ -67,9 +67,7 @@ export default class FormValidator {
   
   // Метод включения валидации формы
   enableValidation() {
-    this._form.addEventListener('submit', (e) => {
-      e.preventDefault();
-    });
+    // Отмена стандартного поведения формы перенесена в модуль PopupWithForm
     this._setEventListeners();
   };
 }

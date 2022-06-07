@@ -1,27 +1,26 @@
 import '../pages/index.css'; // добавил импорт главного файла стилей для нормальной работы «Вебпака»!!!
 import initialCards from '../scripts/utils/initialCards.js'; // импорт массива исходного массива изображений
+
+// Импорт подключаемых модулей
 import Card from '../scripts/components/Card.js';
 import FormValidator from '../scripts/components/FormValidator.js';
 import Section from '../scripts/components/Section.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
+
+// Импорт значений переменных, используемых для реализации работы модулей
 import {
   buttonEdit,
   buttonAdd,
-  userName,
-  userActivityType,
   popupFormUserData,
   popupUserName,
   popupUserActivityType,
   popupFormNewCard,
-  popupImageTitle,
-  popupImageLink,
   cardList,
   cardListSelector,
   config
 } from '../scripts/utils/constants.js';
-import { profile } from 'console';
 
 // Создание экземпляров класса FormValidator для каждой формы
 const popupFormUserDataValidator = new FormValidator(config, popupFormUserData);
@@ -42,6 +41,7 @@ function createCard(item) {
   }}).generateCard();
 }
 
+// Создание экземпляра класса секции (блока с карточкой)
 const photoLibrary = new Section({
     items: initialCards,
     renderer: (item) => {
@@ -58,11 +58,17 @@ const userInfo = new UserInfo({
   userActivityType: '.profile-info__activity-type'
 });
 
+// Функция получения значений инпутов 
+// при открытии попапа формы редактирования профиля
+function getInputValuesFormEdit() {
+  popupUserName.value = userInfo.getUserInfo().userName;// поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
+  popupUserActivityType.value = userInfo.getUserInfo().userActivityType;// в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+}
+
 // Реализация функции редактирования данных профиля
 // функция показывающая, что при открытии модального окна мы видим
-buttonEdit.addEventListener('click', () => {
-  popupUserName.value = userName.textContent; //что в поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
-  popupUserActivityType.value = userActivityType.textContent; //что в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+buttonEdit.addEventListener('click', () => {  
+  getInputValuesFormEdit(); //вызов функции получения значений инпутов при открытии попапа
   popupFormUserDataValidator.removeInputError();
   popupFormUserDataValidator.toggleButtonState();
   popupFormEdit.open();
@@ -70,14 +76,12 @@ buttonEdit.addEventListener('click', () => {
 
 // Создание экземпляра класса добавления карточек
 const popupFormEdit = new PopupWithForm('.popup_task_edit',
-  { submitForm: () => {
-    userInfo.setUserInfo(popupUserName.value, popupUserActivityType.value);
+  { submitForm: (profileData) => {
+    userInfo.setUserInfo(profileData['profile_name'], profileData['type_of_activity']);
     popupFormEdit.close();
     }
   }
 )
-
-popupFormEdit.setEventListeners();
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
@@ -87,22 +91,26 @@ buttonAdd.addEventListener('click', () => {
   popupFormAdd.open();
 });
 
-function addInArr() {
+// Данная функция получает значения инпутов формы
+// добавления карточки благодаря методу getInputValues
+// модуля PopupWithForm и передаёт их создаваемой карточке
+function addInArr(cardData) {
   const newCard = createCard({
-    name: popupImageTitle.value,
-    link: popupImageLink.value,
+    name: cardData['card-title'],
+    link: cardData['picture-link'],
   }, '.template');
-
   cardList.prepend(newCard);
-};
+}
 
 // Создание экземпляра класса формы добавления карточки
 const popupFormAdd = new PopupWithForm('.popup_task_add',
-  { submitForm: () => {
-    addInArr(),
-    popupFormAdd.close()
+  { submitForm: (cardData) => {
+    addInArr(cardData);
+    popupFormAdd.close();
     }
   }
 );
 
+// Навешиваем слушатели на экземпляры классов форм
+popupFormEdit.setEventListeners();
 popupFormAdd.setEventListeners();

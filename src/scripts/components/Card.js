@@ -48,14 +48,6 @@ export default class Card {
     this._cardContainer = null;
   }
 
-  // Метод открытия модального окна с картинкой нажатием на любую картинку
-  _handleCardClick() {
-    // Передача значений элемента модальному окну
-    this._popUpCaption.textContent = this._name;
-    this._popUpImage.alt = this._name;
-    this._popUpImage.src = this._link;
-  }
-
   // Слушатели срабатывания методов
   _setEventListeners() {
     this._cardMark.addEventListener('click', () => {
