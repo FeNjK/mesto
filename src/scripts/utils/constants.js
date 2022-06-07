@@ -1,3 +1,5 @@
+// DOM-ЭЛЕМЕНТЫ !!!
+
 // Кнопки
 export const buttonEdit = document.querySelector('.profile-info__editing-button'); //Нашли кнопку редактирования профиля
 export const buttonAdd = document.querySelector('.profile__add-button'); //Нашли кнопку добавления карточки
@@ -11,8 +13,9 @@ export const popupFormNewCard = document.querySelector('.popup__form_type_new-ca
 export const popupUserName = popupFormUserData.querySelector('.popup__input_content_name');//Поле с именем пользователя
 export const popupUserActivityType = popupFormUserData.querySelector('.popup__input_content_activity-type');//Поле с родом деятельности пользователя
 
+// СЕЛЕКТОРЫ !!!
+
 // Данные карточки отображенные на странице 
-export const cardList = document.querySelector('.elements'); // Список карточек
 export const cardListSelector = '.elements'; // Список карточек
 
 // Конфигурационный файл валидации

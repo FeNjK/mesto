@@ -17,7 +17,6 @@ import {
   popupUserName,
   popupUserActivityType,
   popupFormNewCard,
-  cardList,
   cardListSelector,
   config
 } from '../scripts/utils/constants.js';
@@ -46,7 +45,7 @@ const photoLibrary = new Section({
     items: initialCards,
     renderer: (item) => {
       const cardElement = createCard(item);
-      photoLibrary.addItem(cardElement);
+      photoLibrary.addAppend(cardElement);
     },
   }, cardListSelector);
 // Отрисовка карточек
@@ -61,8 +60,9 @@ const userInfo = new UserInfo({
 // Функция получения значений инпутов 
 // при открытии попапа формы редактирования профиля
 function getInputValuesFormEdit() {
-  popupUserName.value = userInfo.getUserInfo().userName;// поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
-  popupUserActivityType.value = userInfo.getUserInfo().userActivityType;// в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+  const userData = userInfo.getUserInfo();
+  popupUserName.value = userData.userName;// поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
+  popupUserActivityType.value = userData.userActivityType;// в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
 }
 
 // Реализация функции редактирования данных профиля
@@ -77,7 +77,9 @@ buttonEdit.addEventListener('click', () => {
 // Создание экземпляра класса добавления карточек
 const popupFormEdit = new PopupWithForm('.popup_task_edit',
   { submitForm: (profileData) => {
-    userInfo.setUserInfo(profileData['profile_name'], profileData['type_of_activity']);
+    userInfo.setUserInfo(
+      profileData['profile_name'],
+      profileData['type_of_activity']);
     popupFormEdit.close();
     }
   }
@@ -99,7 +101,7 @@ function addInArr(cardData) {
     name: cardData['card-title'],
     link: cardData['picture-link'],
   }, '.template');
-  cardList.prepend(newCard);
+  photoLibrary.addPrepend(newCard);
 }
 
 // Создание экземпляра класса формы добавления карточки

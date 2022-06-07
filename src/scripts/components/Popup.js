@@ -36,7 +36,7 @@ export default class Popup {
    */
   _handlePopupClose = (e) => {
     if (e.target.classList.contains('popup_activ') || e.target.classList.contains('popup__close-button')) {
-      this.close(this._popup);
+      this.close();
     }
   }
 
