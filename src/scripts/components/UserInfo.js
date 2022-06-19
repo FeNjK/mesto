@@ -33,4 +33,6 @@ export default class UserInfo {
     this._userName.textContent = popupUserName;
     this._userActivityType.textContent = popupUserActivityType;
   }
+
+  
 }

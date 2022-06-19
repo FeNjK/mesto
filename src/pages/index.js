@@ -8,6 +8,7 @@ import Section from '../scripts/components/Section.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
+import Api from '../scripts/components/Api.js';
 
 // Импорт значений переменных, используемых для реализации работы модулей
 import {
@@ -28,6 +29,13 @@ const popupFormNewCardValidator = new FormValidator(config, popupFormNewCard);
 // Вызов соответствующих свойств у оных объектов
 popupFormUserDataValidator.enableValidation();
 popupFormNewCardValidator.enableValidation();
+
+// Создание экземпляра класса Api
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  token: '10bf8282-16d5-46f1-976c-28311168fc94'
+})
+
 
 // Создание экземпляра класса с презентируемой картокой
 const showImagePopup = new PopupWithImage('.popup_task_show-image');
