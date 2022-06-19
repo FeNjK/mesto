@@ -19,9 +19,6 @@ export default class Api {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
     })
-    .then((res) => {
-      return res; // раньше тут был вывод в консоль...
-    })
   }
 
   getUserInfo() {
@@ -38,9 +35,6 @@ export default class Api {
       } else {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
-    })
-    .then((res) => {
-      return res;
     })
   }
 
@@ -63,9 +57,6 @@ export default class Api {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
     })
-    .then((res) => {
-      return res;
-    })
   }
 
   setUserAvatar(link) {
@@ -85,9 +76,6 @@ export default class Api {
       } else {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
-    })
-    .then((res) => {
-      return res;
     })
   }
 
@@ -110,9 +98,6 @@ export default class Api {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
     })
-    .then((res) => {
-      return res;
-    })
   }
 
   deleteCard(id) {
@@ -129,9 +114,6 @@ export default class Api {
       } else {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
-    })
-    .then((res) => {
-      return res;
     })
   }
 
@@ -150,9 +132,6 @@ export default class Api {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
     })
-    .then((res) => {
-      return res;
-    })
   }
 
   deleteLikeCard(id) {
@@ -169,9 +148,6 @@ export default class Api {
       } else {
         return Promise.reject(`Возникла ошибка ${res.status}`);
       }
-    })
-    .then((res) => {
-      return res;
     })
   }
 }
