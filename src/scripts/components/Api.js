@@ -20,7 +20,7 @@ export default class Api {
       }
     })
     .then((res) => {
-      return res;
+      return res; // раньше тут был вывод в консоль...
     })
   }
 
@@ -54,6 +54,29 @@ export default class Api {
       body: JSON.stringify({
         userName: userName,
         userActivityType: userActivityType
+      })
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Возникла ошибка ${res.status}`);
+      }
+    })
+    .then((res) => {
+      return res;
+    })
+  }
+
+  setUserAvatar(link) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json', 
+        authorization: this._token
+      },
+      body: JSON.stringify({
+        avatar: link
       })
     })
     .then((res) => {
