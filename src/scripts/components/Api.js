@@ -6,6 +6,7 @@ export default class Api {
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
+      method: 'GET',
       headers: {
         'Content-type': 'application/json', 
         authorization: this._token
