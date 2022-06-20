@@ -4,6 +4,16 @@ export default class Api {
     this._token = token
   }
 
+  // "res" в парамете - это значит "response"
+  _ringingServer(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Возникла ошибка ${res.status}`)
+    }
+  }
+
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
@@ -12,13 +22,7 @@ export default class Api {
         authorization: this._token
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 
   getUserInfo() {
@@ -29,13 +33,7 @@ export default class Api {
         authorization: this._token
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 
   setUserInfo(userName, userActivityType) {
@@ -50,13 +48,7 @@ export default class Api {
         userActivityType: userActivityType
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 
   setUserAvatar(link) {
@@ -70,16 +62,10 @@ export default class Api {
         avatar: link
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 
-  addNewCard(title, link) {
+  addNewCard({name, link}) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
@@ -87,67 +73,43 @@ export default class Api {
         authorization: this._token
       },
       body: JSON.stringify({
-        name: title,
-        link: link
+        name,
+        link
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 
-  deleteCard(id) {
-    return fetch(`${this._url}/cards/${id}`, {
+  deleteCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json', 
         authorization: this._token
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 
-  setLikeCard(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
+  setLikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json', 
         authorization: this._token
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 
-  deleteLikeCard(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
+  deleteLikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json', 
         authorization: this._token
       }
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Возникла ошибка ${res.status}`);
-      }
-    })
+    .then(this._ringingServer)
   }
 }

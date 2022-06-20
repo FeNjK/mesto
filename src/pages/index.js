@@ -7,6 +7,7 @@ import FormValidator from '../scripts/components/FormValidator.js';
 import Section from '../scripts/components/Section.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import PopupWithСonfirmation from '../scripts/components/PopupWithСonfirmation.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
 
@@ -33,9 +34,12 @@ popupFormNewCardValidator.enableValidation();
 // Создание экземпляра класса Api
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  /* headers: {
+    'Content-Type': 'application/json',
+    authorization: '10bf8282-16d5-46f1-976c-28311168fc94'
+  } */
   token: '10bf8282-16d5-46f1-976c-28311168fc94'
 })
-
 
 // Создание экземпляра класса с презентируемой картокой
 const showImagePopup = new PopupWithImage('.popup_task_show-image');
@@ -47,6 +51,10 @@ function createCard(item) {
     showImagePopup.open(name, link);
   }}).generateCard();
 }
+
+// Создание экземпляра класса подтверждения удаления карточки
+const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
+popupDeleteCard.setEventListeners();
 
 // Создание экземпляра класса секции (блока с карточкой)
 const photoLibrary = new Section({
@@ -85,10 +93,24 @@ buttonEdit.addEventListener('click', () => {
 // Создание экземпляра класса добавления карточек
 const popupFormEdit = new PopupWithForm('.popup_task_edit',
   { submitForm: (profileData) => {
-    userInfo.setUserInfo(
-      profileData['profile_name'],
-      profileData['type_of_activity']);
-    popupFormEdit.close();
+    
+    popupFormEdit.processLoading(true);
+    
+    // А дальше я вообще действую в слепую(((
+    api.setUserInfo(profileData)
+      .then((profileData) => {
+        userInfo.setUserInfo(
+          profileData['profile_name'],
+          profileData['type_of_activity'],
+          profileData['profile_avatar']);
+        popupFormEdit.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        editProfilePopup.loading(false);
+      });
     }
   }
 )
@@ -120,6 +142,18 @@ const popupFormAdd = new PopupWithForm('.popup_task_add',
     }
   }
 );
+
+/**
+ * Передаём массив с промисами методу Promise.all
+ */
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCardsData]) => {
+    userInfo.setUserInfo(userData);
+    photoLibrary.renderItems(initialCardsData);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 // Навешиваем слушатели на экземпляры классов форм
 popupFormEdit.setEventListeners();

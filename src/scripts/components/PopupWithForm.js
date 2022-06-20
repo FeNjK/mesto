@@ -10,6 +10,7 @@ export default class PopupWithForm extends Popup {
     this._submitForm = submitForm;
     this._popupForm = this._popup.querySelector('.popup__form');
     this._inputList = this._popupForm.querySelectorAll('.popup__input');
+    this._submitButton = this._popup.querySelector('.popup__save-button');
   }
 
   /**
@@ -32,6 +33,15 @@ export default class PopupWithForm extends Popup {
     })
   }
 
+  // Метод изменения кнопки в момент отправки формы на сервер
+  processLoading(loading) {
+    if (loading) {
+      this._submitButton.textContent = 'Сохранение...';
+    } else {
+      this._submitButton.textContent = 'Сохранить';
+    }
+  }
+  
   /**
    * Перезапись родительского метода close, 
    * так как форма должна ещё и сбрасываться
@@ -39,6 +49,8 @@ export default class PopupWithForm extends Popup {
    * так как пользователь не должен видеть 
    * процесс очистки формы до её закрытия...
    * Пока не получается её решить.
+   * 
+   * На ревью 8ПР мне не подсказали. Прямо ведь не спросишь :'(
    */
   close() {
     super.close();

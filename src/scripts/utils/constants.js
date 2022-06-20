@@ -12,10 +12,11 @@ export const popupFormNewCard = document.querySelector('.popup__form_type_new-ca
 // Поля заполнения данных ПРОФИЛЯ в модальном окне
 export const popupUserName = popupFormUserData.querySelector('.popup__input_content_name');//Поле с именем пользователя
 export const popupUserActivityType = popupFormUserData.querySelector('.popup__input_content_activity-type');//Поле с родом деятельности пользователя
+export const popupAvatar = document.querySelector('.profile-info__avatar');
 
 // СЕЛЕКТОРЫ !!!
 
-// Данные карточки отображенные на странице 
+// Данные карточeк, отображенные на странице 
 export const cardListSelector = '.elements'; // Список карточек
 
 // Конфигурационный файл валидации

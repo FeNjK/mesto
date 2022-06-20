@@ -5,9 +5,10 @@ export default class UserInfo {
    * @param {object} объект с селекторами двух элементов:
    * элемента имени пользователя и элемента информации о себе
    */
-  constructor({userName, userActivityType}) {
+  constructor({userName, userActivityType, userAvatar}) {
     this._userName = document.querySelector(userName);
     this._userActivityType = document.querySelector(userActivityType);
+    this._userAvatar = document.querySelector(userAvatar);
   }
 
   /**
@@ -19,20 +20,18 @@ export default class UserInfo {
   getUserInfo() {
     return {
       userName: this._userName.textContent,
-      userActivityType: this._userActivityType.textContent
+      userActivityType: this._userActivityType.textContent,
+      userAvatar: this._userAvatar.src
     };
   }
 
   /**
    * Метод, принимающий новые данные пользователя
-   * и добавляет их на страницу при сабмите, а именно:
-   * @param {*} popupUserName - имя пользователя
-   * @param {*} popupUserActivityType - инфо о роде деятельности пользователя
+   * и добавляет их на страницу при сабмите
    */
-  setUserInfo(popupUserName, popupUserActivityType) {
+  setUserInfo(popupUserName, popupUserActivityType, popupAvatar) {
     this._userName.textContent = popupUserName;
     this._userActivityType.textContent = popupUserActivityType;
+    this._userAvatar.src = popupAvatar;
   }
-
-  
 }
