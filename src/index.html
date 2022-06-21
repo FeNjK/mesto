@@ -23,9 +23,18 @@
       <section class="profile">
         <article class="profile-info">
           <img class="profile-info__avatar" 
-               src="<%=require('./images/avatar.svg')%>" 
+               src="<%=require('./images/avatar.svg')%>"
                alt="Аватар пользователя">
-          <div class="profile-info__data">
+          <button class="profile-info__avatar-button"
+                  title="Редактирование аватара"
+                  aria-label="Кнопка редактирование аватара">
+            <img class="profile-info__avatar-pen"
+                 src="<%=require('./images/editing-pen.svg')%>" 
+                 alt="Перо редактирования аватара пользователя">
+          </button>
+          
+          
+               <div class="profile-info__data">
             <div class="profile-info__single-level">
               <h1 class="profile-info__name">Жак-Ив Кусто</h1>
               <button class="profile-info__editing-button" 
@@ -34,7 +43,7 @@
                    aria-label="Кнопка редактирование профиля">
                 <img class="profile-info__editing-pen"
                      src="<%=require('./images/editing-pen.svg')%>" 
-                     alt="Перо редактирования">
+                     alt="Перо редактирования имени и рода деятельности">
               </button>
             </div>
             <p class="profile-info__activity-type">Исследователь океана</p>

@@ -18,6 +18,7 @@ import {
   popupFormUserData,
   popupUserName,
   popupUserActivityType,
+  popupAvatar,
   popupFormNewCard,
   cardListSelector,
   config
@@ -32,14 +33,31 @@ popupFormUserDataValidator.enableValidation();
 popupFormNewCardValidator.enableValidation();
 
 // Создание экземпляра класса Api
-const api = new Api({
+
+/* const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-43',
-  /* headers: {
+   headers: {
     'Content-Type': 'application/json',
     authorization: '10bf8282-16d5-46f1-976c-28311168fc94'
-  } */
+  }
+}) */
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-43',
   token: '10bf8282-16d5-46f1-976c-28311168fc94'
 })
+
+/**
+ * Передаём массив с промисами методу Promise.all
+ */
+/* Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCardsData]) => {
+    userInfo.setUserInfo(userData);
+    photoLibrary.renderItems(initialCardsData);
+  })
+  .catch((err) => {
+    console.log(err);
+  }) */
 
 // Создание экземпляра класса с презентируемой картокой
 const showImagePopup = new PopupWithImage('.popup_task_show-image');
@@ -53,8 +71,8 @@ function createCard(item) {
 }
 
 // Создание экземпляра класса подтверждения удаления карточки
-const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
-popupDeleteCard.setEventListeners();
+/* const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
+popupDeleteCard.setEventListeners(); */
 
 // Создание экземпляра класса секции (блока с карточкой)
 const photoLibrary = new Section({
@@ -93,6 +111,18 @@ buttonEdit.addEventListener('click', () => {
 // Создание экземпляра класса добавления карточек
 const popupFormEdit = new PopupWithForm('.popup_task_edit',
   { submitForm: (profileData) => {
+    userInfo.setUserInfo(
+      profileData['profile_name'],
+      profileData['type_of_activity']);
+    popupFormEdit.close();
+    }
+  }
+)
+
+
+
+/* const popupFormEdit = new PopupWithForm('.popup_task_edit',
+  { submitForm: (profileData) => {
     
     popupFormEdit.processLoading(true);
     
@@ -113,7 +143,7 @@ const popupFormEdit = new PopupWithForm('.popup_task_edit',
       });
     }
   }
-)
+) */
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
@@ -142,18 +172,6 @@ const popupFormAdd = new PopupWithForm('.popup_task_add',
     }
   }
 );
-
-/**
- * Передаём массив с промисами методу Promise.all
- */
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, initialCardsData]) => {
-    userInfo.setUserInfo(userData);
-    photoLibrary.renderItems(initialCardsData);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
 
 // Навешиваем слушатели на экземпляры классов форм
 popupFormEdit.setEventListeners();
