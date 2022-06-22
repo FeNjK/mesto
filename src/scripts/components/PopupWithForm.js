@@ -34,12 +34,15 @@ export default class PopupWithForm extends Popup {
   }
 
   // Метод изменения кнопки в момент отправки формы на сервер
-  processLoading(loading) {
-    if (loading) {
-      this._submitButton.textContent = 'Сохранение...';
-    } else {
-      this._submitButton.textContent = 'Сохранить';
-    }
+  processLoading() {
+    this._submitButton.textContent = 'Сохранение...';
+    this._submitButton.disabled = true;
+  }
+
+  // Обычное состояние кнопки отправки
+  normalCondition() {
+    this._submitButton.textContent = 'Сохранить';
+      this._submitButton.disabled = false;
   }
   
   /**

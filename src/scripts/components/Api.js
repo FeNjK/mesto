@@ -1,17 +1,16 @@
 export default class Api {
   constructor({ url, token }) {
     this._url = url;
-    this._token = token
+    this._token = token;
   }
 
-  // "res" в парамете - это значит "response"
+    // "res" в парамете - это значит "response"
   _ringingServer(res) {
     if (res.ok) {
       return res.json();
-    } else {
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Возникла ошибка ${res.status}`)
     }
+      // если ошибка, отклоняем промис
+    return Promise.reject(`Возникла ошибка ${res.status}`);
   }
 
   getInitialCards() {
@@ -22,7 +21,10 @@ export default class Api {
         authorization: this._token
       }
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 
   getUserInfo() {
@@ -33,7 +35,10 @@ export default class Api {
         authorization: this._token
       }
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 
   setUserInfo(userName, userActivityType) {
@@ -44,11 +49,16 @@ export default class Api {
         authorization: this._token
       },
       body: JSON.stringify({
-        userName: userName,
-        userActivityType: userActivityType
+        /* userName: userName,
+        userActivityType: userActivityType */
+        name: userName,
+        about: userActivityType
       })
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 
   setUserAvatar(link) {
@@ -62,10 +72,14 @@ export default class Api {
         avatar: link
       })
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 
-  addNewCard({name, link}) {
+  //addNewCard({name, link}) {
+  addNewCard(data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
@@ -73,43 +87,59 @@ export default class Api {
         authorization: this._token
       },
       body: JSON.stringify({
-        name,
-        link
+        /* name,
+        link */
+        name: data.name,
+        link: data.link
+        /* name: name,
+        link: link */
       })
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 
-  deleteCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}`, {
+  removeCard(_id) {
+    return fetch(`${this._url}/cards/${_id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json', 
         authorization: this._token
       }
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 
-  setLikeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+  setLikeCard(_id) {
+    return fetch(`${this._url}/cards/${_id}/likes`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json', 
         authorization: this._token
       }
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 
-  deleteLikeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+  deleteLikeCard(_id) {
+    return fetch(`${this._url}/cards/${_id}/likes`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json', 
         authorization: this._token
       }
     })
-    .then(this._ringingServer)
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
   }
 }
