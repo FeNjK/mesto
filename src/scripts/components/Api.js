@@ -78,8 +78,8 @@ export default class Api {
     })
   }
 
-  //addNewCard({name, link}) {
-  addNewCard(data) {
+  addNewCard(name, link) {
+  //addNewCard(data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
@@ -89,10 +89,10 @@ export default class Api {
       body: JSON.stringify({
         /* name,
         link */
-        name: data.name,
-        link: data.link
-        /* name: name,
-        link: link */
+        /* name: data.name,
+        link: data.link */
+        name: name,
+        link: link
       })
     })
     .then((res) => this._ringingServer(res))

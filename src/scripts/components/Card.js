@@ -1,7 +1,6 @@
 export default class Card {
 
   constructor(data, userId, cardSelector, { handleCardClick }, { handleLikeClick }, { handleDeleteClick }) {
-    //constructor(data, cardSelector, { handleCardClick }) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -83,13 +82,6 @@ export default class Card {
     this._cardContainer.remove();
     this._cardContainer = null;
   }
-
-  /* // Метод "лайка" карточки
-  handleCardLike(data) {
-    this._likes = data.likes;
-    this._cardMark.classList.toggle('element__mark_active');
-    this._cardMarkCounter.textContent = this._likes.length;
-  } */
 
   // Оператор increment (++) добавляет единицу 
   // к своему операнду и возвращает значение
