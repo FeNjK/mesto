@@ -5,7 +5,7 @@ export default class Card {
     this._link = data.link;
     this._likes = data.likes;
     this._cardId = data._id;
-    this._ownerId = data.owner._id;
+    //this._ownerId = data.owner._id;
     this._userId = userId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -38,7 +38,6 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
-    this._cardMarkCounter.textContent = this._likes.length;
 
     this._setEventListeners();
     this._checkCardLike();
@@ -62,7 +61,7 @@ export default class Card {
 
   // Проверка наличия лайков на карточке
   _checkCardLike() {
-    this._like.forEach((element) => {
+    this._cardMark.forEach((element) => {
       if (element._id === this._userId) {
         this._cardMark.classList.add('element__mark_active');
       }
@@ -107,8 +106,8 @@ export default class Card {
     }
   } */
 
-  /* getId() {
+  getId() {
     return this._cardId;
-  } */
+  }
 
 }

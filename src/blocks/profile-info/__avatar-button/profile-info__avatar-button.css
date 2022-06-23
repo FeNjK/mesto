@@ -22,13 +22,6 @@
   -o-transition: opacity .5s ease;
 }
 
-@media screen and (max-width: 700px) {
-  .profile-info__avatar-button {
-    top: 0;
-    left: 63.5px;
-  }
-}
-
 .profile-info__avatar-button:hover {
   opacity: 1;
   cursor: pointer;

@@ -1,5 +1,5 @@
 import '../pages/index.css'; // добавил импорт главного файла стилей для нормальной работы «Вебпака»!!!
-import initialCards from '../scripts/utils/initialCards.js'; // импорт массива исходного массива изображений
+//import initialCards from '../scripts/utils/initialCards.js'; // импорт массива исходного массива изображений
 
 // Импорт подключаемых модулей
 import Card from '../scripts/components/Card.js';
@@ -21,7 +21,7 @@ import {
   popupUserActivityType,
   popupAvatar,
   popupFormNewCard,
-  popupFormAvatar,
+  popupFormAddAvatar,
   cardListSelector,
   config
 } from '../scripts/utils/constants.js';
@@ -29,12 +29,12 @@ import {
 // Создание экземпляров класса FormValidator для каждой формы
 const popupFormUserDataValidator = new FormValidator(config, popupFormUserData);
 const popupFormNewCardValidator = new FormValidator(config, popupFormNewCard);
-//const popupFormAvatarValidator = new FormValidator(config, popupFormAvatar);
+const popupFormAddAvatarValidator = new FormValidator(config, popupFormAddAvatar);
 
 // Вызов соответствующих свойств у оных объектов
 popupFormUserDataValidator.enableValidation();
 popupFormNewCardValidator.enableValidation();
-//popupFormAvatarValidator.enableValidation();
+popupFormAddAvatarValidator.enableValidation();
 
 // Создание экземпляра класса Api
 
@@ -51,10 +51,6 @@ const api = new Api({
   token: '10bf8282-16d5-46f1-976c-28311168fc94'
 })
 
-/* const api = new Api(
-  'https://mesto.nomoreparties.co/v1/cohort-43',
-  '10bf8282-16d5-46f1-976c-28311168fc94'
-) */
 //api.getInitialCards();
 //api.getUserInfo();
 //api.addNewCard();
@@ -64,13 +60,9 @@ const api = new Api({
  */
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, initialCardsData]) => {
-    userInfo.setUserInfo(userData);
+    userInfo.setUserData(userData);
     photoLibrary.renderItems(initialCardsData);
   })
-  /* .then((res) => {
-    userInfo.setUserInfo(res);
-    photoLibrary.renderItems(res);
-  }) */
   .catch((err) => {
     console.log(err);
   })
@@ -91,8 +83,6 @@ const photoLibrary = new Section({
     photoLibrary.addAppend(createCard(item));
   },
 }, cardListSelector);
-// Отрисовка карточек
-photoLibrary.renderItems();
 
 // Создание экземпляра класса с презентируемой картокой
 const showImagePopup = new PopupWithImage('.popup_task_show-image');
@@ -104,8 +94,9 @@ popupDeleteCard.setEventListeners();
 
 // Создание экземпляра класса Card
 function createCard(item) {
-  const card = new Card(item, 'eabb7cec892ace3938686583', '.template', 
-  
+  //const card = new Card(item, 'eabb7cec892ace3938686583', '.template', 
+  const card = new Card(item, userId.id,'.template', 
+  //{userId: userInfo.getUserId()},
   { handleCardClick: (name, link) => {
     showImagePopup.open(name, link);
   }},
@@ -188,18 +179,7 @@ buttonEdit.addEventListener('click', () => {
   popupFormEdit.open();
 });
 
-// Создание экземпляра класса добавления карточек
 const popupFormEdit = new PopupWithForm('.popup_task_edit',
-  { submitForm: (profileData) => {
-    userInfo.setUserInfo(
-      profileData['profile_name'],
-      profileData['type_of_activity'])
-    popupFormEdit.close();
-    }
-  }
-)
-
-/* const popupFormEdit = new PopupWithForm('.popup_task_edit',
   { submitForm: (profileData) => {
     popupFormEdit.processLoading();
     api.setUserInfo(
@@ -219,6 +199,17 @@ const popupFormEdit = new PopupWithForm('.popup_task_edit',
       .finally(() => {
         popupFormEdit.normalCondition();
       });
+    }
+  }
+)
+
+// Создание экземпляра класса добавления карточек
+/* const popupFormEdit = new PopupWithForm('.popup_task_edit',
+  { submitForm: (profileData) => {
+    userInfo.setUserInfo(
+      profileData['profile_name'],
+      profileData['type_of_activity'])
+    popupFormEdit.close();
     }
   }
 ) */
@@ -244,56 +235,58 @@ function addInArr(cardData) {
 
 const popupFormAdd = new PopupWithForm('.popup_task_add',
   { submitForm: (cardData) => {
-    addInArr(cardData);
-    popupFormAdd.close();
+    popupFormAdd.processLoading();
+    api.addNewCard(cardData)
+      .then((cardData) => {
+        popupFormAdd.close();
+        addInArr(cardData);
+        //photoLibrary.addAppend(createCard(cardData));
+      })
+      .catch((err) => {
+        console.log(`Тут какая-то ошибка ${err}`)
+      })
+      .finally(() => {
+        popupFormAdd.normalCondition();
+      });
     }
   }
 )
 
-
 /* const popupFormAdd = new PopupWithForm('.popup_task_add',
   { submitForm: (cardData) => {
-    popupFormAdd.processLoading();
-    api.addNewCard()
-
     addInArr(cardData);
     popupFormAdd.close();
     }
   }
 ) */
 
-// Создание экземпляра класса формы добавления карточки
-/* const popupFormAdd = new PopupWithForm('.popup_task_avatar',
+ // Создание экземпляра класса формы добавления карточки
+ const popupFormAvatar = new PopupWithForm('.popup_task_avatar',
   { submitForm: (profileData) => {
-    
-    api.setUserAvatar(profileData.link)
-      .then((res => {
-        popupFormAdd.close();
-        //userInfo.setUserInfo(res); нужно прописать метод для аватара
+    popupFormAvatar.processLoading();
+    api.setUserAvatar(profileData['profile-avatar'])
+      .then((res) => {
+        popupFormAvatar.close();
+        userInfo.setUserInfoAvatar(res);
       })
-    
+      .catch((err) => {
+        console.log(`Тут какая-то ошибка ${err}`)
+      })
+      .finally(() => {
+        popupFormAvatar.normalCondition();
+      });
     }
   }
-); */
+);
 
-/* buttonAvatar.addEventListener('click', () => {
-  popupFormAvatar.reset();
-  popupFormAvatarValidator.removeInputError();
-  popupFormAvatarValidator.toggleButtonState();
+buttonAvatar.addEventListener('click', () => {
+  popupFormAddAvatar.reset();
+  popupFormAddAvatarValidator.removeInputError();
+  popupFormAddAvatarValidator.toggleButtonState();
   popupFormAvatar.open();
-}); */
-
-/* const popupFormAvatar = new PopupWithForm('.popup_task_avatar',
-  { submitForm: () => {
-    console.log('Я работаю нормально')
-    
-    
-    popupFormAvatar.close();
-    }
-  }
-) */
+});
 
 // Навешиваем слушатели на экземпляры классов форм
 popupFormEdit.setEventListeners();
 popupFormAdd.setEventListeners();
-//popupFormAvatar.setEventListeners();
+popupFormAvatar.setEventListeners();

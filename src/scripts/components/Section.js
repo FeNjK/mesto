@@ -16,7 +16,6 @@ export default class Section {
     items.forEach(item => {
       this._renderer(item); // вызываем renderer, передав item
     });
-    return items;
   }
   
 }

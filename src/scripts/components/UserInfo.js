@@ -11,11 +11,6 @@ export default class UserInfo {
     this._userAvatar = document.querySelector(userAvatar);
   }
 
-  /* constructor({userName, userActivityType}) {
-    this._userName = document.querySelector(userName);
-    this._userActivityType = document.querySelector(userActivityType);
-  } */
-
   /**
    * Метод, который
    * @returns {object} объект с данными пользователя
@@ -25,32 +20,27 @@ export default class UserInfo {
   getUserInfo() {
     return {
       userName: this._userName.textContent,
-      userActivityType: this._userActivityType.textContent,
-      //userAvatar: this._userAvatar.src
-    };
-  }
-
-  /* getUserInfo() {
-    return {
-      userName: this._userName.textContent,
       userActivityType: this._userActivityType.textContent
     };
-  } */
+  }
 
   /**
    * Метод, принимающий новые данные пользователя
    * и добавляет их на страницу при сабмите
    */
-  //setUserInfo(popupUserName, popupUserActivityType, popupAvatar, _id) {
-  setUserInfo(data) {
-    this._userName.textContent = data.name;
-    this._userActivityType.textContent = data.about;
-    this._userAvatar.src = data.avatar;
-    //this._id = _id;
+  setUserInfo(userName, userActivityType) {
+    this._userName.textContent = userName;
+    this._userActivityType.textContent = userActivityType;
+  }
+  
+  setUserData(userInfo) {
+    this._userName._id = userInfo._id;
+    this._userName.textContent = userInfo.name;
+    this._userActivityType.textContent = userInfo.about;
+    this._userAvatar.src = userInfo.avatar;
   }
 
-  /* setUserInfo(popupUserName, popupUserActivityType) {
-    this._userName.textContent = popupUserName;
-    this._userActivityType.textContent = popupUserActivityType;
-  } */
+  setUserInfoAvatar(userInfoAvatar) {
+   this._userAvatar.src = userInfoAvatar.avatar;
+  }
 }

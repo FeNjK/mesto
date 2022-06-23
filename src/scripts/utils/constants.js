@@ -9,7 +9,7 @@ export const buttonAvatar = document.querySelector('.profile-info__avatar-button
 export const formUserData = document.querySelector('.profile-info__data');//нашли форму с данными профиля пользователя
 export const popupFormUserData = document.querySelector('.popup__form_type_user-data');//Форма с данными профиля пользователя
 export const popupFormNewCard = document.querySelector('.popup__form_type_new-card');//Форма с данными новой карточки с картинкой
-export const popupFormAvatar =document.querySelector('.popup__form_type_avatar');
+export const popupFormAddAvatar = document.querySelector('.popup__form_type_avatar');
 
 // Поля заполнения данных ПРОФИЛЯ в модальном окне
 export const popupUserName = popupFormUserData.querySelector('.popup__input_content_name');//Поле с именем пользователя

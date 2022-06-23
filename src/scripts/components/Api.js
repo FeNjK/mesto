@@ -4,7 +4,7 @@ export default class Api {
     this._token = token;
   }
 
-    // "res" в парамете - это значит "response"
+  // "res" в парамете - это значит "response"
   _ringingServer(res) {
     if (res.ok) {
       return res.json();
@@ -41,7 +41,7 @@ export default class Api {
     })
   }
 
-  setUserInfo(userName, userActivityType) {
+  setUserInfo(name, about) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -49,10 +49,8 @@ export default class Api {
         authorization: this._token
       },
       body: JSON.stringify({
-        /* userName: userName,
-        userActivityType: userActivityType */
-        name: userName,
-        about: userActivityType
+        name: name,
+        about: about
       })
     })
     .then((res) => this._ringingServer(res))
@@ -78,8 +76,8 @@ export default class Api {
     })
   }
 
-  addNewCard(name, link) {
-  //addNewCard(data) {
+  //addNewCard(name, link) {
+  addNewCard(data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
@@ -89,10 +87,8 @@ export default class Api {
       body: JSON.stringify({
         /* name,
         link */
-        /* name: data.name,
-        link: data.link */
-        name: name,
-        link: link
+        name: data.name,
+        link: data.link
       })
     })
     .then((res) => this._ringingServer(res))

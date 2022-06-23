@@ -23,7 +23,7 @@
       <section class="profile">
         <article class="profile-info">
           <img class="profile-info__avatar" 
-               src="<%=require('./images/avatar.svg')%>"
+               src="#"
                alt="Аватар пользователя">
           <button class="profile-info__avatar-button"
                   title="Редактирование аватара"
@@ -160,15 +160,18 @@
               novalidate
               autocomplete="off">
           <h3 class="popup__title">Обновить аватар</h3>
-          <input type="url"
-                 name="profile-avatar"
-                 placeholder="Введите адрес изображения"
-                 class="popup__input popup__input_content_avatar"
-                 id="profile-avatar"
-                 required>
-          <span class="popup__validation-message popup__validation-message_position_first"
-                 id="profile-avatar-error">
-          </span>
+          <fieldset class="popup__input-place"
+                    name="popup__input-place">
+            <input type="url"
+                   name="profile-avatar"
+                   placeholder="Введите адрес изображения"
+                   class="popup__input popup__input_content_avatar"
+                   id="profile-avatar"
+                   required>
+            <span class="popup__validation-message popup__validation-message_position_first"
+                  id="profile-avatar-error">
+            </span>
+          </fieldset>
           <button class="popup__save-button"
                   type="submit">Сохранить</button>
         </form>
