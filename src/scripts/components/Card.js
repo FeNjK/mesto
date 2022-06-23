@@ -61,7 +61,7 @@ export default class Card {
 
   // Проверка наличия лайков на карточке
   _checkCardLike() {
-    this._cardMark.forEach((element) => {
+    this._likes.forEach((element) => {
       if (element._id === this._userId) {
         this._cardMark.classList.add('element__mark_active');
       }

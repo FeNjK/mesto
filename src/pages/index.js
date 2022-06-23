@@ -52,6 +52,9 @@ showImagePopup.setEventListeners();
 const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
 popupDeleteCard.setEventListeners();
 
+
+let userId
+
 /**
  * Передаём массив с промисами методу Promise.all
  * и получаем данные с сервера
@@ -59,18 +62,12 @@ popupDeleteCard.setEventListeners();
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, initialCardsData]) => {
 
-    console.log(`Что тут? ${initialCardsData}`);
+    //console.log(`Что тут? ${initialCardsData}`);
 
+    userId = userData;
     userInfo.setUserData(userData);
     photoLibrary.renderItems(initialCardsData);
-    console.log(initialCardsData);
   })
-  /* .then((results) => {
-    console.log(`Что тут? ${results[1]}`);
-    
-    userInfo.setUserData(results[0]);
-    photoLibrary.renderItems(results[1]);
-  }) */
   .then((results) => {
     console.log(results); // ["Первый промис", "Второй промис"]
   })
@@ -105,7 +102,7 @@ photoLibrary.renderItems(); */
 // Создание экземпляра класса Card
 function createCard(item) {
   //const card = new Card(item, 'eabb7cec892ace3938686583', '.template', 
-  const card = new Card(item, userId,'.template',
+  const card = new Card(item, userId, '.template',
   { handleCardClick: (name, link) => {
     showImagePopup.open(name, link);
   }},
@@ -118,8 +115,8 @@ function createCard(item) {
     popupDeleteCard.open();
     popupDeleteCard.setSubmit(() => {
       popupDeleteCard.processLoading();
-      api.removeCard(cardId)
-      //api.removeCard(card.getId())
+      //api.removeCard(cardId)
+      api.removeCard(card.getId())
         .then(() => {
           popupDeleteCard.close();
           card.handleCardDelete();
