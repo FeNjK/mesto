@@ -17,9 +17,6 @@ export const popupUserActivityType = popupFormUserData.querySelector('.popup__in
 
 // СЕЛЕКТОРЫ !!!
 
-// Данные карточeк, отображенные на странице 
-export const cardListSelector = '.elements'; // Список карточек
-
 // Конфигурационный файл валидации
 export const config = {
   formSelector: '.popup__form',

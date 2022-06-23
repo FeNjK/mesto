@@ -45,4 +45,8 @@ export default class UserInfo {
    this._userAvatar.src = userInfoAvatar.avatar;
    userInfoAvatar.avatar.classList.add('.profile__avatar');
   }
+
+  getId() {
+    return this._id;
+  }
 }

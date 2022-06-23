@@ -13,20 +13,6 @@ export default class Api {
     return Promise.reject(`Возникла ошибка ${res.status}`);
   }
 
-  getInitialCards() {
-    return fetch(`${this._url}/cards`, {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json', 
-        authorization: this._token
-      }
-    })
-    .then((res) => this._ringingServer(res))
-    .then((result) => {
-      return result;
-    })
-  }
-
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
@@ -76,8 +62,22 @@ export default class Api {
     })
   }
 
-  //addNewCard(name, link) {
-  addNewCard(data) {
+  getInitialCards() {
+    return fetch(`${this._url}/cards`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json', 
+        authorization: this._token
+      }
+    })
+    .then((res) => this._ringingServer(res))
+    .then((result) => {
+      return result;
+    })
+  }
+
+  addNewCard(name, link) {
+  //addNewCard(data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
@@ -87,8 +87,10 @@ export default class Api {
       body: JSON.stringify({
         /* name,
         link */
-        name: data.name,
-        link: data.link
+        /* name: data.name,
+        link: data.link */
+        name: name,
+        link: link
       })
     })
     .then((res) => this._ringingServer(res))

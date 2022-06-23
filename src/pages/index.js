@@ -21,7 +21,6 @@ import {
   popupUserActivityType,
   popupFormNewCard,
   popupFormAddAvatar,
-  cardListSelector,
   config
 } from '../scripts/utils/constants.js';
 
@@ -45,19 +44,7 @@ const api = new Api({
 //api.getUserInfo();
 //api.addNewCard();
 
-/**
- * Передаём массив с промисами методу Promise.all
- */
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, initialCardsData]) => {
-    userInfo.setUserData(userData);
-    photoLibrary.renderItems(initialCardsData);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-
-  // Создание экземпляра класса с презентируемой картокой
+// Создание экземпляра класса с презентируемой картокой
 const showImagePopup = new PopupWithImage('.popup_task_show-image');
 showImagePopup.setEventListeners();
 
@@ -65,38 +52,74 @@ showImagePopup.setEventListeners();
 const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
 popupDeleteCard.setEventListeners();
 
+/**
+ * Передаём массив с промисами методу Promise.all
+ * и получаем данные с сервера
+ */
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCardsData]) => {
+
+    console.log(`Что тут? ${initialCardsData}`);
+
+    userInfo.setUserData(userData);
+    photoLibrary.renderItems(initialCardsData);
+    console.log(initialCardsData);
+  })
+  /* .then((results) => {
+    console.log(`Что тут? ${results[1]}`);
+    
+    userInfo.setUserData(results[0]);
+    photoLibrary.renderItems(results[1]);
+  }) */
+  .then((results) => {
+    console.log(results); // ["Первый промис", "Второй промис"]
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+  const photoLibrary = new Section({
+    renderer: (item) => {
+       photoLibrary.addAppend(createCard(item));
+    }
+  }, '.elements');
+
 // Создание экземпляра класса секции (блока с карточкой)
 /* const photoLibrary = new Section({
     items: initialCards,
     renderer: (item) => {
-      const cardElement = createCard(item);
-      photoLibrary.addAppend(cardElement);
+      const cardElement = createCard(item, '.template');
+      photoLibrary.addPrepend(cardElement);
     },
-  }, cardListSelector);
+  }, '.elements');
 // Отрисовка карточек
 photoLibrary.renderItems(); */
 
-const photoLibrary = new Section({
-  renderer: (item) => {
-    photoLibrary.addAppend(createCard(item));
-  },
-}, cardListSelector);
-
+/* function createCard(item) {
+  return new Card(item, '.template', 
+  { handleCardClick: (name, link) => {
+    showImagePopup.open(name, link);
+  }}).generateCard();
+} */
 
 // Создание экземпляра класса Card
 function createCard(item) {
   //const card = new Card(item, 'eabb7cec892ace3938686583', '.template', 
-  const card = new Card(item, userId.id,'.template', 
-  //{userId: userInfo.getUserId()},
+  const card = new Card(item, userId,'.template',
   { handleCardClick: (name, link) => {
     showImagePopup.open(name, link);
   }},
+
+  /* { handleCardClick: (data) => {
+    showImagePopup.open(data);
+  }}, */
 
   { handleDeleteClick: (cardId) => {
     popupDeleteCard.open();
     popupDeleteCard.setSubmit(() => {
       popupDeleteCard.processLoading();
       api.removeCard(cardId)
+      //api.removeCard(card.getId())
         .then(() => {
           popupDeleteCard.close();
           card.handleCardDelete();
@@ -109,10 +132,11 @@ function createCard(item) {
       })
     }
   },
+
   { handleLikeClick: (card) => {
     const cardMark = card.querySelector('.element__mark');
     if (cardMark.classList.add('element__mark_active')) {
-      api.deleteLikeCard(card.id)
+      api.deleteLikeCard(card._id)
         .then((res) => {
           card.deleteLike(res);
         })
@@ -131,14 +155,9 @@ function createCard(item) {
     }
   });
   return card.generateCard();
+  /* const cardElement = card.generateCard();
+  return cardElement; */
 }
-
-/* function createCard(item) {
-  return new Card(item, '.template', 
-  { handleCardClick: (name, link) => {
-    showImagePopup.open(name, link);
-  }}).generateCard();
-} */
 
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
@@ -151,13 +170,13 @@ buttonAdd.addEventListener('click', () => {
 // Данная функция получает значения инпутов формы
 // добавления карточки благодаря методу getInputValues
 // модуля PopupWithForm и передаёт их создаваемой карточке
-function addInArr(cardData) {
+/* function addInArr(cardData) {
   const newCard = createCard({
     name: cardData['card-title'],
     link: cardData['picture-link'],
   }, '.template');
   photoLibrary.addPrepend(newCard);
-}
+} */
 
 const popupFormAdd = new PopupWithForm('.popup_task_add',
   { submitForm: (cardData) => {
@@ -165,9 +184,13 @@ const popupFormAdd = new PopupWithForm('.popup_task_add',
     api.addNewCard(cardData)
       .then((cardData) => {
         popupFormAdd.close();
-        addInArr(cardData);
+        //addInArr(cardData);
         //photoLibrary.addAppend(createCard(cardData));
-      })
+        photoLibrary.addAppend(createCard({
+            name: cardData['card-title'],
+            link: cardData['picture-link']
+        })
+      )})
       .catch((err) => {
         console.log(`Тут какая-то ошибка ${err}`)
       })
