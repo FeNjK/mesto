@@ -19,7 +19,6 @@ import {
   popupFormUserData,
   popupUserName,
   popupUserActivityType,
-  popupAvatar,
   popupFormNewCard,
   popupFormAddAvatar,
   cardListSelector,
@@ -37,15 +36,6 @@ popupFormNewCardValidator.enableValidation();
 popupFormAddAvatarValidator.enableValidation();
 
 // Создание экземпляра класса Api
-
-/* const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-43',
-  headers: {
-    'Content-Type': 'application/json',
-    authorization: '10bf8282-16d5-46f1-976c-28311168fc94'
-  }
-}) */
-
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-43',
   token: '10bf8282-16d5-46f1-976c-28311168fc94'
@@ -67,6 +57,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(err);
   })
 
+  // Создание экземпляра класса с презентируемой картокой
+const showImagePopup = new PopupWithImage('.popup_task_show-image');
+showImagePopup.setEventListeners();
+
+// Создание экземпляра класса подтверждения удаления карточки
+const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
+popupDeleteCard.setEventListeners();
+
 // Создание экземпляра класса секции (блока с карточкой)
 /* const photoLibrary = new Section({
     items: initialCards,
@@ -84,13 +82,6 @@ const photoLibrary = new Section({
   },
 }, cardListSelector);
 
-// Создание экземпляра класса с презентируемой картокой
-const showImagePopup = new PopupWithImage('.popup_task_show-image');
-showImagePopup.setEventListeners();
-
-// Создание экземпляра класса подтверждения удаления карточки
-const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
-popupDeleteCard.setEventListeners();
 
 // Создание экземпляра класса Card
 function createCard(item) {
@@ -149,71 +140,6 @@ function createCard(item) {
   }}).generateCard();
 } */
 
-
-// Создание экземпляра класса с данными пользователя
-const userInfo = new UserInfo({
-  userName: '.profile-info__name',
-  userActivityType: '.profile-info__activity-type',
-  userAvatar: '.profile-info__avatar'
-});
-
-/* const userInfo = new UserInfo({
-  userName: '.profile-info__name',
-  userActivityType: '.profile-info__activity-type'
-}); */
-
-// Функция получения значений инпутов 
-// при открытии попапа формы редактирования профиля
-function getInputValuesFormEdit() {
-  const userData = userInfo.getUserInfo();
-  popupUserName.value = userData.userName;// поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
-  popupUserActivityType.value = userData.userActivityType;// в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
-}
-
-// Реализация функции редактирования данных профиля
-// функция показывающая, что при открытии модального окна мы видим
-buttonEdit.addEventListener('click', () => {  
-  getInputValuesFormEdit(); //вызов функции получения значений инпутов при открытии попапа
-  popupFormUserDataValidator.removeInputError();
-  popupFormUserDataValidator.toggleButtonState();
-  popupFormEdit.open();
-});
-
-const popupFormEdit = new PopupWithForm('.popup_task_edit',
-  { submitForm: (profileData) => {
-    popupFormEdit.processLoading();
-    api.setUserInfo(
-      profileData['profile_name'],
-      profileData['type_of_activity']
-      )
-      .then((res) => {
-        popupFormEdit.close();
-        userInfo.setUserInfo(
-          res.name,
-          res.about
-        )
-      })
-      .catch((err) => {
-        console.log(`Тут какая-то ошибка ${err}`)
-      })
-      .finally(() => {
-        popupFormEdit.normalCondition();
-      });
-    }
-  }
-)
-
-// Создание экземпляра класса добавления карточек
-/* const popupFormEdit = new PopupWithForm('.popup_task_edit',
-  { submitForm: (profileData) => {
-    userInfo.setUserInfo(
-      profileData['profile_name'],
-      profileData['type_of_activity'])
-    popupFormEdit.close();
-    }
-  }
-) */
-
 // Функция открытия модального окна кнопкой добавления карточки
 buttonAdd.addEventListener('click', () => {
   popupFormNewCard.reset();
@@ -259,6 +185,54 @@ const popupFormAdd = new PopupWithForm('.popup_task_add',
     }
   }
 ) */
+
+// Создание экземпляра класса с данными пользователя
+const userInfo = new UserInfo({
+  userName: '.profile-info__name',
+  userActivityType: '.profile-info__activity-type',
+  userAvatar: '.profile-info__avatar'
+});
+
+// Функция получения значений инпутов 
+// при открытии попапа формы редактирования профиля
+function getInputValuesFormEdit() {
+  const userData = userInfo.getUserInfo();
+  popupUserName.value = userData.userName;// поле "введите ваше имя" фигурируют данные ранее указанные в имени пользователя профиля
+  popupUserActivityType.value = userData.userActivityType;// в поле "каков род ваших занятий" фигурируют данные ранее указанные в соответствующем поле профиля
+}
+
+// Реализация функции редактирования данных профиля
+// функция показывающая, что при открытии модального окна мы видим
+buttonEdit.addEventListener('click', () => {  
+  getInputValuesFormEdit(); //вызов функции получения значений инпутов при открытии попапа
+  popupFormUserDataValidator.removeInputError();
+  popupFormUserDataValidator.toggleButtonState();
+  popupFormEdit.open();
+});
+
+const popupFormEdit = new PopupWithForm('.popup_task_edit',
+  { submitForm: (profileData) => {
+    popupFormEdit.processLoading();
+    api.setUserInfo(
+      profileData['profile_name'],
+      profileData['type_of_activity']
+      )
+      .then((res) => {
+        popupFormEdit.close();
+        userInfo.setUserInfo(
+          res.name,
+          res.about
+        )
+      })
+      .catch((err) => {
+        console.log(`Тут какая-то ошибка ${err}`)
+      })
+      .finally(() => {
+        popupFormEdit.normalCondition();
+      });
+    }
+  }
+)
 
  // Создание экземпляра класса формы добавления карточки
  const popupFormAvatar = new PopupWithForm('.popup_task_avatar',

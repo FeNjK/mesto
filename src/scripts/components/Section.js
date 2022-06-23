@@ -17,5 +17,4 @@ export default class Section {
       this._renderer(item); // вызываем renderer, передав item
     });
   }
-  
 }

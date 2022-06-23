@@ -20,7 +20,8 @@ export default class UserInfo {
   getUserInfo() {
     return {
       userName: this._userName.textContent,
-      userActivityType: this._userActivityType.textContent
+      userActivityType: this._userActivityType.textContent,
+      userAvatar: this._userAvatar.src
     };
   }
 
@@ -42,5 +43,6 @@ export default class UserInfo {
 
   setUserInfoAvatar(userInfoAvatar) {
    this._userAvatar.src = userInfoAvatar.avatar;
+   userInfoAvatar.avatar.classList.add('.profile__avatar');
   }
 }
