@@ -1,7 +1,7 @@
 export default class Card {
 
   constructor(
-    {data},
+    data,
     userId,
     cardSelector,
     { handleCardClick,
@@ -63,7 +63,7 @@ export default class Card {
     });
     this._cardMark.addEventListener('click', () => {
       
-      this.handleLikeCardClick(this._cardId);
+      this.handleLikeCardClick(this);
 
       /* if(this._cardMark.classList.add('element__mark_active')) {
         this.handleDeleteLikeClick(this._cardId);
@@ -87,13 +87,10 @@ export default class Card {
   }
 
   isLiked() {
-    console.log( typeof isLiked);
     return Boolean(this._likes.find((element) => {
       return this._userId === element._id;
     })
   )}
-
-  
 
   updateLikesCounter(data) {
     this._likes = data.likes;

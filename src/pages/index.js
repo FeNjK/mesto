@@ -73,16 +73,15 @@ const photoLibrary = new Section({
 
 // Создание экземпляра класса Card
 function createCard(data) {
-  const card = new Card( {data}, userId, '.template',
+  const card = new Card(data, userId, '.template',
   
   { handleCardClick: (name, link) => {
       showImagePopup.open(name, link);
       },
   
     handleLikeCardClick: (card) => {
-      console.log(card.isLiked)
       if (card.isLiked()) {
-        api.deleteLikeCard(card)
+        api.deleteLikeCard(card._cardId)
           .then((data) => {
             card.updateLikesCounter(data);
             card.deleteLike();
@@ -91,7 +90,9 @@ function createCard(data) {
             console.log(`Тут какая-то ошибка c удалением лайка ${err}`)
           })
         } else {
-        api.setLikeCard(card)
+        api.setLikeCard(card._cardId)
+        /* console.log(card)
+        console.log(card._cardId) */
           .then((data) => {
             card.updateLikesCounter(data);
             card.addLike();

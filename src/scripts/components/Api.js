@@ -94,8 +94,8 @@ export default class Api {
     })
   }
 
-  removeCard(_id) {
-    return fetch(`${this._url}/cards/${_id}`, {
+  removeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json', 
@@ -108,8 +108,8 @@ export default class Api {
     })
   }
 
-  setLikeCard(_id) {
-    return fetch(`${this._url}/cards/${_id}/likes`, {
+  setLikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json', 
@@ -122,8 +122,8 @@ export default class Api {
     })
   }
 
-  deleteLikeCard(_id) {
-    return fetch(`${this._url}/cards/${_id}/likes`, {
+  deleteLikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json', 
