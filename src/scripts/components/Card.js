@@ -140,4 +140,9 @@ export default class Card {
     this._cardContainer.remove();
     this._cardContainer = null;
   }
+
+
+
+
+  
 }
