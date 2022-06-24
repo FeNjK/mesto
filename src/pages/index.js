@@ -101,7 +101,6 @@ photoLibrary.renderItems(); */
 
 // Создание экземпляра класса Card
 function createCard(item) {
-  //const card = new Card(item, 'eabb7cec892ace3938686583', '.template', 
   const card = new Card(item, userId, '.template',
   { handleCardClick: (name, link) => {
     showImagePopup.open(name, link);
@@ -168,8 +167,6 @@ function createCard(item) {
     }
   } */
   return card.generateCard();
-  /* const cardElement = card.generateCard();
-  return cardElement; */
 }
 
 // Функция открытия модального окна кнопкой добавления карточки
@@ -200,7 +197,7 @@ const popupFormAdd = new PopupWithForm('.popup_task_add',
       })
       .then((res) => {
         popupFormAdd.close();
-        photoLibrary.addAppend([res]);
+        photoLibrary.addPrepend(createCard(res));
       })
       .catch((err) => {
         console.log(`Тут какая-то ошибка ${err}`)

@@ -46,6 +46,7 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
+    this._cardMarkCounter.textContent = this._likes.length;
 
     this._setEventListeners();
     this._checkCardLike();
@@ -57,10 +58,10 @@ export default class Card {
   // Слушатели срабатывания методов
   _setEventListeners() {
     this._cardMark.addEventListener('click', () => {
-      this._handleLikeClick();
+      this._handleLikeClick(this._cardId);
     });
     this._cardTrash.addEventListener('click', () => {
-      this.handleDeleteCardClick();
+      this.handleDeleteCardClick(this._cardId);
     });
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
