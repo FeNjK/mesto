@@ -48,7 +48,8 @@ showImagePopup.setEventListeners();
 const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
 popupDeleteCard.setEventListeners();
 
-let userId
+let userId;
+console.log(userId);
 
 /**
  * Передаём массив с промисами методу Promise.all
@@ -72,28 +73,22 @@ const photoLibrary = new Section({
 
 // Создание экземпляра класса Card
 function createCard(data) {
-  const card = new Card(data, userId, '.template',
+  const card = new Card( {data}, userId, '.template',
   
   { handleCardClick: (name, link) => {
       showImagePopup.open(name, link);
       },
-
   
     handleLikeCardClick: (card) => {
-      
-      //console.log(handleLikeCardClick());
-
+      console.log(card.isLiked)
       if (card.isLiked()) {
-
-        //console.log(card.isLiked());
-
         api.deleteLikeCard(card)
           .then((data) => {
             card.updateLikesCounter(data);
             card.deleteLike();
           })
           .catch((err) => {
-            console.log(`Тут какая-то ошибка ${err}`)
+            console.log(`Тут какая-то ошибка c удалением лайка ${err}`)
           })
         } else {
         api.setLikeCard(card)
@@ -102,7 +97,7 @@ function createCard(data) {
             card.addLike();
           })
           .catch((err) => {
-            console.log(`Тут какая-то ошибка ${err}`)
+            console.log(`Тут какая-то ошибка c добавлением лайка ${err}`)
           })
         }
       },
