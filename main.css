@@ -7,7 +7,7 @@
 .profile{align-items:center;display:flex;justify-content:space-between;margin:40px auto 0;max-width:880px;padding:0}@media screen and (max-width:700px){.profile{flex-direction:column;margin:42px 0 0}}
 .profile-info{color:#fff;display:flex;margin:0;padding:0;position:relative}@media screen and (max-width:700px){.profile-info{align-items:center;flex-direction:column}}
 .profile-info__avatar{border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;height:120px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:120px}
-.profile-info__avatar-button{background-color:rgba(0,0,0,.8);background-position:50%;background-repeat:no-repeat;border:none;border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;height:120px;left:0;opacity:0;outline:1px #000;position:absolute;top:0;transition:opacity .5s ease;-webkit-transition:opacity .5s ease;-moz-transition:opacity .5s ease;-ms-transition:opacity .5s ease;-o-transition:opacity .5s ease;width:120px}.profile-info__avatar-button:hover{cursor:pointer;opacity:1}
+.profile-info__avatar-button{background-color:rgba(0,0,0,.8);background-position:50%;background-repeat:no-repeat;border:none;border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;height:120px;left:0;opacity:0;outline:1px #000;position:absolute;top:0;transition:opacity .5s ease;-webkit-transition:opacity .5s ease;-moz-transition:opacity .5s ease;-ms-transition:opacity .5s ease;-o-transition:opacity .5s ease;width:120px}@media screen and (max-width:700px){.profile-info__avatar-button{left:36px}}.profile-info__avatar-button:hover{cursor:pointer;opacity:1}
 .profile-info__avatar-pen{height:26px;width:26px}
 .profile-info__data{align-items:flex-start;display:flex;flex-direction:column;justify-content:flex-start;margin:0 0 0 30px}@media screen and (max-width:700px){.profile-info__data{align-items:center;margin:26px 0 0}}
 .profile-info__single-level{align-items:center;display:flex}
@@ -24,8 +24,8 @@
 .element__title{font-size:24px;font-weight:900;grid-column-end:2;grid-column-start:1;grid-row-end:3;grid-row-start:2;line-height:1.21;margin:25px 0 25px 21px;overflow:hidden;padding:0;text-align:start;text-overflow:ellipsis;white-space:nowrap}
 .element__mark-block{align-items:center;display:flex;flex-direction:column}
 .element__mark{background-color:transparent;background-image:url(87ed371465c7a6a1cd01.svg);background-repeat:no-repeat;border:none;cursor:pointer;grid-column-end:3;grid-column-start:2;grid-row-end:3;grid-row-start:2;height:19px;margin:22px 21px 0 0;width:22px}.element__mark:hover{opacity:.5;transition:opacity .2s linear;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;-ms-transition:opacity .2s linear;-o-transition:opacity .2s linear}
-.element__mark-counter{color:#000;font-size:13px;font-weight:400;line-height:1.23;margin:3px 21px 0 0;text-align:center}
 .element__mark_active{background-image:url(fe17a515669479b1e649.svg);opacity:1}
+.element__mark-counter{color:#000;font-size:13px;font-weight:400;line-height:1.23;margin:3px 21px 0 0;text-align:center}
 .element__trash{background-color:transparent;background-image:url(cbc09a894bdd4c956365.svg);background-repeat:no-repeat;border:none;cursor:pointer;height:19px;margin:0;padding:0;position:absolute;right:20px;top:20px;width:18px}.element__trash:hover{opacity:.6;transition:opacity .2s linear;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;-ms-transition:opacity .2s linear;-o-transition:opacity .2s linear}
 .footer{color:#fff;margin:67px auto 60px;max-width:880px;padding:0}@media screen and (max-width:934px){.footer{margin:67px 19px 60px}}@media screen and (max-width:700px){.footer{margin:52px 19px 30px}}
 .footer__author{color:#545454;font-size:18px;font-weight:400;line-height:1.22;margin:0;padding:0;text-align:start}@media screen and (max-width:700px){.footer__author{font-size:14px;line-height:1.21}}
@@ -50,3 +50,5 @@
 .popup__image{max-height:75vh;max-width:75vw}
 .popup__caption{color:#fff;font-size:12px;font-weight:400;line-height:1.25;margin:10px 0 0;overflow:hidden;padding:0;text-align:start;text-overflow:ellipsis;white-space:nowrap}
 
+
+/*# sourceMappingURL=main.css.map*/
