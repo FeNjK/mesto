@@ -71,16 +71,22 @@ const photoLibrary = new Section({
 }, '.elements');
 
 // Создание экземпляра класса Card
-function createCard(item) {
-  const card = new Card(item, userId, '.template',
+function createCard(data) {
+  const card = new Card(data, userId, '.template',
   
   { handleCardClick: (name, link) => {
       showImagePopup.open(name, link);
       },
 
+  
     handleLikeCardClick: (card) => {
-      console.log(typeof card.isLiked());
+      
+      //console.log(handleLikeCardClick());
+
       if (card.isLiked()) {
+
+        //console.log(card.isLiked());
+
         api.deleteLikeCard(card)
           .then((data) => {
             card.updateLikesCounter(data);

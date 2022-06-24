@@ -12,7 +12,7 @@ export default class Card {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
-    this._cardId = data._id;
+    this._cardId = data._id; // кажется у меня что-то со зрением. или всё же с головой
     this._ownerId = data.owner._id;
     this._userId = userId;
     this._cardSelector = cardSelector;
@@ -63,8 +63,6 @@ export default class Card {
     });
     this._cardMark.addEventListener('click', () => {
       
-      /* console.log(this.handleLikeClick(this._cardId)); */
-
       this.handleLikeCardClick(this._cardId);
 
       /* if(this._cardMark.classList.add('element__mark_active')) {
