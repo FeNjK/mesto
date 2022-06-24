@@ -4,11 +4,11 @@ export default class Card {
     data,
     userId,
     cardSelector,
-    { handleCardClick },
-    { handleLikeCardClick },
-    /* { handleAddLikeClick },
-    { handleDeleteLikeClick }, */
-    { handleDeleteCardClick }) {
+    { handleCardClick,
+    handleLikeCardClick,
+    /* { handleAddLikeClick,
+    handleDeleteLikeClick, */
+    handleDeleteCardClick }) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -58,6 +58,9 @@ export default class Card {
 
   // Слушатели срабатывания методов
   _setEventListeners() {
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link);
+    });
     this._cardMark.addEventListener('click', () => {
       
       /* console.log(this.handleLikeClick(this._cardId)); */
@@ -73,9 +76,6 @@ export default class Card {
     });
     this._cardTrash.addEventListener('click', () => {
       this.handleDeleteCardClick(this._cardId);
-    });
-    this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link);
     });
   }
 

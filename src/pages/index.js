@@ -75,11 +75,33 @@ function createCard(item) {
   const card = new Card(item, userId, '.template',
   
   { handleCardClick: (name, link) => {
-    showImagePopup.open(name, link);
-    }
-  },
+      showImagePopup.open(name, link);
+      },
 
-  { handleDeleteCardClick: (card) => {
+    handleLikeCardClick: (card) => {
+      console.log(typeof card.isLiked());
+      if (card.isLiked()) {
+        api.deleteLikeCard(card)
+          .then((data) => {
+            card.updateLikesCounter(data);
+            card.deleteLike();
+          })
+          .catch((err) => {
+            console.log(`Тут какая-то ошибка ${err}`)
+          })
+        } else {
+        api.setLikeCard(card)
+          .then((data) => {
+            card.updateLikesCounter(data);
+            card.addLike();
+          })
+          .catch((err) => {
+            console.log(`Тут какая-то ошибка ${err}`)
+          })
+        }
+      },
+
+    handleDeleteCardClick: (card) => {
     popupDeleteCard.open();
     popupDeleteCard.setSubmit(() => {
       popupDeleteCard.processLoading();
@@ -95,30 +117,7 @@ function createCard(item) {
         popupDeleteCard.normalCondition())
       })
     }
-  },
-
-  { handleLikeCardClick: (card) => {
-    if (card.isLiked()) {
-      api.deleteLikeCard(card)
-        .then((data) => {
-          card.updateLikesCounter(data);
-          card.deleteLike();
-        })
-        .catch((err) => {
-          console.log(`Тут какая-то ошибка ${err}`)
-        })
-      } else {
-        api.setLikeCard(card)
-        .then((data) => {
-          card.updateLikesCounter(data);
-          card.addLike();
-        })
-        .catch((err) => {
-          console.log(`Тут какая-то ошибка ${err}`)
-        })
-      }
-    }
-  }
+  });
   
   /* { handleAddLikeClick: (card) => {
       api.setLikeCard(card)
@@ -141,7 +140,7 @@ function createCard(item) {
         console.log(`Тут какая-то ошибка c удалением лайка ${err}`)
       })
     }
-  } */);
+  } */
 
   return card.generateCard();
 }
