@@ -105,32 +105,48 @@ function createCard(item) {
   const card = new Card(item, userId, '.template',
   { handleCardClick: (name, link) => {
     showImagePopup.open(name, link);
-  }},
-
-  /* { handleCardClick: (data) => {
-    showImagePopup.open(data);
-  }}, */
-
-  { handleDeleteClick: (cardId) => {
+    }
+  },
+  { handleDeleteCardClick: (card) => {
     popupDeleteCard.open();
     popupDeleteCard.setSubmit(() => {
       popupDeleteCard.processLoading();
-      //api.removeCard(cardId)
-      api.removeCard(card.getId())
+      api.removeCard(card)
         .then(() => {
           popupDeleteCard.close();
           card.handleCardDelete();
         })
         .catch((err) => {
-          console.log(`Тут какая-то ошибка ${err}`)
+          console.log(`Тут какая-то ошибка с удалением карточки ${err}`)
         })
         .finally(() => 
         popupDeleteCard.normalCondition())
       })
     }
   },
+  { handleAddLikeClick: (card) => {
+      api.setLikeCard(card)
+      .then((res) => {
+        card.addLike(res);
+      })
+      .catch((err) => {
+        console.log(`Тут какая-то ошибка c добавлением лайка ${err}`)
+      })
+    }
+  },
+  { handleDeleteLikeClick: (card) => {
+      api.deleteLikeCard(card)
+      .then((res) => {
+        card.deleteLike(res);
+      })
+      .catch((err) => {
+        console.log(`Тут какая-то ошибка c удалением лайка ${err}`)
+      })
+    }
+  });
 
-  { handleLikeClick: (card) => {
+
+  /* { handleLikeClick: (card) => {
     const cardMark = card.querySelector('.element__mark');
     if (cardMark.classList.add('element__mark_active')) {
       api.deleteLikeCard(card._id)
@@ -150,7 +166,7 @@ function createCard(item) {
         })
       }
     }
-  });
+  } */
   return card.generateCard();
   /* const cardElement = card.generateCard();
   return cardElement; */
@@ -178,16 +194,14 @@ buttonAdd.addEventListener('click', () => {
 const popupFormAdd = new PopupWithForm('.popup_task_add',
   { submitForm: (cardData) => {
     popupFormAdd.processLoading();
-    api.addNewCard(cardData)
-      .then((cardData) => {
+    api.addNewCard({
+      name: cardData['card-title'],
+      link: cardData['picture-link']
+      })
+      .then((res) => {
         popupFormAdd.close();
-        //addInArr(cardData);
-        //photoLibrary.addAppend(createCard(cardData));
-        photoLibrary.addAppend(createCard({
-            name: cardData['card-title'],
-            link: cardData['picture-link']
-        })
-      )})
+        photoLibrary.addAppend([res]);
+      })
       .catch((err) => {
         console.log(`Тут какая-то ошибка ${err}`)
       })

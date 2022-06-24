@@ -1,16 +1,24 @@
 export default class Card {
 
-  constructor(data, userId, cardSelector, { handleCardClick }, { handleLikeClick }, { handleDeleteClick }) {
+  constructor(
+    data,
+    userId,
+    cardSelector,
+    { handleCardClick },
+    { handleAddLikeClick },
+    { handleDeleteLikeClick },
+    { handleDeleteCardClick }) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._cardId = data._id;
-    //this._ownerId = data.owner._id;
+    this._ownerId = data.owner._id;
     this._userId = userId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handleLikeClick = handleLikeClick;
-    this._handleDeleteClick = handleDeleteClick;
+    this.handleAddLikeClick = handleAddLikeClick;
+    this.handleDeleteLikeClick = handleDeleteLikeClick;
+    this.handleDeleteCardClick = handleDeleteCardClick;
   }
 
   // Метод возврата шаблона DOM-разметки
@@ -41,7 +49,7 @@ export default class Card {
 
     this._setEventListeners();
     this._checkCardLike();
-    this._showDeleteButtonState()
+    this._showDeleteButtonState();
 
     return this._cardContainer;
   }
@@ -52,7 +60,7 @@ export default class Card {
       this._handleLikeClick();
     });
     this._cardTrash.addEventListener('click', () => {
-      this._handleDeleteClick();
+      this.handleDeleteCardClick();
     });
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
@@ -68,6 +76,14 @@ export default class Card {
     });
   }
 
+  _handleLikeClick() {
+    if(this._cardMark.classList.add('element__mark_active')) {
+      this.handleDeleteLikeClick(this._cardId);
+    } else {
+      this.handleAddLikeClick(this._cardId);
+    }
+  }
+
   // Только добавлявший карточку сможет её удалить
   // в противном случае иконка корзины не видна
   _showDeleteButtonState() {
@@ -76,8 +92,8 @@ export default class Card {
     }
   }
 
-    // Метод удаления карточки
-  handleCardDelete() {
+  // Метод удаления карточки
+  deleteCard() {
     this._cardContainer.remove();
     this._cardContainer = null;
   }
@@ -95,19 +111,4 @@ export default class Card {
     this._cardMark.classList.remove('element__mark_active');
     this._cardMarkCounter.textContent = --this._like;
   }
-
-  /* toggleLike(isLiked) {
-    if (isLiked) {
-      this._cardMark.classList.remove('element__mark_active');
-      this._cardMarkCounter.textContent = --this._like;
-    } else {
-      this._cardMark.classList.add('element__mark_active');
-      this._cardMarkCounter.textContent = ++this._like;
-    }
-  } */
-
-  getId() {
-    return this._cardId;
-  }
-
 }
