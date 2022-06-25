@@ -1,7 +1,8 @@
 export default class Api {
-  constructor({ url, token }) {
-    this._url = url;
-    this._token = token;
+  constructor(options) {
+    // Делал как в ТЗ по пункту "Требования к коду"!
+    this._url = options.url;
+    this._headers = options.headers;
   }
 
   // "res" в парамете - это значит "response"
@@ -16,10 +17,7 @@ export default class Api {
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      }
+      headers: this._headers
     })
     .then((res) => this._ringingServer(res))
     .then((result) => {
@@ -30,10 +28,7 @@ export default class Api {
   setUserInfo(name, about) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name,
         about
@@ -48,10 +43,7 @@ export default class Api {
   setUserAvatar(link) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: link
       })
@@ -65,10 +57,7 @@ export default class Api {
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      }
+      headers: this._headers
     })
     .then((res) => this._ringingServer(res))
     .then((result) => {
@@ -79,10 +68,7 @@ export default class Api {
   addNewCard(data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -97,10 +83,7 @@ export default class Api {
   removeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      }
+      headers: this._headers
     })
     .then((res) => this._ringingServer(res))
     .then((result) => {
@@ -111,10 +94,7 @@ export default class Api {
   setLikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      }
+      headers: this._headers
     })
     .then((res) => this._ringingServer(res))
     .then((result) => {
@@ -125,10 +105,7 @@ export default class Api {
   deleteLikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json',
-        authorization: this._token
-      }
+      headers: this._headers
     })
     .then((res) => this._ringingServer(res))
     .then((result) => {

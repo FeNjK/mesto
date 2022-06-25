@@ -4,7 +4,7 @@ export default class Card {
     data,
     userId,
     cardSelector,
-    { handleCardClick,
+  { handleCardClick,
     handleLikeCardClick,
     handleDeleteCardClick }) 
   { this._name = data.name;

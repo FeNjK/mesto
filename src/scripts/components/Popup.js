@@ -17,7 +17,7 @@ export default class Popup {
    */
   close() {
     this._popup.classList.remove('popup_activ');
-    document.addEventListener(`keydown`, this._handleEscClose);
+    document.removeEventListener(`keydown`, this._handleEscClose);
   }
 
   /**

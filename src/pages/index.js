@@ -35,9 +35,13 @@ popupFormNewCardValidator.enableValidation();
 popupFormAddAvatarValidator.enableValidation();
 
 // Создание экземпляра класса Api
+// Делал как в ТЗ по пункту "Требования к коду"!
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-43',
-  token: '10bf8282-16d5-46f1-976c-28311168fc94'
+  headers: {
+    'Content-type': 'application/json',
+    authorization: '10bf8282-16d5-46f1-976c-28311168fc94'
+  },
 })
 
 // Создание экземпляра класса с презентируемой картокой
@@ -199,7 +203,6 @@ const popupFormEdit = new PopupWithForm('.popup_task_edit',
 )
 
 buttonAvatar.addEventListener('click', () => {
-  popupFormAddAvatar.reset();
   popupFormAddAvatarValidator.removeInputError();
   popupFormAddAvatarValidator.toggleButtonState();
   popupFormAvatar.open();
