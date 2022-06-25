@@ -120,29 +120,6 @@ function createCard(data) {
       })
     }
   });
-  
-  /* { handleAddLikeClick: (card) => {
-      api.setLikeCard(card)
-      .then((data) => {
-        card.updateLikesCounter(data);
-        card.addLike();
-      })
-      .catch((err) => {
-        console.log(`Тут какая-то ошибка c добавлением лайка ${err}`)
-      })
-    }
-  },
-  { handleDeleteLikeClick: (card) => {
-      api.deleteLikeCard(card)
-      .then((data) => {
-        card.updateLikesCounter(data);
-        card.deleteLike();
-      })
-      .catch((err) => {
-        console.log(`Тут какая-то ошибка c удалением лайка ${err}`)
-      })
-    }
-  } */
 
   return card.generateCard();
 }

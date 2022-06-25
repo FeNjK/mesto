@@ -6,8 +6,6 @@ export default class Card {
     cardSelector,
     { handleCardClick,
     handleLikeCardClick,
-    /* { handleAddLikeClick,
-    handleDeleteLikeClick, */
     handleDeleteCardClick }) {
     this._name = data.name;
     this._link = data.link;
@@ -18,8 +16,6 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this.handleLikeCardClick = handleLikeCardClick;
-    /* this.handleAddLikeClick = handleAddLikeClick;
-    this.handleDeleteLikeClick = handleDeleteLikeClick; */
     this.handleDeleteCardClick = handleDeleteCardClick;
   }
 
@@ -62,25 +58,17 @@ export default class Card {
       this._handleCardClick(this._name, this._link);
     });
     this._cardMark.addEventListener('click', () => {
-      
       this.handleLikeCardClick(this);
-
-      /* if(this._cardMark.classList.add('element__mark_active')) {
-        this.handleDeleteLikeClick(this._cardId);
-      } else {
-        this.handleAddLikeClick(this._cardId);
-      } */
-
     });
     this._cardTrash.addEventListener('click', () => {
-      this.handleDeleteCardClick(this._cardId);
+      this.handleDeleteCardClick(this);
     });
   }
 
   // Проверка наличия лайков на карточке
   _checkCardLike() {
     this._likes.forEach((element) => {
-      if (element._id === this._userId) {
+      if (this._userId._id === element._id) {
         this._cardMark.classList.add('element__mark_active');
       }
     });
@@ -88,7 +76,7 @@ export default class Card {
 
   isLiked() {
     return Boolean(this._likes.find((element) => {
-      return this._userId === element._id;
+      return this._userId._id === element._id;
     })
   )}
 
@@ -104,14 +92,6 @@ export default class Card {
   deleteLike() {
     this._cardMark.classList.remove('element__mark_active');
   }
-
-  /* _handleLikeCardClick() {
-    if(this._cardMark.classList.add('element__mark_active')) {
-      this.handleDeleteLikeClick(this._cardId);
-    } else {
-      this.handleAddLikeClick(this._cardId);
-    }
-  } */
 
   /* // Оператор increment (++) добавляет единицу 
   // к своему операнду и возвращает значение
@@ -144,5 +124,5 @@ export default class Card {
 
 
 
-  
+
 }
