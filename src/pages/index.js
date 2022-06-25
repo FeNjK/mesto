@@ -49,7 +49,6 @@ const popupDeleteCard = new PopupWithСonfirmation('.popup_type_confirmation');
 popupDeleteCard.setEventListeners();
 
 let userId;
-console.log(userId);
 
 /**
  * Передаём массив с промисами методу Promise.all
@@ -91,8 +90,6 @@ function createCard(data) {
           })
         } else {
         api.setLikeCard(card._cardId)
-        /* console.log(card)
-        console.log(card._cardId) */
           .then((data) => {
             card.updateLikesCounter(data);
             card.addLike();
@@ -104,23 +101,23 @@ function createCard(data) {
       },
 
     handleDeleteCardClick: (card) => {
-    popupDeleteCard.open();
-    popupDeleteCard.setSubmit(() => {
-      popupDeleteCard.processLoading();
-      api.removeCard(card)
-        .then(() => {
-          popupDeleteCard.close();
-          card.deleteCard();
-        })
-        .catch((err) => {
-          console.log(`Тут какая-то ошибка с удалением карточки ${err}`)
-        })
-        .finally(() => 
-        popupDeleteCard.normalCondition())
-      })
-    }
-  });
-
+      popupDeleteCard.open();
+      popupDeleteCard.setSubmit(() => {
+        popupDeleteCard.processLoading();
+        api.removeCard(card._cardId)
+          .then(() => {
+            popupDeleteCard.close();
+            card.deleteCard();
+          })
+          .catch((err) => {
+            console.log(`Тут какая-то ошибка с удалением карточки ${err}`)
+          })
+          .finally(() => 
+            popupDeleteCard.normalCondition())
+          })
+        }
+      }
+    );
   return card.generateCard();
 }
 

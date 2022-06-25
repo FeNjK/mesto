@@ -6,11 +6,11 @@ export default class Card {
     cardSelector,
     { handleCardClick,
     handleLikeCardClick,
-    handleDeleteCardClick }) {
-    this._name = data.name;
+    handleDeleteCardClick }) 
+  { this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
-    this._cardId = data._id; // кажется у меня что-то со зрением. или всё же с головой
+    this._cardId = data._id;
     this._ownerId = data.owner._id;
     this._userId = userId;
     this._cardSelector = cardSelector;
@@ -35,19 +35,20 @@ export default class Card {
     this._cardContainer = this._getTemplate();
     this._cardImage = this._cardContainer.querySelector('.element__image');
     this._cardTitle = this._cardContainer.querySelector('.element__title');
+    this._cardTrash = this._cardContainer.querySelector('.element__trash');
     this._cardMark = this._cardContainer.querySelector('.element__mark');
     this._cardMarkCounter = this._cardContainer.querySelector('.element__mark-counter');
-    this._cardTrash = this._cardContainer.querySelector('.element__trash');
-
+    
     // Прописываем связи между объектами массива и свойствами, 
     // присвоенными элементам страницы
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
-
+    this._cardMarkCounter.textContent = this._likes.length;
+    
     this._showDeleteButtonState();
     this._setEventListeners();
-    this._checkCardLike();
+    this._checkCardLike()
 
     return this._cardContainer;
   }
@@ -65,7 +66,6 @@ export default class Card {
     });
   }
 
-  // Проверка наличия лайков на карточке
   _checkCardLike() {
     this._likes.forEach((element) => {
       if (this._userId._id === element._id) {
@@ -76,7 +76,7 @@ export default class Card {
 
   isLiked() {
     return Boolean(this._likes.find((element) => {
-      return this._userId._id === element._id;
+      return element._id === this._userId._id;
     })
   )}
 
@@ -93,24 +93,10 @@ export default class Card {
     this._cardMark.classList.remove('element__mark_active');
   }
 
-  /* // Оператор increment (++) добавляет единицу 
-  // к своему операнду и возвращает значение
-  addLike() {
-    this._cardMark.classList.add('element__mark_active');
-    this._cardMarkCounter.textContent = ++this._like;
-  }
-
-  // Оператор decrement (--) вычитает единицу 
-  // из своего операнда и возвращает значение
-  deleteLike() {
-    this._cardMark.classList.remove('element__mark_active');
-    this._cardMarkCounter.textContent = --this._like;
-  } */
-
-    // Только добавлявший карточку сможет её удалить
+  // Только добавлявший карточку сможет её удалить
   // в противном случае иконка корзины не видна
   _showDeleteButtonState() {
-    if (this._userId !== this._ownerId) {
+    if (this._userId._id !== this._ownerId) {
       this._cardTrash.remove();
     }
   }
@@ -120,9 +106,4 @@ export default class Card {
     this._cardContainer.remove();
     this._cardContainer = null;
   }
-
-
-
-
-
 }

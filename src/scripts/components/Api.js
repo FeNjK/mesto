@@ -17,7 +17,7 @@ export default class Api {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       }
     })
@@ -31,12 +31,12 @@ export default class Api {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       },
       body: JSON.stringify({
-        name: name,
-        about: about
+        name,
+        about
       })
     })
     .then((res) => this._ringingServer(res))
@@ -49,7 +49,7 @@ export default class Api {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       },
       body: JSON.stringify({
@@ -66,7 +66,7 @@ export default class Api {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       }
     })
@@ -80,7 +80,7 @@ export default class Api {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       },
       body: JSON.stringify({
@@ -98,7 +98,7 @@ export default class Api {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       }
     })
@@ -112,7 +112,7 @@ export default class Api {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       }
     })
@@ -126,7 +126,7 @@ export default class Api {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: {
-        'Content-type': 'application/json', 
+        'Content-type': 'application/json',
         authorization: this._token
       }
     })

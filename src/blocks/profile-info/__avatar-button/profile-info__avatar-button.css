@@ -5,8 +5,8 @@
   background-color: rgba(0, 0, 0, .8);
   background-repeat: no-repeat;
   background-position: center;
-  top: 0;
-  left: 0;
+  top: 159px;
+  left: 19px;
   opacity: 0;
   border: none;
   outline: 1px black;
@@ -24,7 +24,8 @@
 
 @media screen and (max-width: 700px) {
   .profile-info__avatar-button {
-    left: 36px;
+    top: 126px;
+    left: calc(50% - 60px);
   }
 }
 

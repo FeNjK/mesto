@@ -22,7 +22,7 @@ export default class UserInfo {
       userName: this._userName.textContent,
       userActivityType: this._userActivityType.textContent,
       userAvatar: this._userAvatar.src
-    };
+    }
   }
 
   /**
